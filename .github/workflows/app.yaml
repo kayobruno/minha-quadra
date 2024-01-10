@@ -30,6 +30,8 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
+      - name: Run PHP CS Fixer
+        run: vendor/bin/php-cs-fixer fix -vvv --dry-run --show-progress=dots
       - name: Execute tests (Unit and Feature tests) via Pest
         env:
           DB_CONNECTION: sqlite
