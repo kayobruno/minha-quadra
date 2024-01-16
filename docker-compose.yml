@@ -47,3 +47,10 @@ services:
             - mysql
         networks:
             - app_network
+    redis:
+        container_name: redis
+        image: redis:6.2-alpine3.19@sha256:235003ac0ce6bc63b20323d2b180b76254383e886d317b632b7538680fed782b
+        ports:
+            - "6379:6379"
+        networks:
+            - app_network
