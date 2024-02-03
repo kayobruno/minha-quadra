@@ -37,6 +37,7 @@ services:
             context: ./
             dockerfile: .docker/php/Dockerfile
         container_name: php
+        entrypoint: .docker/docker-entrypoint.sh
         restart: unless-stopped
         tty: true
         expose:
