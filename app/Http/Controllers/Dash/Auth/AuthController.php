@@ -10,4 +10,9 @@ class AuthController extends Controller
     {
         return view('content.authentications.auth-login-basic');
     }
+
+    public function forgot()
+    {
+        return view('content.authentications.auth-forgot-password-basic');
+    }
 }

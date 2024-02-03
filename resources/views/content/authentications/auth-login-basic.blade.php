@@ -32,7 +32,7 @@
             <div class="mb-3 form-password-toggle">
               <div class="d-flex justify-content-between">
                 <label class="form-label" for="password">Senha</label>
-                <a href="{{url('forgot-password')}}">
+                <a href="{{route('forgot')}}">
                   <small>Esqueceu sua senha?</small>
                 </a>
               </div>

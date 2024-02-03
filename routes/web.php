@@ -19,3 +19,4 @@ Route::get('/', function () {
 });
 
 Route::get('login', [AuthController::class, 'login'])->name('login');
+Route::get('forgot-password', [AuthController::class, 'forgot'])->name('forgot');
