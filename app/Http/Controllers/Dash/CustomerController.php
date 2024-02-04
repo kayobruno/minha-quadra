@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Customers\CreateRequest;
+use App\Http\Requests\Dash\Customers\UpdateRequest;
 use App\Models\Customer;
 
 class CustomerController extends Controller
@@ -24,6 +25,19 @@ class CustomerController extends Controller
     {
         Customer::create($request->all());
         session()->flash('message', __('messages.success.created'));
+
+        return redirect()->back();
+    }
+
+    public function edit(Customer $customer)
+    {
+        return view('content.customers.edit', compact('customer'));
+    }
+
+    public function update(Customer $customer, UpdateRequest $request)
+    {
+        $customer->update($request->all());
+        session()->flash('message', __('messages.success.updated'));
 
         return redirect()->back();
     }
