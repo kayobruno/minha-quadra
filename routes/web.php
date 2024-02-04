@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dash\Auth\AuthController;
+use App\Http\Controllers\Dash\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,6 @@ Route::post('login', [AuthController::class, 'processLogin'])->name('login.proce
 Route::get('forgot-password', [AuthController::class, 'forgot'])->name('forgot')->middleware('guest');
 
 Route::namespace('Admin')->middleware('auth:web')->group(function () {
-    Route::get('/', function () {
-        return view('content.dashboard.dashboards-analytics');
-    });
+
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 });
