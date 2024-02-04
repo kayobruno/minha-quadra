@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dash\Auth\AuthController;
+use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -22,4 +23,5 @@ Route::get('forgot-password', [AuthController::class, 'forgot'])->name('forgot')
 Route::namespace('Admin')->middleware('auth:web')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
 });
