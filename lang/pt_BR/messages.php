@@ -13,4 +13,17 @@ return [
     |
     */
 
+    'errors' => [
+        'unauthorized' => 'Não autorizado!',
+        'forbidden' => 'Acesso negado!',
+        'unavailable' => 'Serviço indisponível!',
+        'notfound' => 'Registro não encontrado!',
+    ],
+
+    'success' => [
+        'created' => 'Registro cadastrado com sucesso!',
+        'updated' => 'Registro atualizado com sucesso!',
+        'removed' => 'Registro removido com sucesso!',
+    ],
+
 ];

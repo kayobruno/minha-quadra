@@ -24,7 +24,8 @@
           <!-- /Logo -->
           <h4 class="mb-2">Bem-vindo(a) ao {{config('variables.templateName')}}! 👋</h4>
 
-          <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET">
+          <form id="formAuthentication" class="mb-3" action="{{route('login.process')}}" method="POST">
+            @csrf
             <div class="mb-3">
               <label for="email" class="form-label">E-mail</label>
               <input type="text" class="form-control" id="email" name="email" placeholder="email@dominio.com" autofocus>
@@ -52,6 +53,8 @@
             <div class="mb-3">
               <button class="btn btn-primary d-grid w-100" type="submit">Entrar</button>
             </div>
+
+            @include('_partials.alerts')
           </form>
         </div>
       </div>

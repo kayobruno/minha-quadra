@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('content.dashboard.dashboards-analytics');
-});
+Route::get('login', [AuthController::class, 'login'])->name('login')->middleware('guest');
+Route::post('login', [AuthController::class, 'processLogin'])->name('login.process');
+Route::get('forgot-password', [AuthController::class, 'forgot'])->name('forgot')->middleware('guest');
 
-Route::get('login', [AuthController::class, 'login'])->name('login');
-Route::get('forgot-password', [AuthController::class, 'forgot'])->name('forgot');
+Route::namespace('Admin')->middleware('auth:web')->group(function () {
+    Route::get('/', function () {
+        return view('content.dashboard.dashboards-analytics');
+    });
+});
