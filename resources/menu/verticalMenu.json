@@ -40,7 +40,7 @@
     {
       "name": "Quadras",
       "icon": "menu-icon tf-icons bx bx-book-content",
-      "slug": "customers",
+      "slug": "courts",
       "submenu": [
         {
           "url": "courts",
