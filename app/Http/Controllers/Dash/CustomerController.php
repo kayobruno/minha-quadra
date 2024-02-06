@@ -41,4 +41,12 @@ class CustomerController extends Controller
 
         return redirect()->back();
     }
+
+    public function delete(Customer $customer)
+    {
+        $customer->delete();
+        session()->flash('message', __('messages.success.removed'));
+
+        return redirect()->back();
+    }
 }

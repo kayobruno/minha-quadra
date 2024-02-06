@@ -30,4 +30,5 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
     Route::post('customers/store', [CustomerController::class, 'store'])->name('customers.store');
     Route::get('customers/{customer}', [CustomerController::class, 'edit'])->name('customers.edit');
     Route::put('customers/{customer}/update', [CustomerController::class, 'update'])->name('customers.update');
+    Route::delete('customers/{customer}', [CustomerController::class, 'delete'])->name('customers.delete');
 });
