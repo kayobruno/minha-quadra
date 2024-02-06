@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Dash\Auth;
 
 use App\Http\Controllers\Controller;
@@ -24,11 +26,18 @@ class AuthController extends Controller
             return redirect()->back()->with('error', __('messages.errors.unauthorized'));
         }
 
-        return redirect()->intended('dashboard.index');
+        return redirect()->intended();
     }
 
     public function forgot()
     {
         return view('content.authentications.auth-forgot-password-basic');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect('/login');
     }
 }

@@ -23,6 +23,7 @@ Route::get('forgot-password', [AuthController::class, 'forgot'])->name('forgot')
 Route::namespace('Admin')->middleware('auth:web')->group(function () {
 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
     Route::get('customers/create', [CustomerController::class, 'create'])->name('customers.create');
