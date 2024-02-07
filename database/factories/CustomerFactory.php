@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
+use App\Models\Merchant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -22,6 +23,7 @@ class CustomerFactory extends Factory
         return [
             'name' => fake()->name(),
             'phone' => fake()->phoneNumber(),
+            'merchant_id' => Merchant::factory(),
         ];
     }
 }
