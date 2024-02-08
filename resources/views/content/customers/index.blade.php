@@ -13,7 +13,7 @@
 <!-- Basic Bootstrap Table -->
 <div class="card">
   <div class="table-responsive text-nowrap">
-    @if($customers)
+    @if(!empty($customers) && count($customers))
       <table class="table">
         <thead>
           <tr>
