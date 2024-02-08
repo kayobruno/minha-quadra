@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-use App\Models\User;
 use App\Models\Customer;
-use App\Models\Merchant;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
- 
+
 afterEach(function () {
     DB::table('customers')->truncate();
     DB::table('users')->truncate();
@@ -39,7 +38,6 @@ test('it can list customers with pagination', function () {
     $response->assertViewIs('content.customers.index');
     $response->assertSee('page-item active');
 })->group('CustomerController');
-
 
 test('redirect to login when user tries to list customers without being logged in', function () {
     $response = $this->get('/customers');
