@@ -42,7 +42,8 @@
     {
       "name": "Produtos",
       "icon": "menu-icon tf-icons bx bxs-basket",
-      "slug": "my-company"
+      "slug": "products",
+      "url": "products"
     },
     {
       "name": "Minha Empresa",
