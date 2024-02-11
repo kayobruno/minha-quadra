@@ -21,6 +21,7 @@ test('it can list customers', function () {
 
     $response->assertStatus(200);
     $response->assertViewIs('content.customers.index');
+    $response->assertSee('Cadastrar');
     $response->assertSee('Nome');
     $response->assertSee('Telefone');
     $response->assertSee('Data de Cadastro');
@@ -36,6 +37,7 @@ test('it can list customers with pagination', function () {
 
     $response->assertStatus(200);
     $response->assertViewIs('content.customers.index');
+    $response->assertSee('Cadastrar');
     $response->assertSee('page-item active');
 })->group('CustomerController');
 
@@ -54,5 +56,6 @@ test('customers screen can be rendered with empty list of customers', function (
 
     $response->assertStatus(200);
     $response->assertViewIs('content.customers.index');
+    $response->assertSee('Cadastrar');
     $response->assertSee('Nenhum Cliente cadastrado!');
 })->group('CustomerController');

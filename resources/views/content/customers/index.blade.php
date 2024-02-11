@@ -12,6 +12,11 @@
 
 <!-- Basic Bootstrap Table -->
 <div class="card">
+  <h5 class="card-header">
+    <a class="btn btn-primary me-2" href="{{ route('customers.create') }}">
+      <i class='bx bxs-add-to-queue'></i> Cadastrar
+    </a>
+  </h5>
   <div class="table-responsive text-nowrap">
     @if(!empty($customers) && count($customers))
       <table class="table">
