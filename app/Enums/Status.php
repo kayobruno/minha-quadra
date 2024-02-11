@@ -28,4 +28,13 @@ enum Status: string
             Status::Inactive => 'Inativo',
         };
     }
+
+    public function tag(): string
+    {
+        return match ($this) {
+            Status::Pending => '<span class="badge bg-label-warning me-1">Pendente</span>',
+            Status::Active => '<span class="badge bg-label-primary me-1">Ativo</span>',
+            Status::Inactive => '<span class="badge bg-label-danger me-1">Inativo</span>',
+        };
+    }
 }
