@@ -13,6 +13,12 @@
       "slug": "users"
     },
     {
+      "url": "sales",
+      "name": "Vendas",
+      "icon": "menu-icon tf-icons bx bx-cart-alt",
+      "slug": "users"
+    },
+    {
       "menuHeader": "Gestão Esportiva"
     },
     {
@@ -23,39 +29,20 @@
     {
       "name": "Clientes",
       "icon": "menu-icon tf-icons bx bx-face",
-      "slug": "customers",
-      "submenu": [
-        {
-          "url": "customers",
-          "name": "Listar",
-          "slug": "customers"
-        },
-        {
-          "url": "customers/create",
-          "name": "Cadastrar",
-          "slug": "customers-create"
-        }
-      ]
+      "slug": "customers"
     },
     {
       "name": "Quadras",
       "icon": "menu-icon tf-icons bx bx-book-content",
-      "slug": "courts",
-      "submenu": [
-        {
-          "url": "courts",
-          "name": "Listar",
-          "slug": "courts"
-        },
-        {
-          "url": "courts/create",
-          "name": "Cadastrar",
-          "slug": "courts-create"
-        }
-      ]
+      "slug": "courts"
     },
     {
-      "menuHeader": "Gestão Financeira"
+      "menuHeader": "Gestão Fiscal"
+    },
+    {
+      "name": "Produtos",
+      "icon": "menu-icon tf-icons bx bxs-basket",
+      "slug": "my-company"
     },
     {
       "name": "Minha Empresa",
@@ -63,18 +50,43 @@
       "slug": "my-company"
     },
     {
-      "name": "Relatórios",
+      "name": "Fornecedores",
+      "icon": "menu-icon tf-icons bx bxs-truck",
+      "slug": "my-company"
+    },
+    {
+      "menuHeader": "Relatórios"
+    },
+    {
+      "name": "Produtos",
       "icon": "menu-icon tf-icons bx bxs-report",
       "slug": "reports",
       "submenu": [
         {
           "url": "reports/financial",
-          "name": "Financeiro",
+          "name": "Mais Vendidos",
           "slug": "reports-financial"
         },
         {
           "url": "reports/schedules",
-          "name": "Reservas",
+          "name": "Sem Movimentação",
+          "slug": "reports-schedules"
+        }
+      ]
+    },
+    {
+      "name": "Financeiro",
+      "icon": "menu-icon tf-icons bx bxs-report",
+      "slug": "reports",
+      "submenu": [
+        {
+          "url": "reports/financial",
+          "name": "Balancete",
+          "slug": "reports-financial"
+        },
+        {
+          "url": "reports/schedules",
+          "name": "Fluxo de Caixa",
           "slug": "reports-schedules"
         }
       ]
