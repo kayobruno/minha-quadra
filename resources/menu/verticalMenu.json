@@ -29,7 +29,8 @@
     {
       "name": "Clientes",
       "icon": "menu-icon tf-icons bx bx-face",
-      "slug": "customers"
+      "slug": "customers",
+      "url": "customers"
     },
     {
       "name": "Quadras",
