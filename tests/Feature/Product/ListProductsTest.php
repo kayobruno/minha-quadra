@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use App\Models\User;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 afterEach(function () {
@@ -27,7 +27,6 @@ test('it can list products', function () {
     $response->assertSee('Estoque');
     $response->assertSee('Status');
 })->group('ProductController');
-
 
 test('products screen can be rendered with empty list of products', function () {
     $user = User::factory()->create();

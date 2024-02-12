@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Enums\Status;
-use App\Models\Product;
-use App\Models\Merchant;
 use App\Enums\ProductType;
+use App\Enums\Status;
+use App\Models\Merchant;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

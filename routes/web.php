@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dash\ProductController;
-use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\Auth\AuthController;
+use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\DashboardController;
+use App\Http\Controllers\Dash\ProductController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
