@@ -40,7 +40,6 @@ test('products screen can be rendered with empty list of products', function () 
     $response->assertSee('Nenhum Produto cadastrado!');
 })->group('ProductController');
 
-
 test('it can list products with pagination', function () {
     Product::factory()->count(50)->create();
 
