@@ -3,16 +3,22 @@
 declare(strict_types=1);
 
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 beforeEach(function () {
-    $user = User::factory()->create();
-    $this->actingAs($user);
+    $this->user = User::factory()->create();
+    $this->actingAs($this->user);
 });
 
 afterEach(function () {
     DB::table('products')->truncate();
     DB::table('users')->truncate();
+});
+
+afterEach(function () {
+    Storage::disk('local')->deleteDirectory('products/' . $this->user->merchant_id);
 });
 
 test('the product registration form screen can be rendered', function () {
@@ -42,6 +48,24 @@ test('can create a new product', function () {
         'description' => 'Descrição do produto de teste',
     ]);
 
+    $response->assertStatus(302);
+    $response->assertSee('Redirecting to');
+    $this->assertDatabaseHas('products', ['name' => 'Produto de Teste']);
+})->group('ProductController');
+
+test('can create a new product with image', function () {
+    $file = UploadedFile::fake()->image('product.jpg');
+
+    $response = $this->post('/products/store', [
+        'name' => 'Produto de Teste',
+        'price' => 10.99,
+        'description' => 'Descrição do produto de teste',
+        'image' => $file,
+    ]);
+
+    $path = "products/{$this->user->merchant_id}/" . $file->hashName();
+
+    expect(Storage::disk('local')->exists($path))->toBeTrue();
     $response->assertStatus(302);
     $response->assertSee('Redirecting to');
     $this->assertDatabaseHas('products', ['name' => 'Produto de Teste']);

@@ -14,7 +14,7 @@
 
       <div class="mb-3">
         <label for="image" class="form-label">Imagem</label>
-        <input class="form-control" type="file" id="image" accept="image/*" title="Selecionar Imagem">
+        <input class="form-control" type="file" id="image" name="image" accept="image/*" title="Selecionar Imagem">
       </div>
 
       <div class="mb-3">

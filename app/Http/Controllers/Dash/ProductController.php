@@ -9,6 +9,7 @@ use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Product\CreateRequest;
 use App\Models\Product;
+use App\Services\UploadService;
 
 class ProductController extends Controller
 {
@@ -27,10 +28,12 @@ class ProductController extends Controller
         return view('content.products.create', compact('statuses', 'types'));
     }
 
-    public function store(CreateRequest $request)
+    public function store(CreateRequest $request, UploadService $uploadService)
     {
         $data = $request->all();
-        $data['merchant_id'] = auth()->user()->merchant_id;
+        $merchantId = auth()->user()->merchant_id;
+        $data['merchant_id'] = $merchantId;
+        $data['image'] = $uploadService->upload(request: $request, path: "products/{$merchantId}", fileField: 'image');
 
         Product::create($data);
 
