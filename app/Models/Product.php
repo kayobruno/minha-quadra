@@ -20,4 +20,9 @@ class Product extends Model
         'stock',
         'status',
     ];
+
+    public function merchant(): BelongsTo
+    {
+        return $this->belongsTo(Merchant::class, 'id');
+    }
 }
