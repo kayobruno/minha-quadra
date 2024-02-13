@@ -30,7 +30,6 @@ class ProductFactory extends Factory
             'name' => fake()->name(),
             'description' => fake()->text(),
             'price' => fake()->randomNumber(),
-            'image' => fake()->imageUrl(),
             'type' => $type->value,
             'stock' => rand(0, 99),
             'status' => Status::Active,

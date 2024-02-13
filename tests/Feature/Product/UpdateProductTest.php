@@ -26,7 +26,6 @@ test('the product update form screen can be rendered', function () {
     $response->assertSee('Nome');
     $response->assertSee('Descrição');
     $response->assertSee('Preço');
-    $response->assertSee('Imagem');
     $response->assertSee('Tipo');
     $response->assertSee('Status');
     $response->assertSee('Salvar');

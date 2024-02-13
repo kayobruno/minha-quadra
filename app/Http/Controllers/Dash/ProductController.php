@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Product\CreateRequest;
 use App\Http\Requests\Dash\Product\UpdateRequest;
 use App\Models\Product;
-use App\Services\UploadService;
 
 class ProductController extends Controller
 {
@@ -29,12 +28,11 @@ class ProductController extends Controller
         return view('content.products.create', compact('statuses', 'types'));
     }
 
-    public function store(CreateRequest $request, UploadService $uploadService)
+    public function store(CreateRequest $request)
     {
         $data = $request->all();
         $merchantId = auth()->user()->merchant_id;
         $data['merchant_id'] = $merchantId;
-        $data['image'] = $uploadService->upload(request: $request, path: "products/{$merchantId}", fileField: 'image');
 
         Product::create($data);
 

@@ -13,11 +13,6 @@
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Imagem</label>
-        <input class="form-control" type="file" id="image" name="image" accept="image/*" title="Selecionar Imagem">
-      </div>
-
-      <div class="mb-3">
         <label for="price" class="form-label">Preço</label>
         <input type="text" class="form-control" id="price" name="price" placeholder="R$ 0,00" value="{{ $product?->price ?? old('price') }}" />
       </div>

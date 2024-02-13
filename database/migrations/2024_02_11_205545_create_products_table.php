@@ -18,7 +18,6 @@ return new class extends Migration {
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('price')->nullable();
-            $table->string('image')->nullable();
             $table->enum('type', ProductType::all())->default(ProductType::Product->value);
             $table->integer('stock')->default(0);
             $table->enum('status', Status::all())->default(Status::Pending->value);
