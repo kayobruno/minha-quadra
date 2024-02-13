@@ -22,7 +22,7 @@
         <select class="form-select" id="type" name="type">
             @foreach($types as $type)
             <option value="{{ $type }}"
-              @if(isset($product) && $product->type === $type->value) selected="selected" @endif>
+              @if(isset($product) && $product->type === $type) selected="selected" @endif>
               {{ $type->label() }}
             </option> 
             @endforeach
@@ -34,7 +34,7 @@
         <select class="form-select" id="status" name="status">
             @foreach($statuses as $status)
             <option value="{{ $status }}"
-              @if(isset($product) && $product->status === $status->value) selected="selected" @endif>
+              @if(isset($product) && $product->status === $status) selected="selected" @endif>
               {{ $status->label() }}
             </option> 
             @endforeach

@@ -36,7 +36,7 @@
               <td>{{ $product->name }}</td>
               <td>R$ @money($product->price)</td>
               <td>{{ $product->stock }}</td>
-              <td>{!! App\Enums\Status::from($product->status)->tag() !!}</td>
+              <td>{!! $product->status->tag() !!}</td>
               <td>
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
