@@ -54,6 +54,9 @@ class ProductController extends Controller
 
     public function delete(Product $product)
     {
+        $product->delete();
+        session()->flash('message', __('messages.success.removed'));
 
+        return redirect()->back();
     }
 }
