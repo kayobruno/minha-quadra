@@ -8,6 +8,7 @@ use App\Enums\ProductType;
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Product\CreateRequest;
+use App\Http\Requests\Dash\Product\UpdateRequest;
 use App\Models\Product;
 use App\Services\UploadService;
 
@@ -44,12 +45,18 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        $statuses = Status::cases();
+        $types = ProductType::cases();
 
+        return view('content.products.edit', compact('product', 'statuses', 'types'));
     }
 
-    public function update(Product $product)
+    public function update(UpdateRequest $request, Product $product)
     {
+        $product->update($request->all());
+        session()->flash('message', __('messages.success.updated'));
 
+        return redirect()->back();
     }
 
     public function delete(Product $product)
