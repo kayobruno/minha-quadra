@@ -22,8 +22,8 @@ enum DocumentType: string
     public function label(): string
     {
         return match ($this) {
-            self::CPF => 'Física',
-            self::CNPJ => 'Jurídica',
+            self::CPF => 'Pessoa Física',
+            self::CNPJ => 'Pessoa Jurídica',
         };
     }
 }
