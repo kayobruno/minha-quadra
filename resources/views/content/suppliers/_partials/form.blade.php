@@ -57,13 +57,16 @@
 </div>
 
 @section('page-script')
+  <script src="{{ asset('assets/vendor/libs/jquery-mask/jquery.mask.min.js') }}"></script>
   <script>
     jQuery(document).ready(function ($) {
+      $('#document').mask('000.000.000-00', {reverse: true});
       function showFieldsToCPFDocument()
       {
         $("label[for='name']").html('Nome');
         $("label[for='document']").html('CPF');
         $('.cnpj-field').hide();
+        $('#document').mask('000.000.000-00', {reverse: true});
       }
 
       function showFieldsToCNPJDocument()
@@ -71,6 +74,7 @@
         $("label[for='name']").html('Razão Social');
         $("label[for='document']").html('CNPJ');
         $('.cnpj-field').show();
+        $('#document').mask('00.000.000/0000-00', {reverse: true});
       }
 
       $("#type").change(function(){
