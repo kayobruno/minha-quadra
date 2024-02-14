@@ -21,7 +21,7 @@ test('the supplier registration form screen can be rendered', function () {
 
     $response->assertStatus(200);
     $response->assertViewIs('content.suppliers.create');
-    $response->assertSee('Nome/Razão Social');
+    $response->assertSee('Nome');
     $response->assertSee('Nome Fantasia');
     $response->assertSee('Tipo');
     $response->assertSee('Documento');

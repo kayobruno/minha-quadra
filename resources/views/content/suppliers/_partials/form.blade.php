@@ -15,21 +15,21 @@
       </div>
 
       <div class="mb-3">
-        <label for="name" class="form-label">Nome/Razão Social</label>
+        <label for="name" class="form-label">Nome</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Nome" required value="{{ $supplier?->name ?? old('name') }}" autocomplete="given-name" />
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 cnpj-field" @if(!isset($supplier) || $supplier->type->value === 'cpf') style="display: none;" @endif>
         <label for="trade_name" class="form-label">Nome Fantasia</label>
-        <input type="text" class="form-control" id="trade_name" name="trade_name" placeholder="Nome Fantasia" required value="{{ $supplier?->trade_name ?? old('trade_name') }}" autocomplete="given-name" />
+        <input type="text" class="form-control" id="trade_name" name="trade_name" placeholder="Nome Fantasia" value="{{ $supplier?->trade_name ?? old('trade_name') }}" autocomplete="given-name" />
       </div>
 
       <div class="mb-3">
-        <label for="document" class="form-label">Documento</label>
+        <label for="document" class="form-label">CPF</label>
         <input type="text" class="form-control" id="document" name="document" placeholder="Documento" value="{{ $supplier?->document ?? old('document') }}" />
       </div>
 
-      <div class="mb-3">
+      <div class="mb-3 cnpj-field" @if(!isset($supplier) || $supplier->type->value === 'cpf') style="display: none;" @endif>
         <label for="tax_registration" class="form-label">Inscrição Estadual</label>
         <input type="text" class="form-control" id="tax_registration" name="tax_registration" placeholder="Inscrição Estadual" value="{{ $supplier?->tax_registration ?? old('tax_registration') }}" />
       </div>
@@ -55,3 +55,32 @@
     </div>
   </div>
 </div>
+
+@section('page-script')
+  <script>
+    jQuery(document).ready(function ($) {
+      function showFieldsToCPFDocument()
+      {
+        $("label[for='name']").html('Nome');
+        $("label[for='document']").html('CPF');
+        $('.cnpj-field').hide();
+      }
+
+      function showFieldsToCNPJDocument()
+      {
+        $("label[for='name']").html('Razão Social');
+        $("label[for='document']").html('CNPJ');
+        $('.cnpj-field').show();
+      }
+
+      $("#type").change(function(){
+        let type = $(this).val();
+        if (type === 'cpf') {
+          showFieldsToCPFDocument();
+        } else {
+          showFieldsToCNPJDocument();
+        }
+      });
+    });
+  </script>
+@endsection

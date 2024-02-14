@@ -24,7 +24,7 @@ test('the supplier update form screen can be rendered', function () {
 
     $response->assertStatus(200);
     $response->assertViewIs('content.suppliers.edit');
-    $response->assertSee('Nome/Razão Social');
+    $response->assertSee('Nome');
     $response->assertSee('Nome Fantasia');
     $response->assertSee('Tipo');
     $response->assertSee('Documento');
