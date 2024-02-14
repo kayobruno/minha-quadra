@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Dash;
 
 use App\Enums\DocumentType;
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Supplier\CreateRequest;
+use App\Http\Requests\Dash\Supplier\UpdateRequest;
 use App\Models\Supplier;
-use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
@@ -38,14 +40,20 @@ class SupplierController extends Controller
         return redirect()->back();
     }
 
-    public function edit(string $id)
+    public function edit(Supplier $supplier)
     {
-        //
+        $statuses = Status::cases();
+        $types = DocumentType::cases();
+
+        return view('content.suppliers.edit', compact('statuses', 'types', 'supplier'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Supplier $supplier)
     {
-        //
+        $supplier->update($request->all());
+        session()->flash('message', __('messages.success.updated'));
+
+        return redirect()->back();
     }
 
     public function delete(Supplier $supplier)
