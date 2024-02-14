@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-use App\Enums\DocumentType;
 use App\Services\DocumentValidatorService;
 
 it('validates valid CPF document', function (string $document) {
     $validatorService = new DocumentValidatorService();
-    $isValid = $validatorService->isValid($document, DocumentType::CPF);
+    $isValid = $validatorService->isValid($document);
     expect($isValid)->toBeTrue();
 })->with([
     'with mask' => '916.300.800-98',
@@ -16,7 +15,7 @@ it('validates valid CPF document', function (string $document) {
 
 it('validates valid CNPJ document', function (string $document) {
     $validatorService = new DocumentValidatorService();
-    $isValid = $validatorService->isValid($document, DocumentType::CNPJ);
+    $isValid = $validatorService->isValid($document);
 
     expect($isValid)->toBeTrue();
 })->with([
@@ -26,7 +25,7 @@ it('validates valid CNPJ document', function (string $document) {
 
 it('invalidates invalid CPF document', function (string $document) {
     $validatorService = new DocumentValidatorService();
-    $isValid = $validatorService->isValid($document, DocumentType::CPF);
+    $isValid = $validatorService->isValid($document);
 
     expect($isValid)->toBeFalse();
 })->with([
@@ -40,7 +39,7 @@ it('invalidates invalid CPF document', function (string $document) {
 
 it('invalidates invalid CNPJ document', function (string $document) {
     $validatorService = new DocumentValidatorService();
-    $isValid = $validatorService->isValid($document, DocumentType::CNPJ);
+    $isValid = $validatorService->isValid($document);
     expect($isValid)->toBeFalse();
 })->with([
     'with mask' => '00.936.007/0001-03',
