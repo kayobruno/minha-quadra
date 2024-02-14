@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Dash\Supplier;
 
+use App\Rules\DocumentValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -25,8 +26,15 @@ class CreateRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'document' => 'required|max:14',
+            'document' => ['required', 'max:18', new DocumentValidationRule],
             'type' => 'required|in:cpf,cnpj',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'document' => 'Documento inválido!',
         ];
     }
 }

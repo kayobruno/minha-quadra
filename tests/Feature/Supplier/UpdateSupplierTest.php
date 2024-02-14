@@ -39,7 +39,7 @@ test('update a supplier', function () {
     $newAttributes = [
         'name' => 'Novo Fornecedor de Teste',
         'trade_name' => 'Novo Teste',
-        'document' => '123456789123',
+        'document' => '64.356.481/0001-55',
         'tax_registration' => '123456',
         'type' => DocumentType::CNPJ->value,
     ];
@@ -79,3 +79,22 @@ test('update a supplier with required fields not provided', function () {
     $response->assertSessionHasErrors(['name', 'document']);
     $this->assertDatabaseMissing('suppliers', $newAttributes);
 })->group('SupplierController');
+
+test('update a supplier with invalid document', function (string $document) {
+    $supplier = Supplier::factory()->create();
+    $newAttributes = [
+        'name' => '',
+        'trade_name' => 'Teste',
+        'document' => $document,
+        'tax_registration' => '123456',
+        'type' => DocumentType::CNPJ->value,
+    ];
+
+    $response = $this->put('/suppliers/' . $supplier->id . '/update', $newAttributes);
+
+    $response->assertSessionHasErrors(['name', 'document']);
+    $this->assertDatabaseMissing('suppliers', $newAttributes);
+})->group('SupplierController')->with([
+    'invalid CPF' => '000.000.000-00',
+    'invalid CNPJ' => '00.000.000/0001-00',
+]);

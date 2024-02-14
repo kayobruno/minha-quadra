@@ -40,7 +40,7 @@ test('can create a new supplier', function () {
     $response = $this->post('/suppliers/store', [
         'name' => 'Fornecedor de Teste',
         'trade_name' => 'Teste',
-        'document' => '000.000.000-00',
+        'document' => '417.964.830-01',
         'tax_registration' => '123456',
         'type' => DocumentType::CPF->value,
     ]);
@@ -49,3 +49,18 @@ test('can create a new supplier', function () {
     $response->assertSee('Redirecting to');
     $this->assertDatabaseHas('suppliers', ['name' => 'Fornecedor de Teste']);
 })->group('SupplierController');
+
+test('validates document field when creating a new supplier with document invalid', function (string $document) {
+    $response = $this->post('/suppliers/store', [
+        'name' => 'Fornecedor de Teste',
+        'trade_name' => 'Teste',
+        'document' => $document,
+        'tax_registration' => '123456',
+        'type' => DocumentType::CPF->value,
+    ]);
+
+    $response->assertSessionHasErrors(['document']);
+})->group('SupplierController')->with([
+    'invalid CPF' => '000.000.000-00',
+    'invalid CNPJ' => '00.000.000/0001-00',
+]);
