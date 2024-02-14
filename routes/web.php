@@ -4,6 +4,7 @@ use App\Http\Controllers\Dash\Auth\AuthController;
 use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\DashboardController;
 use App\Http\Controllers\Dash\ProductController;
+use App\Http\Controllers\Dash\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,4 +40,11 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
     Route::get('products/{product}', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('products/{product}/update', [ProductController::class, 'update'])->name('products.update');
     Route::delete('products/{product}', [ProductController::class, 'delete'])->name('products.delete');
+
+    Route::get('suppliers', [SupplierController::class, 'index'])->name('suppliers.index');
+    Route::get('suppliers/create', [SupplierController::class, 'create'])->name('suppliers.create');
+    Route::post('suppliers/store', [SupplierController::class, 'store'])->name('suppliers.store');
+    Route::get('suppliers/{supplier}', [SupplierController::class, 'edit'])->name('suppliers.edit');
+    Route::put('suppliers/{supplier}/update', [SupplierController::class, 'update'])->name('suppliers.update');
+    Route::delete('suppliers/{supplier}', [SupplierController::class, 'delete'])->name('suppliers.delete');
 });
