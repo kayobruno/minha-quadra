@@ -48,8 +48,11 @@ class SupplierController extends Controller
         //
     }
 
-    public function delete(string $id)
+    public function delete(Supplier $supplier)
     {
-        //
+        $supplier->delete();
+        session()->flash('message', __('messages.success.removed'));
+
+        return redirect()->back();
     }
 }
