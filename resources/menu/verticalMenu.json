@@ -54,7 +54,8 @@
     {
       "name": "Fornecedores",
       "icon": "menu-icon tf-icons bx bxs-truck",
-      "slug": "my-company"
+      "slug": "suppliers",
+      "url": "suppliers"
     },
     {
       "menuHeader": "Relatórios"
