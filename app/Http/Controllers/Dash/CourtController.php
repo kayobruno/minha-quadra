@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dash\Court\CreateRequest;
 use App\Models\Court;
 use Illuminate\Http\Request;
 
@@ -19,12 +20,17 @@ class CourtController extends Controller
 
     public function create()
     {
-        //
+        return view('content.courts.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateRequest $request)
     {
-        //
+        $data = array_merge($request->all(), ['merchant_id' => auth()->user()->merchant_id]);
+        Court::create($data);
+
+        session()->flash('message', __('messages.success.created'));
+
+        return redirect()->back();
     }
 
     public function edit(string $id)
