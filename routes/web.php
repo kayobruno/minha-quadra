@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dash\Auth\AuthController;
+use App\Http\Controllers\Dash\CourtController;
 use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\DashboardController;
 use App\Http\Controllers\Dash\ProductController;
@@ -47,4 +48,11 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
     Route::get('suppliers/{supplier}', [SupplierController::class, 'edit'])->name('suppliers.edit');
     Route::put('suppliers/{supplier}/update', [SupplierController::class, 'update'])->name('suppliers.update');
     Route::delete('suppliers/{supplier}', [SupplierController::class, 'delete'])->name('suppliers.delete');
+
+    Route::get('courts', [CourtController::class, 'index'])->name('courts.index');
+    Route::get('courts/create', [CourtController::class, 'create'])->name('courts.create');
+    Route::post('courts/store', [CourtController::class, 'store'])->name('courts.store');
+    Route::get('courts/{court}', [CourtController::class, 'edit'])->name('courts.edit');
+    Route::put('courts/{court}/update', [CourtController::class, 'update'])->name('courts.update');
+    Route::delete('courts/{court}', [CourtController::class, 'delete'])->name('courts.delete');
 });
