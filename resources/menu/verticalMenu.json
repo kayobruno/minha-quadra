@@ -35,7 +35,8 @@
     {
       "name": "Quadras",
       "icon": "menu-icon tf-icons bx bx-book-content",
-      "slug": "courts"
+      "slug": "courts",
+      "url": "courts"
     },
     {
       "menuHeader": "Gestão Fiscal"
