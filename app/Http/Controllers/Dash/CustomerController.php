@@ -25,7 +25,9 @@ class CustomerController extends Controller
 
     public function store(CreateRequest $request)
     {
-        Customer::create($request->all());
+        $data = array_merge($request->all(), ['merchant_id' => auth()->user()->merchant_id]);
+        Customer::create($data);
+
         session()->flash('message', __('messages.success.created'));
 
         return redirect()->back();
