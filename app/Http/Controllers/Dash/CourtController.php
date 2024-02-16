@@ -6,8 +6,8 @@ namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Court\CreateRequest;
+use App\Http\Requests\Dash\Court\UpdateRequest;
 use App\Models\Court;
-use Illuminate\Http\Request;
 
 class CourtController extends Controller
 {
@@ -33,14 +33,17 @@ class CourtController extends Controller
         return redirect()->back();
     }
 
-    public function edit(string $id)
+    public function edit(Court $court)
     {
-        //
+        return view('content.courts.edit', compact('court'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(UpdateRequest $request, Court $court)
     {
-        //
+        $court->update($request->all());
+        session()->flash('message', __('messages.success.updated'));
+
+        return redirect()->back();
     }
 
     public function delete(Court $court)

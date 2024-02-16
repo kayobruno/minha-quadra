@@ -31,7 +31,7 @@ test('the supplier update form screen can be rendered', function () {
     $response->assertSee('Inscrição Estadual');
     $response->assertSee('Status');
     $response->assertSee('Salvar');
-})->group('ProductController');
+})->group('SupplierController');
 
 test('update a supplier', function () {
     $supplier = Supplier::factory()->create();
