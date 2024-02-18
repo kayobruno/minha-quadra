@@ -8,7 +8,7 @@ enum Sport: string
 {
     case Volleyball = 'volleyball';
     case BeachTennis = 'beachtennis';
-    case Footvolley = 'Footvolley';
+    case Footvolley = 'footvolley';
 
     public static function all(): array
     {
