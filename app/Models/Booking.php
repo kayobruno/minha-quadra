@@ -33,16 +33,16 @@ class Booking extends Model
 
     public function user(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function customer(): BelongsTo
     {
-        return $this->belongsTo(Customer::class, 'id');
+        return $this->belongsTo(Customer::class, 'customer_id');
     }
 
     public function court(): BelongsTo
     {
-        return $this->belongsTo(Court::class, 'id');
+        return $this->belongsTo(Court::class, 'court_id');
     }
 }

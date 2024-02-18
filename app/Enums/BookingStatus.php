@@ -33,7 +33,7 @@ enum BookingStatus: string
     {
         return match ($this) {
             self::Pending => '<span class="badge bg-label-warning me-1">Pendente</span>',
-            self::Confirm => '<span class="badge bg-label-primary me-1">Confirmado</span>',
+            self::Confirm => '<span class="badge bg-label-success me-1">Confirmado</span>',
             self::Canceled => '<span class="badge bg-label-danger me-1">Cancelado</span>',
         };
     }

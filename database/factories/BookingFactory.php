@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
-use App\Models\Court;
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\Merchant;
 use App\Enums\BookingStatus;
 use App\Enums\Sport;
+use App\Models\Booking;
+use App\Models\Court;
+use App\Models\Customer;
+use App\Models\Merchant;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

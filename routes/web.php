@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dash\Auth\AuthController;
+use App\Http\Controllers\Dash\BookingController;
 use App\Http\Controllers\Dash\CourtController;
 use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\DashboardController;
@@ -59,4 +60,6 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
 
     Route::get('my-merchant', [MyMerchantController::class, 'edit'])->name('mymerchant.edit');
     Route::put('my-merchant/update', [MyMerchantController::class, 'update'])->name('mymerchant.update');
+
+    Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
 });

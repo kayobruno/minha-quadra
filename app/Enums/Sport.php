@@ -28,4 +28,13 @@ enum Sport: string
             self::Footvolley => 'Futevôlei',
         };
     }
+
+    public function tag(): string
+    {
+        return match ($this) {
+            self::Volleyball => '<span class="badge bg-label-primary me-1"><i class="bx-tada-hover bx bx-basketball" title="Vôlei"></i></span>',
+            self::BeachTennis => '<span class="badge bg-label-info me-1"><i class="bx-tada-hover bx bx-tennis-ball" title="Beach Tennis"></i></span>',
+            self::Footvolley => '<span class="badge bg-label-success me-1"><i class="bx-tada-hover bx bx-football" title="Futevôlei"></i></span>',
+        };
+    }
 }
