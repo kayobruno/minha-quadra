@@ -4,6 +4,7 @@ use App\Http\Controllers\Dash\Auth\AuthController;
 use App\Http\Controllers\Dash\CourtController;
 use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\DashboardController;
+use App\Http\Controllers\Dash\MyMerchantController;
 use App\Http\Controllers\Dash\ProductController;
 use App\Http\Controllers\Dash\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -55,4 +56,7 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
     Route::get('courts/{court}', [CourtController::class, 'edit'])->name('courts.edit');
     Route::put('courts/{court}/update', [CourtController::class, 'update'])->name('courts.update');
     Route::delete('courts/{court}', [CourtController::class, 'delete'])->name('courts.delete');
+
+    Route::get('my-merchant', [MyMerchantController::class, 'edit'])->name('mymerchant.edit');
+    Route::put('my-merchant/update', [MyMerchantController::class, 'update'])->name('mymerchant.update');
 });

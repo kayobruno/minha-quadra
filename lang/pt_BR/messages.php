@@ -26,4 +26,8 @@ return [
         'removed' => 'Registro removido com sucesso!',
     ],
 
+    'validation' => [
+        'invalid' => ':attribute inválido!',
+    ],
+
 ];

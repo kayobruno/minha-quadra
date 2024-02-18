@@ -19,7 +19,7 @@ class DocumentValidationRule implements ValidationRule
     {
         $documentValidationService = new DocumentValidatorService;
         if (!$documentValidationService->isValid($value)) {
-            $fail('The :attribute is invalid.');
+            $fail(__('messages.validation.invalid', [':attrivute' => $attribute]));
         }
     }
 }

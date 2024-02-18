@@ -50,7 +50,8 @@
     {
       "name": "Minha Empresa",
       "icon": "menu-icon tf-icons bx bx-briefcase",
-      "slug": "my-company"
+      "slug": "my-merchant",
+      "url": "my-merchant"
     },
     {
       "name": "Fornecedores",
