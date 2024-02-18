@@ -38,5 +38,5 @@ test('screen with empty list of reservations can be rendered', function () {
     $response->assertStatus(200);
     $response->assertViewIs('content.bookings.index');
     $response->assertSee('Cadastrar');
-    $response->assertSee('Nenhum Agendamento cadastrado!');
+    $response->assertSee('Nenhuma Reserva cadastrada!');
 })->group('BookingController');

@@ -1,11 +1,11 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Set Reserve - Agendamentos')
+@section('title', 'Set Reserve - Reservas')
 
 @section('content')
 
 <h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Agendamentos /</span> Listagem
+  <span class="text-muted fw-light">Reservas /</span> Listagem
 </h4>
 
 @include('_partials.alerts')
@@ -70,7 +70,7 @@
       <br />
       <div class="col-md-8">
         <div class="alert alert-warning" role="alert" style="margin-left: 15px;">
-          Nenhum Agendamento cadastrado!
+          Nenhuma Reserva cadastrada!
         </div>
       </div>
     @endif

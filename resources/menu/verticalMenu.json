@@ -22,9 +22,10 @@
       "menuHeader": "Gestão Esportiva"
     },
     {
-      "name": "Agendamentos",
+      "name": "Reservas",
       "icon": "menu-icon tf-icons bx bx-calendar",
-      "slug": "schedules"
+      "slug": "bookings",
+      "url": "bookings"
     },
     {
       "name": "Clientes",
