@@ -20,13 +20,16 @@ class Booking extends Model
         'customer_id',
         'court_id',
         'sport',
-        'when',
+        'start_datetime',
+        'end_datetime',
+        'total_hours',
         'note',
         'status',
     ];
 
     protected $casts = [
-        'when' => 'datetime',
+        'start_datetime' => 'datetime',
+        'end_datetime' => 'datetime',
         'status' => BookingStatus::class,
         'sport' => Sport::class,
     ];

@@ -19,7 +19,9 @@ return new class extends Migration {
             $table->bigInteger('customer_id');
             $table->bigInteger('court_id');
             $table->enum('sport', Sport::all());
-            $table->dateTime('when');
+            $table->dateTime('start_datetime');
+            $table->dateTime('end_datetime');
+            $table->integer('total_hours');
             $table->text('note')->nullable();
             $table->enum('status', BookingStatus::all())->default(BookingStatus::Pending->value);
             $table->timestamps();
