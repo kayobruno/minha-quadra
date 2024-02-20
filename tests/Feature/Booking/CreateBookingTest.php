@@ -56,3 +56,19 @@ test('can create a new booking', function () {
     $response->assertSee('Redirecting to');
     $this->assertDatabaseHas('bookings', $data);
 })->group('BookingController');
+
+test('validate date in the past', function () {
+    $customer = Customer::factory()->create();
+    $court = Court::factory()->create();
+
+    $data = [
+        'customer_id' => $customer->id,
+        'court_id' => $court->id,
+        'sport' => Sport::Volleyball->value,
+        'when' => (Carbon::now())->subDay(),
+        'status' => BookingStatus::Confirm->value,
+    ];
+    $response = $this->post('/bookings/store', $data);
+
+    $response->assertSessionHasErrors(['when']);
+})->group('BookingController');
