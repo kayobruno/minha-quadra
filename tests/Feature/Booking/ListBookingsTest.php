@@ -26,7 +26,7 @@ test('it can list bookings', function () {
     $response->assertSee('Cadastrar');
     $response->assertSee('Cliente');
     $response->assertSee('Quadra');
-    $response->assertSee('Esporte');
+    $response->assertSee('Modalidade');
     $response->assertSee('Data do Agendamento');
     $response->assertSee('Status');
     $response->assertSee('Agendado Por');

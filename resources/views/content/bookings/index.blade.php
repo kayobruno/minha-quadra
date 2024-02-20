@@ -25,7 +25,7 @@
             <th>#</th>
             <th>Cliente</th>
             <th>Quadra</th>
-            <th>Esporte</th>
+            <th>Modalidade</th>
             <th>Data do Agendamento</th>
             <th>Status</th>
             <th>Agendado Por</th>
