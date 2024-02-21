@@ -31,7 +31,8 @@ class CreateRequest extends FormRequest
             'court_id' => 'required|exists:courts,id',
             'sport' => ['required', Rule::in(Sport::all())],
             'status' => ['required', Rule::in(BookingStatus::all())],
-            'when' => 'required|date|after:now',
+            'start_datetime' => 'required|date|after:now',
+            'end_datetime' => 'required|after:start_datetime',
         ];
     }
 
@@ -41,7 +42,8 @@ class CreateRequest extends FormRequest
             'customer_id' => 'cliente',
             'court_id' => 'quadra',
             'sport' => 'esporte',
-            'when' => 'quando',
+            'start_datetime' => 'data e horário de início',
+            'end_datetime' => 'horário final',
         ];
     }
 }

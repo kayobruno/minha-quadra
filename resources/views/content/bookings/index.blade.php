@@ -13,7 +13,7 @@
 <!-- Basic Bootstrap Table -->
 <div class="card">
   <h5 class="card-header">
-    <a class="btn btn-primary me-2" href="{{ route('customers.create') }}">
+    <a class="btn btn-primary me-2" href="{{ route('bookings.create') }}">
       <i class='bx bxs-add-to-queue'></i> Cadastrar
     </a>
   </h5>
@@ -43,7 +43,7 @@
             <td>{{ $booking->customer->name }}</td>
             <td>{{ $booking->court->name }}</td>
             <td>{!! $booking->sport->tag() !!}</td>
-            <td>{{ $booking->when->format('d/m/Y H:i') }}</td>
+            <td>{{ $booking->start_datetime->format('d/m/Y H:i') }} até {{ $booking->end_datetime->format('H:i') }}</td>
             <td>{!! $booking->status->tag() !!}</td>
             <td>{{ $booking->user?->name }}</td>
             <td>

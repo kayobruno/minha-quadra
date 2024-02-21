@@ -28,7 +28,8 @@ test('the booking registration form screen can be rendered', function () {
     $response->assertSee('Cliente');
     $response->assertSee('Quadra');
     $response->assertSee('Modalidade');
-    $response->assertSee('Quando');
+    $response->assertSee('Data e Horário de Início');
+    $response->assertSee('Horário final');
     $response->assertSee('Status');
     $response->assertSee('Salvar');
 })->group('BookingController');
@@ -36,18 +37,20 @@ test('the booking registration form screen can be rendered', function () {
 test('validates required fields when creating a new booking', function () {
     $response = $this->post('/bookings/store', []);
 
-    $response->assertSessionHasErrors(['customer_id', 'court_id', 'sport', 'when']);
+    $response->assertSessionHasErrors(['customer_id', 'court_id', 'sport', 'start_datetime']);
 })->group('BookingController');
 
 test('can create a new booking', function () {
     $customer = Customer::factory()->create();
     $court = Court::factory()->create();
+    $startDatetime = (Carbon::now())->addDay();
 
     $data = [
         'customer_id' => $customer->id,
         'court_id' => $court->id,
         'sport' => Sport::Volleyball->value,
-        'when' => (Carbon::now())->addDay(),
+        'start_datetime' => $startDatetime,
+        'end_datetime' => (Carbon::parse($startDatetime))->addHours(2),
         'status' => BookingStatus::Confirm->value,
     ];
     $response = $this->post('/bookings/store', $data);
@@ -60,15 +63,17 @@ test('can create a new booking', function () {
 test('validate date in the past', function () {
     $customer = Customer::factory()->create();
     $court = Court::factory()->create();
+    $startDatetime = (Carbon::now())->subDay();
 
     $data = [
         'customer_id' => $customer->id,
         'court_id' => $court->id,
         'sport' => Sport::Volleyball->value,
-        'when' => (Carbon::now())->subDay(),
+        'start_datetime' => $startDatetime,
+        'end_datetime' => (Carbon::parse($startDatetime))->addHours(2),
         'status' => BookingStatus::Confirm->value,
     ];
     $response = $this->post('/bookings/store', $data);
 
-    $response->assertSessionHasErrors(['when']);
+    $response->assertSessionHasErrors(['start_datetime']);
 })->group('BookingController');

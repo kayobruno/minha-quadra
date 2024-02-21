@@ -2,15 +2,15 @@
 
 namespace Database\Factories;
 
+use App\Enums\BookingStatus;
 use App\Enums\Sport;
-use App\Models\User;
-use App\Models\Court;
 use App\Models\Booking;
+use App\Models\Court;
 use App\Models\Customer;
 use App\Models\Merchant;
-use App\Enums\BookingStatus;
-use Illuminate\Support\Carbon;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Booking>

@@ -17,9 +17,8 @@ class BookingController extends Controller
     public function index()
     {
         $bookings = Booking::with('customer', 'user', 'court')
-            ->whereDate('when', '>', now())
-            ->whereNotIn('status', [BookingStatus::Canceled, BookingStatus::Expired, BookingStatus::Finished])
-            ->orderBy('when', 'asc')
+            ->whereDate('start_datetime', '>', now())
+            ->orderBy('start_datetime', 'asc')
             ->paginate(10);
 
         return view('content.bookings.index', compact('bookings'));
@@ -27,7 +26,7 @@ class BookingController extends Controller
 
     public function create()
     {
-        $statuses = BookingStatus::cases();
+        $statuses = BookingStatus::getInitialStatuses();
         $customers = Customer::get();
         $courts = Court::get();
         $sports = Sport::cases();
@@ -38,6 +37,8 @@ class BookingController extends Controller
     public function store(CreateRequest $request)
     {
         $data = array_merge($request->all(), ['merchant_id' => auth()->user()->merchant_id, 'user_id' => auth()->user()->id]);
+        $data['total_hours'] = $data['start_datetime']->diffInHours($data['end_datetime']);
+
         Booking::create($data);
 
         session()->flash('message', __('messages.success.created'));

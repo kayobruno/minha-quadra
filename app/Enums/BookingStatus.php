@@ -46,4 +46,12 @@ enum BookingStatus: string
             self::Expired => '<span class="badge bg-label-secondary me-1">Expirado</span>',
         };
     }
+
+    public static function getInitialStatuses(): array
+    {
+        return [
+            self::Pending,
+            self::Confirm,
+        ];
+    }
 }
