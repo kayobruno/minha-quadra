@@ -47,18 +47,14 @@
             <td>{!! $booking->status->tag() !!}</td>
             <td>{{ $booking->user?->name }}</td>
             <td>
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item" href="{{ route('customers.edit', $booking) }}"><i class="bx bx-edit-alt me-1"></i> Editar</a>
-
-                  <form action="{{ route('customers.delete', $booking) }}" method="POST" style="margin-bottom: 5px;" onsubmit="return confirm('Você realmente quer remover este registro?');">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="dropdown-item"><i class="bx bx-trash me-1"></i> Remover</button>
-                  </form>
+              @if($booking->status->isEditable())
+                <div class="dropdown">
+                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+                  <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{{ route('bookings.edit', $booking) }}"><i class="bx bx-edit-alt me-1"></i> Editar</a>
+                  </div>
                 </div>
-              </div>
+              @endif
             </td>
           </tr>
           @endforeach

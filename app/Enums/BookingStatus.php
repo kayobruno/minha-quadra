@@ -54,4 +54,12 @@ enum BookingStatus: string
             self::Confirm,
         ];
     }
+
+    public function isEditable(): bool
+    {
+        return match ($this) {
+            self::Pending, self::Confirm => true,
+            default => false,
+        };
+    }
 }

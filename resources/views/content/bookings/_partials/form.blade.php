@@ -52,7 +52,7 @@
 
       <div class="mb-3">
         <label for="end_datetime" class="form-label">Horário final</label>
-        <input type="text" class="form-control" id="end_datetime" name="end_datetime" disabled required value="{{ $booking?->end_datetime ?? old('end_datetime') }}" />
+        <input type="text" class="form-control" id="end_datetime" name="end_datetime" @if(!isset($booking)) disabled @endif required value="{{ $booking?->end_datetime ?? old('end_datetime') }}" />
       </div>
 
       <div class="mb-3">
