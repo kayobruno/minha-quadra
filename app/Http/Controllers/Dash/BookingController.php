@@ -19,7 +19,6 @@ class BookingController extends Controller
     public function index()
     {
         $bookings = Booking::with('customer', 'user', 'court')
-            ->whereDate('start_datetime', '>', now())
             ->orderBy('start_datetime', 'asc')
             ->paginate(10);
 
