@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dash;
 
-use App\Enums\Sport;
-use App\Models\Court;
-use App\Models\Booking;
-use App\Models\Customer;
 use App\Enums\BookingStatus;
-use Illuminate\Support\Carbon;
+use App\Enums\Sport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Booking\CreateRequest;
 use App\Http\Requests\Dash\Booking\UpdateRequest;
+use App\Models\Booking;
+use App\Models\Court;
+use App\Models\Customer;
+use Illuminate\Support\Carbon;
 
 class BookingController extends Controller
 {
@@ -64,7 +64,7 @@ class BookingController extends Controller
         $startDatetime = Carbon::parse($data['start_datetime']);
         $endDatetime = Carbon::parse($data['end_datetime']);
         $data['total_hours'] = $startDatetime->diffInHours($endDatetime);
-        
+
         $booking->update($data);
         session()->flash('message', __('messages.success.updated'));
 
