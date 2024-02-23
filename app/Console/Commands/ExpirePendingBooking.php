@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Console\Commands;
 
+use App\DataTransferObjects\UpdateBookingStatusParamData;
 use App\Enums\BookingStatus;
-use App\Models\Booking;
+use App\Services\UpdateBookingStatusService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
 
 class ExpirePendingBooking extends Command
 {
+    public function __construct(private UpdateBookingStatusService $updateBookingStatusService)
+    {
+        parent::__construct();
+    }
+
     /**
      * The name and signature of the console command.
      *
@@ -30,9 +36,14 @@ class ExpirePendingBooking extends Command
      */
     public function handle()
     {
-        $currentDateTime = Carbon::now();
-        Booking::where('status', BookingStatus::Pending->value)
-            ->where('start_datetime', '<=', $currentDateTime)
-            ->update(['status' => BookingStatus::Expired->value]);
+        $updateBookingStatusParamData = new UpdateBookingStatusParamData(
+            initialStatus: BookingStatus::Pending,
+            finalStatus: BookingStatus::Expired,
+            whereField: 'start_datetime',
+            whereCondition: '<=',
+            whereValue: Carbon::now(),
+        );
+
+        $this->updateBookingStatusService->execute($updateBookingStatusParamData);
     }
 }
