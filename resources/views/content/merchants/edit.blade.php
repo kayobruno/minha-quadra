@@ -24,7 +24,7 @@
       </ul>
       <div class="tab-content">
         <div class="tab-pane fade show active" id="navs-top-home" role="tabpanel">
-          <form action="{{ route('mymerchant.update', $merchant) }}" class="form" method="POST">
+          <form action="{{ route('mymerchant.update') }}" class="form" method="POST">
             @method('PUT')
             @include('content.merchants._partials.form')
           </form>
@@ -34,7 +34,7 @@
             Deixe os valores em branco para os dias que o estabelecimento <b>não funcionar</b>.
           </div>
 
-          <form action="{{ route('mymerchant.update', $merchant) }}" class="form" method="POST">
+          <form action="{{ route('mymerchant.update') }}" class="form" method="POST">
             @method('PUT')
             @include('content.merchants._partials.form-business-hours')
           </form>

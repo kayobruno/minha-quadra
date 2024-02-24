@@ -42,18 +42,3 @@ test('update my merchant', function () {
 
     $this->assertDatabaseHas('merchants', $newAttributes);
 })->group('MerchantController');
-
-test('update a Merchant with required fields not provided', function () {
-    $merchant = Merchant::factory()->create();
-    $user = User::factory()->for($merchant)->create();
-    $this->actingAs($user);
-
-    $newAttributes = [
-        'trade_name' => '',
-    ];
-
-    $response = $this->put('/my-merchant/update', $newAttributes);
-
-    $response->assertSessionHasErrors(['trade_name']);
-    $this->assertDatabaseMissing('merchants', $newAttributes);
-})->group('MerchantController');

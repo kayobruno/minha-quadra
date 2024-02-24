@@ -24,7 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'trade_name' => 'required|min:6|max:255',
+            'trade_name' => 'nullable|min:6|max:255',
         ];
     }
 
