@@ -35,9 +35,6 @@
 
         <tbody class="table-border-bottom-0">
           @foreach ($bookings as $booking)
-            @if($booking->customer == null)
-              @dd($booking)
-            @endif
           <tr>
             <td>{{ $booking->id }}</td>
             <td>{{ $booking->customer->name }}</td>
