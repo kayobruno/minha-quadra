@@ -23,6 +23,7 @@ class Order extends Model
         'subtotal',
         'total_amount',
         'total_discount',
+        'tab',
         'status',
     ];
 }
