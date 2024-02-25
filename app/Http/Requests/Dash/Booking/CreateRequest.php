@@ -31,8 +31,8 @@ class CreateRequest extends FormRequest
             'court_id' => 'required|exists:courts,id',
             'sport' => ['required', Rule::in(Sport::all())],
             'status' => ['required', Rule::in(BookingStatus::all())],
-            'start_datetime' => 'required|date|after:now',
-            'end_datetime' => 'required|after:start_datetime',
+            'start_datetime' => 'required',
+            'end_datetime' => 'required',
         ];
     }
 

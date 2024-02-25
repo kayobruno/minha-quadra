@@ -38,6 +38,9 @@ class BookingController extends Controller
     public function store(CreateRequest $request)
     {
         $data = array_merge($request->all(), ['merchant_id' => auth()->user()->merchant_id, 'user_id' => auth()->user()->id]);
+        $data['start_datetime'] = Carbon::createFromFormat('d/m/Y H:i', $data['start_datetime']);
+        $endDatetime = clone $data['start_datetime'];
+        $data['end_datetime'] = $endDatetime->setHour($data['end_datetime']);
         $data['total_hours'] = $data['start_datetime']->diffInHours($data['end_datetime']);
 
         Booking::create($data);
