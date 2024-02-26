@@ -6,6 +6,7 @@ use App\Http\Controllers\Dash\CourtController;
 use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\DashboardController;
 use App\Http\Controllers\Dash\MyMerchantController;
+use App\Http\Controllers\Dash\OrderController;
 use App\Http\Controllers\Dash\ProductController;
 use App\Http\Controllers\Dash\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -66,4 +67,6 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
     Route::post('bookings/store', [BookingController::class, 'store'])->name('bookings.store');
     Route::get('bookings/{booking}', [BookingController::class, 'edit'])->name('bookings.edit');
     Route::put('bookings/{booking}/update', [BookingController::class, 'update'])->name('bookings.update');
+
+    Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
 });
