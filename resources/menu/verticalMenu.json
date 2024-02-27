@@ -13,10 +13,10 @@
       "slug": "users"
     },
     {
-      "url": "sales",
+      "url": "orders",
       "name": "Vendas",
       "icon": "menu-icon tf-icons bx bx-cart-alt",
-      "slug": "users"
+      "slug": "orders"
     },
     {
       "menuHeader": "Gestão Esportiva"
