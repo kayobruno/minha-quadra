@@ -40,41 +40,29 @@ test('validates required fields when creating a new booking', function () {
     $response->assertSessionHasErrors(['customer_id', 'court_id', 'sport', 'start_datetime']);
 })->group('BookingController');
 
-// TODO: Fix
-// test('can create a new booking', function () {
-//     $customer = Customer::factory()->create();
-//     $court = Court::factory()->create();
-//     $startDatetime = (Carbon::now())->addDay();
+test('can create a new booking', function () {
+    $customer = Customer::factory()->create();
+    $court = Court::factory()->create();
+    $startDatetime = (Carbon::now())->addDay();
 
-//     $data = [
-//         'customer_id' => $customer->id,
-//         'court_id' => $court->id,
-//         'sport' => Sport::Volleyball->value,
-//         'start_datetime' => $startDatetime,
-//         'end_datetime' => (Carbon::parse($startDatetime))->addHours(2),
-//         'status' => BookingStatus::Confirm->value,
-//     ];
-//     $response = $this->post('/bookings/store', $data);
+    $data = [
+        'customer_id' => $customer->id,
+        'court_id' => $court->id,
+        'sport' => Sport::Volleyball->value,
+        'start_datetime' => $startDatetime->format('d/m/Y H:i'),
+        'end_datetime' => (Carbon::parse($startDatetime))->addHours(2)->format('d/m/Y H:i'),
+        'status' => BookingStatus::Confirm->value,
+    ];
 
-//     $response->assertStatus(302);
-//     $response->assertSee('Redirecting to');
-//     $this->assertDatabaseHas('bookings', $data);
-// })->group('BookingController');
+    $response = $this->post('/bookings/store', $data);
 
-// test('validate date in the past', function () {
-//     $customer = Customer::factory()->create();
-//     $court = Court::factory()->create();
-//     $startDatetime = (Carbon::now())->subDay();
+    $expectedData = [
+        'customer_id' => $customer->id,
+        'court_id' => $court->id,
+        'sport' => Sport::Volleyball->value,
+    ];
 
-//     $data = [
-//         'customer_id' => $customer->id,
-//         'court_id' => $court->id,
-//         'sport' => Sport::Volleyball->value,
-//         'start_datetime' => $startDatetime,
-//         'end_datetime' => (Carbon::parse($startDatetime))->addHours(2),
-//         'status' => BookingStatus::Confirm->value,
-//     ];
-//     $response = $this->post('/bookings/store', $data);
-
-//     $response->assertSessionHasErrors(['start_datetime']);
-// })->group('BookingController');
+    $response->assertStatus(302);
+    $response->assertSee('Redirecting to');
+    $this->assertDatabaseHas('bookings', $expectedData);
+})->group('BookingController');
