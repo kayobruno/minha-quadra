@@ -1,5 +1,5 @@
 {
-    "/assets/vendor/js/bootstrap.js": "/assets/vendor/js/bootstrap.js?id=33599bd24ac8547c5d8286a687b266a1",
+    "/assets/vendor/js/bootstrap.js": "/assets/vendor/js/bootstrap.js?id=8dc7fc493bcb37b76f42ebf1d0f46cfb",
     "/assets/vendor/js/helpers.js": "/assets/vendor/js/helpers.js?id=24902384d63abc60602ff18032c7bba3",
     "/assets/vendor/js/menu.js": "/assets/vendor/js/menu.js?id=184ec360c96651748e9b000b8f5d4225",
     "/assets/vendor/libs/apex-charts/apexcharts.js": "/assets/vendor/libs/apex-charts/apexcharts.js?id=a2e31c1566ece5519e998aa13453e726",
@@ -8,6 +8,7 @@
     "/assets/vendor/libs/masonry/masonry.js": "/assets/vendor/libs/masonry/masonry.js?id=4f2853e9d0e6ea8d7dc8d37b112ef37c",
     "/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js": "/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js?id=7c36751c61f8450005e3e6f02bb84ab6",
     "/assets/vendor/libs/popper/popper.js": "/assets/vendor/libs/popper/popper.js?id=f5aae921cb2529b79f3186eebddf5a32",
+    "/assets/js/bookings/index.js": "/assets/js/bookings/index.js?id=43bb956706ef528b5d11c64be403276f",
     "/assets/vendor/libs/highlight/highlight-github.css": "/assets/vendor/libs/highlight/highlight-github.css?id=81011629d1a93e0b36eee52bb03d903b",
     "/assets/vendor/css/pages/page-misc.css": "/assets/vendor/css/pages/page-misc.css?id=0639860d2184e120293288c610042d5b",
     "/assets/vendor/css/pages/page-icons.css": "/assets/vendor/css/pages/page-icons.css?id=48a37ed3c4802269db90601b53d6c384",
@@ -33,5 +34,7 @@
     "/assets/vendor/fonts/boxicons/boxicons.svg": "/assets/vendor/fonts/boxicons/boxicons.svg?id=b0bb967778275b356010f01219188eb0",
     "/assets/vendor/fonts/boxicons/boxicons.ttf": "/assets/vendor/fonts/boxicons/boxicons.ttf?id=1d54c12488898e7fa28840ed674ca37a",
     "/assets/vendor/fonts/boxicons/boxicons.woff": "/assets/vendor/fonts/boxicons/boxicons.woff?id=ff5a072c1eea4f79a9e93878a25e07c8",
-    "/assets/vendor/fonts/boxicons/boxicons.woff2": "/assets/vendor/fonts/boxicons/boxicons.woff2?id=78a5fea85045ae6de1d1af590dad2013"
+    "/assets/vendor/fonts/boxicons/boxicons.woff2": "/assets/vendor/fonts/boxicons/boxicons.woff2?id=78a5fea85045ae6de1d1af590dad2013",
+    "/assets/vendor/libs/fullcalendar/js/index.global.min.js": "/assets/vendor/libs/fullcalendar/js/index.global.min.js?id=9de90232277ab061fc735388d58a6126",
+    "/assets/vendor/libs/daygrid/js/index.global.min.js": "/assets/vendor/libs/daygrid/js/index.global.min.js?id=d89f7f3a0ced96d588767e0b1dacfd38"
 }
