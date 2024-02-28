@@ -134,9 +134,6 @@ mix.js('resources/js/bookings/index.js', 'public/assets/js/bookings/index.js');
 
 mix.copy('node_modules/boxicons/fonts/*', 'public/assets/vendor/fonts/boxicons');
 
-mix.copy('node_modules/@fullcalendar/core/index.global.min.js', 'public/assets/vendor/libs/fullcalendar/js');
-mix.copy('node_modules/@fullcalendar/daygrid/index.global.min.js', 'public/assets/vendor/libs/daygrid/js');
-
 mix.version();
 
 /*

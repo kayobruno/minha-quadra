@@ -88,6 +88,7 @@
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/list": "^6.1.11",
+    "@fullcalendar/moment": "^6.1.11",
     "@fullcalendar/timegrid": "^6.1.11",
     "@popperjs/core": "2.11.8",
     "apexcharts-clevision": "3.28.5",
