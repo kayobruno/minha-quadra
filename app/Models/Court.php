@@ -13,6 +13,7 @@ class Court extends Model
 
     protected $fillable = [
         'name',
+        'color',
         'merchant_id',
     ];
 }

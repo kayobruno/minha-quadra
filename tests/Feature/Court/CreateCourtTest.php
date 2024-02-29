@@ -21,6 +21,7 @@ test('the courts registration form screen can be rendered', function () {
     $response->assertStatus(200);
     $response->assertViewIs('content.courts.create');
     $response->assertSee('Nome');
+    $response->assertSee('Cor');
     $response->assertSee('Salvar');
 })->group('CourtController');
 

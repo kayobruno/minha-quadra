@@ -22,6 +22,7 @@
             <tr>
               <th>#</th>
               <th>Nome</th>
+              <th>Cor</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -31,6 +32,11 @@
             <tr>
               <td>{{ $court->id }}</td>
               <td>{{ $court->name }}</td>
+              <td>
+                <div class="avatar avatar-sm me-3">
+                  <span class="avatar-initial rounded-circle" style="background-color: {{ $court->color }}"></span>
+                </div>
+              </td>
               <td>
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>

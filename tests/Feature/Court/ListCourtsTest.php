@@ -23,6 +23,7 @@ test('it can list courts', function () {
     $response->assertViewIs('content.courts.index');
     $response->assertSee('Cadastrar');
     $response->assertSee('Nome');
+    $response->assertSee('Cor');
 })->group('CourtController');
 
 test('courts screen can be rendered with empty list of courts', function () {

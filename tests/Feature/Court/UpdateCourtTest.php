@@ -24,6 +24,7 @@ test('the court update form screen can be rendered', function () {
     $response->assertStatus(200);
     $response->assertViewIs('content.courts.edit');
     $response->assertSee('Nome');
+    $response->assertSee('Cor');
     $response->assertSee('Salvar');
 })->group('CourtController');
 

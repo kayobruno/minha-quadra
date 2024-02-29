@@ -8,6 +8,12 @@
       </div>
 
       <div class="mb-3">
+        <label for="color" class="form-label">Cor</label>
+        <input type="color" class="form-control" id="color" name="color" placeholder="Cor" required value="{{ $court?->color ?? old('color') }}" />
+        <div id="floatingInputHelp" class="form-text">Esta cor será exibida no calendário de agendamentos</div>
+      </div>
+
+      <div class="mb-3">
         <a href="{{ route('courts.index') }}" class="btn btn-secondary">Voltar</a>
         <button type="submit" class="btn btn-primary">Salvar</button>
       </div>
