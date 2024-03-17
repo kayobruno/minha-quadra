@@ -18,6 +18,7 @@
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/plugin-transform-runtime": "7.22.9",
     "@babel/preset-env": "7.22.5",
+    "@babel/preset-typescript": "^7.23.3",
     "@prettier/plugin-php": "0.19.6",
     "ajv": "8.12.0",
     "axios": "1.4.0",
