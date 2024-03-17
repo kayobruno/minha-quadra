@@ -20,8 +20,8 @@ class BookingResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'start_datetime' => $this->start_datetime,
-            'end_datetime' => $this->end_datetime,
+            'start' => $this->start_datetime,
+            'end' => $this->end_datetime,
             'total_hours' => $this->total_hours,
             'status' => $this->status,
             'court' => new CourtResource($this->court),
