@@ -1,0 +1,19 @@
+.event-wrapper {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.fc-daygrid-event-icon:before {
+    width: 10px;
+    height: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    line-height: 1.2;
+}
+
+.event-content {
+    display: flex;
+    align-items: center;
+}

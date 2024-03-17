@@ -2,6 +2,11 @@
 
 @section('title', 'Set Reserve - Reservas')
 
+@section('vendor-style')
+  <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/app-calendar.css') }}" />
+  <link rel="stylesheet" href="{{ asset('assets/css/bookings/index.css') }}" />  
+@endsection
+
 @section('content')
 
 <h4 class="py-3 mb-4">
@@ -9,65 +14,28 @@
 </h4>
 
 @include('_partials.alerts')
+  <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card app-calendar-wrapper">
+      <div class="row g-0">
+        @include('content.bookings._partials.sidebar')
 
-<!-- Basic Bootstrap Table -->
-<div class="card">
-  <h5 class="card-header">
-    <a class="btn btn-primary me-2" href="{{ route('bookings.create') }}">
-      <i class='bx bxs-add-to-queue'></i> Cadastrar
-    </a>
-  </h5>
-  <div class="table-responsive text-nowrap">
-    @if(!empty($bookings) && count($bookings))
-      <table class="table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Cliente</th>
-            <th>Quadra</th>
-            <th>Modalidade</th>
-            <th>Data do Agendamento</th>
-            <th>Status</th>
-            <th>Agendado Por</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
+        <div class="col app-calendar-content">
+          <div class="card shadow-none border-0">
+            <div class="card-body pb-0">
+              <div id="calendar" class="fc fc-media-screen fc-direction-ltr fc-theme-standard"></div>
+            </div>
+          </div>
 
-        <tbody class="table-border-bottom-0">
-          @foreach ($bookings as $booking)
-          <tr>
-            <td>{{ $booking->id }}</td>
-            <td>{{ $booking->customer->name }}</td>
-            <td>{{ $booking->court->name }}</td>
-            <td>{!! $booking->sport->tag() !!}</td>
-            <td>{{ $booking->start_datetime->format('d/m/Y H:i') }} até {{ $booking->end_datetime->format('H:i') }}</td>
-            <td>{!! $booking->status->tag() !!}</td>
-            <td>{{ $booking->user?->name }}</td>
-            <td>
-              @if($booking->status->isEditable())
-                <div class="dropdown">
-                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                  <div class="dropdown-menu">
-                    <a class="dropdown-item" href="{{ route('bookings.edit', $booking) }}"><i class="bx bx-edit-alt me-1"></i> Editar</a>
-                  </div>
-                </div>
-              @endif
-            </td>
-          </tr>
-          @endforeach
-        </tbody>
-      </table>
+          <div class="app-overlay"></div>
 
-      {{ $bookings->links('_partials.pagination') }}
-    @else
-      <br />
-      <div class="col-md-8">
-        <div class="alert alert-warning" role="alert" style="margin-left: 15px;">
-          Nenhuma Reserva cadastrada!
+          @include('content.bookings._partials.form-modal')
         </div>
       </div>
-    @endif
+    </div>
   </div>
-</div>
-<!--/ Basic Bootstrap Table -->
+
+@endsection
+
+@section('vendor-script')
+  <script src="{{ asset('assets/js/bookings/index.js') }}"></script>
 @endsection

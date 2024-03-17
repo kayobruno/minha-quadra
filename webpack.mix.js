@@ -130,7 +130,8 @@ mixAssetsDir('vendor/fonts/!(_)*.scss', (src, dest) =>
 mixAssetsDir('js/**/*.js', (src, dest) => mix.scripts(src, dest));
 mixAssetsDir('css/**/*.css', (src, dest) => mix.copy(src, dest));
 
-mix.js('resources/js/bookings/index.js', 'public/assets/js/bookings/index.js');
+mix.js('resources/js/bookings/index.ts', 'public/assets/js/bookings/index.js');
+mix.css('resources/css/bookings/index.css', 'public/assets/css/bookings/index.css');
 
 mix.copy('node_modules/boxicons/fonts/*', 'public/assets/vendor/fonts/boxicons');
 
