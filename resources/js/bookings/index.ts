@@ -3,12 +3,14 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import momentPlugin from '@fullcalendar/moment'
 import timegridPlugin from '@fullcalendar/timegrid'
 import listPlugin from '@fullcalendar/list'
-import interactionPlugin from '@fullcalendar/interaction'
 import axios from 'axios'
 
-async function getEventsFromApi(): Promise<any[]> {
+async function getBookings(start: string | null, end: string | null): Promise<any[]> {
   try {
-    const response = await axios.get('/api/bookings');
+    const response = await axios.get('/api/bookings', {
+      params: { start, end }
+    });
+
     return response.data.data;
   } catch (error) {
     console.error('Erro ao buscar agendamentos:', error);
@@ -17,22 +19,16 @@ async function getEventsFromApi(): Promise<any[]> {
 }
 
 async function initCalendar() {
-  const events = await getEventsFromApi();
-  console.log(events);
   const calendarEl = document.getElementById('calendar');
 
   const calendar = new Calendar(calendarEl, {
     timeZone: 'America/Fortaleza',
     initialView: 'dayGridMonth',
-    plugins: [momentPlugin, dayGridPlugin, interactionPlugin, listPlugin, timegridPlugin],
+    plugins: [momentPlugin, dayGridPlugin, listPlugin, timegridPlugin],
     locale: 'pt-br',
-    buttonText: {
-      today: 'Hoje'
-    },
-    events: events,
-    eventClick: function(info) {
-      console.log(info.event.id);
-    },
+    buttonText: { today: 'Hoje' },
+    events: [],
+    eventClick: info => console.log(info.event.id),
     eventContent: function(arg) {
       const startTime = arg.event.start.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
       const endTime = arg.event.end.toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
@@ -53,11 +49,21 @@ async function initCalendar() {
       link.style.background = info.event.extendedProps.court.color_rgba;
       link.style.cursor = 'pointer';
     },
+    dateClick: function(info) {
+      console.log(info);
+    },
+    datesSet: async function(info) {
+      let events = await getBookings(info.startStr, info.endStr);
+
+      calendar.getEvents().forEach(function(event) {
+        event.remove();
+      });
+
+      calendar.addEventSource(events);
+    }
   });
 
   calendar.render();  
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  initCalendar();
-});
+document.addEventListener('DOMContentLoaded', initCalendar);
