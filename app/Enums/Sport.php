@@ -37,4 +37,13 @@ enum Sport: string
             self::Footvolley => '<span class="badge bg-label-success me-1"><i class="bx-tada-hover bx bx-football" title="Futevôlei"></i></span>',
         };
     }
+
+    public function icon(): string
+    {
+        return match ($this) {
+            self::Volleyball => '<i class="bx-tada-hover bx bx-basketball" title="Vôlei"></i>',
+            self::BeachTennis => '<i class="bx-tada-hover bx bx-tennis-ball" title="Beach Tennis"></i>',
+            self::Footvolley => '<i class="bx-tada-hover bx bx-football" title="Futevôlei"></i>',
+        };
+    }
 }
