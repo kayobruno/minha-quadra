@@ -16,11 +16,11 @@ trait Response
         return $this->response($data, $statusCode, $message);
     }
 
-    public function badRequest(array $errors): JsonResponse
+    public function badRequest(array $errors, int $statusCode = ResponseSymfony::HTTP_BAD_REQUEST): JsonResponse
     {
         $message = 'The request cannot be fulfilled';
 
-        return $this->response($errors, ResponseSymfony::HTTP_BAD_REQUEST, $message, success: false);
+        return $this->response($errors, $statusCode, $message, success: false);
     }
 
     public function okButNoContent(): JsonResponse
