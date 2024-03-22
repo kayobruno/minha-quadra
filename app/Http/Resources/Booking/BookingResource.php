@@ -20,8 +20,8 @@ class BookingResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'start' => $this->start_datetime,
-            'end' => $this->end_datetime,
+            'start' => $this->start_datetime->format('Y-m-d H:i'),
+            'end' => $this->end_datetime->format('Y-m-d H:i'),
             'total_hours' => $this->total_hours,
             'status' => $this->status,
             'court' => new CourtResource($this->court),
@@ -29,7 +29,9 @@ class BookingResource extends JsonResource
             'sport' => [
                 'name' => $this->sport->label(),
                 'icon' => $this->sport->icon(),
+                'value' => $this->sport->value,
             ],
+            'note' => $this->note,
         ];
     }
 }
