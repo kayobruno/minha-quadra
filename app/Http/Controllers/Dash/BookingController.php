@@ -18,11 +18,10 @@ class BookingController extends Controller
 {
     public function index()
     {
-        $bookings = Booking::with('customer', 'user', 'court')
-            ->orderBy('start_datetime', 'asc')
-            ->paginate(10);
+        $courts = Court::get();
+        $sports = Sport::cases();
 
-        return view('content.bookings.index', compact('bookings'));
+        return view('content.bookings.index', compact('courts', 'sports'));
     }
 
     public function create()
