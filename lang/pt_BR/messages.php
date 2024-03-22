@@ -16,7 +16,7 @@ return [
     'errors' => [
         'unauthorized' => 'Não autorizado!',
         'forbidden' => 'Acesso negado!',
-        'unavailable' => 'Serviço indisponível!',
+        'unavailable' => 'Ops! Algo deu errado. Nossa equipe foi notificada e está trabalhando para corrigir.',
         'notfound' => 'Registro não encontrado!',
     ],
 
