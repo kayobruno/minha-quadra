@@ -17,7 +17,6 @@
   <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card app-calendar-wrapper">
       <div class="row g-0">
-        @include('content.bookings._partials.sidebar')
 
         <div class="col app-calendar-content">
           <div class="card shadow-none border-0">
