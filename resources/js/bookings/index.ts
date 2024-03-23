@@ -64,7 +64,8 @@ async function initCalendar(): Promise<void> {
       const bookingData: BookingData = {
         when: dayjs(info.date).format('DD/MM'),
         start: dayjs().format('HH:mm'),
-        end: dayjs().add(1, 'hour').format('HH:mm')
+        end: dayjs().add(1, 'hour').format('HH:mm'),
+        note: '',
       };
 
       setValuesToBookingForm(bookingData);
@@ -152,7 +153,6 @@ async function saveBooking(): Promise<void> {
 }
 
 function showErrors(response: Response): void {
-  console.log(response);
   for (const fieldName in response.data) {
     const errorMessage = response.data[fieldName][0];
     const inputElement = document.querySelector(`[name="${fieldName}"]`);
@@ -180,6 +180,11 @@ function removeErrors(): void {
   const errorInputs = document.querySelectorAll('.is-invalid');
   errorInputs.forEach(input => input.classList.remove('is-invalid'));
 }
+
+const modalOffcanvas = document.getElementById('bookingModal');
+modalOffcanvas?.addEventListener('hidden.bs.offcanvas', () => {
+  removeErrors();
+});
 
 document.addEventListener('DOMContentLoaded', initCalendar);
 document.addEventListener('DOMContentLoaded', saveBooking);
