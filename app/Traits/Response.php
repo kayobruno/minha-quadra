@@ -30,6 +30,11 @@ trait Response
         return $this->response(null, ResponseSymfony::HTTP_NO_CONTENT, $message);
     }
 
+    public function notFound(): JsonResponse
+    {
+        return $this->response(response: null, statusCode: ResponseSymfony::HTTP_NOT_FOUND, message: __('messages.errors.notfound'), success: false);
+    }
+
     protected function response(mixed $response, int $statusCode, string $message, bool $success = true): JsonResponse
     {
         $data = [
