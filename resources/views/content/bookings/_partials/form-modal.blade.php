@@ -72,3 +72,14 @@
     </form>
   </div>
 </div>
+
+@section('page-script')
+  <script src="{{ asset('assets/vendor/libs/jquery-mask/jquery.mask.min.js') }}"></script>
+  <script>
+    jQuery(document).ready(function ($) {
+      $('#customer_phone').mask('(99) 9 9999-9999');
+      $('#start_time').mask('00:00');
+      $('#end_time').mask('00:00');
+    });
+  </script>
+@endsection
