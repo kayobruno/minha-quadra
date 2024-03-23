@@ -22,6 +22,13 @@ async function initCalendar(): Promise<void> {
     dayMaxEvents: 8,
     eventClick: async function (info) {
       const booking = await BookingService.getBooking(info.event.id);
+      const bookingDate = dayjs(booking.start);
+      const currentDate = dayjs();
+
+      if (bookingDate.isBefore(currentDate, 'day')) {
+        disableOrEnableForm(true);
+      }
+
       showBooking(booking);
     },
     eventContent: function(info) {
@@ -181,9 +188,20 @@ function removeErrors(): void {
   errorInputs.forEach(input => input.classList.remove('is-invalid'));
 }
 
+function disableOrEnableForm(status: boolean): void {
+  const btnSave = document.getElementById('btn-save') as HTMLFormElement;
+  const form = document.getElementById('bookingForm') as HTMLFormElement;
+  if (form) {
+    const inputs = form.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => input.disabled = status);
+  }
+  btnSave.disabled = status;
+}
+
 const modalOffcanvas = document.getElementById('bookingModal');
 modalOffcanvas?.addEventListener('hidden.bs.offcanvas', () => {
   removeErrors();
+  disableOrEnableForm(false);
 });
 
 document.addEventListener('DOMContentLoaded', initCalendar);
