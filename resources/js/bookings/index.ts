@@ -9,6 +9,7 @@ import { BookingData } from './bookingData'
 import { BookingService } from './bookingService.ts'
 import { BookingParams } from './bookingParams.ts'
 import { Offcanvas } from 'bootstrap'
+import { Response } from '../response/response.ts'
 
 async function initCalendar(): Promise<void> {
   const calendarEl = document.getElementById('calendar');
@@ -114,16 +115,8 @@ async function saveBooking(): Promise<void> {
   form.addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const errorMessages = document.querySelectorAll('.invalid-feedback');
-    errorMessages.forEach(element => element.remove());
-
-    const errorInputs = document.querySelectorAll('form-control, form-select');
-
-    errorInputs.forEach(element => {
-      console.log(element);
-        element.classList.remove('is-invalid');
-    });
-
+    removeErrors();
+    
     const formData = new FormData(form);
     const bookingParams: BookingParams = {
       customer_name: '',
@@ -142,26 +135,38 @@ async function saveBooking(): Promise<void> {
 
     const response = await BookingService.saveBooking(bookingParams);
     if (!response.success) {
-      for (const fieldName in response.data) {
-        const errorMessage = response.data[fieldName][0];
-        const inputElement = document.querySelector(`[name="${fieldName}"]`);
-        
-        if (inputElement) {
-          inputElement.classList.add('is-invalid');
-          const errorElement = document.createElement('div');
-          errorElement.textContent = errorMessage;
-          errorElement.classList.add('invalid-feedback');
-          
-          const existingErrorMessage = inputElement.parentNode.querySelector('.error-message');
-          if (existingErrorMessage) {
-            existingErrorMessage.remove();
-          }
-          
-          inputElement.parentNode.appendChild(errorElement);
-        }
-      }
+      showErrors(response);
     }
   });
+}
+
+function showErrors(response: Response): void {
+  for (const fieldName in response.data) {
+    const errorMessage = response.data[fieldName][0];
+    const inputElement = document.querySelector(`[name="${fieldName}"]`);
+    
+    if (inputElement) {
+      inputElement.classList.add('is-invalid');
+      const errorElement = document.createElement('div');
+      errorElement.textContent = errorMessage;
+      errorElement.classList.add('invalid-feedback');
+      
+      const existingErrorMessage = inputElement.parentNode.querySelector('.error-message');
+      if (existingErrorMessage) {
+        existingErrorMessage.remove();
+      }
+      
+      inputElement.parentNode.appendChild(errorElement);
+    }
+  }
+}
+
+function removeErrors(): void {
+  const errorMessages = document.querySelectorAll('.invalid-feedback');
+  errorMessages.forEach(element => element.remove());
+
+  const errorInputs = document.querySelectorAll('.is-invalid');
+  errorInputs.forEach(input => input.classList.remove('is-invalid'));
 }
 
 document.addEventListener('DOMContentLoaded', initCalendar);
