@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\BookingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\BookingController;
+use App\Http\Controllers\Api\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('bookings', [BookingController::class, 'store'])->name('bookings.store');
 Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
 Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+
+Route::get('customers', [CustomerController::class, 'findByName'])->name('customers.find');
