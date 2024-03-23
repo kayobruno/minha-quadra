@@ -115,6 +115,12 @@ async function saveBooking(): Promise<void> {
   form.addEventListener('submit', async function(event) {
     event.preventDefault();
 
+    const load = document.getElementById('load');
+    const btnSave = document.getElementById('btn-save');
+
+    load.style.display = 'block';
+    btnSave.disabled = true;
+
     removeErrors();
     
     const formData = new FormData(form);
@@ -133,14 +139,20 @@ async function saveBooking(): Promise<void> {
       bookingParams[key] = value;
     });
 
-    const response = await BookingService.saveBooking(bookingParams);
-    if (!response.success) {
-      showErrors(response);
+    try {
+      const response = await BookingService.saveBooking(bookingParams);
+      if (!response.success) {
+        showErrors(response);
+      }
+    } finally {
+      load.style.display = 'none';
+      btnSave.disabled = false;
     }
   });
 }
 
 function showErrors(response: Response): void {
+  console.log(response);
   for (const fieldName in response.data) {
     const errorMessage = response.data[fieldName][0];
     const inputElement = document.querySelector(`[name="${fieldName}"]`);

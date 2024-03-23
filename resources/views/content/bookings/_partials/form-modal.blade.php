@@ -63,7 +63,7 @@
       
       <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
         <div>
-          <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1">Salvar</button>
+          <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1" id="btn-save">Salvar <i class="bx bx-loader bx-spin" id="load" style="display: none;"></i></button>
         </div>
       </div>
     </form>
