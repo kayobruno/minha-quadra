@@ -10,6 +10,7 @@ import { BookingService } from './bookingService.ts'
 import { BookingParams } from './bookingParams.ts'
 import { Offcanvas } from 'bootstrap'
 import { Response } from '../response/response.ts'
+import { CustomerSerive } from '../customers/customerService.ts'
 
 async function initCalendar(): Promise<void> {
   const calendarEl = document.getElementById('calendar');
@@ -206,3 +207,44 @@ modalOffcanvas?.addEventListener('hidden.bs.offcanvas', () => {
 
 document.addEventListener('DOMContentLoaded', initCalendar);
 document.addEventListener('DOMContentLoaded', saveBooking);
+
+let timeoutId: NodeJS.Timeout;
+async function updateAutocompleteResultsDebounced(query: string): Promise<void> {
+  clearTimeout(timeoutId);
+
+  timeoutId = setTimeout(async () => {
+      await updateAutocompleteResults(query);
+  }, 300);
+}
+
+async function updateAutocompleteResults(query: string): Promise<void> {
+  const resultsContainer = document.getElementById('autocomplete-results');
+
+  resultsContainer.innerHTML = '';
+
+  if (query.length >= 3) {
+    const suggestions = await CustomerSerive.getCustomerByName(query);
+
+    suggestions.forEach(suggestion => {
+      const suggestionElement = document.createElement('div');
+      suggestionElement.textContent = suggestion.name + (suggestion.phone ? ' - ' + suggestion.phone : '');
+      suggestionElement.classList.add('suggestion');
+      resultsContainer.appendChild(suggestionElement);
+
+      suggestionElement.addEventListener('click', () => {
+        inputField.value = suggestion.name;
+
+        document.getElementById('customer_phone').value = suggestion.phone;
+        document.getElementById('customer_id').value = suggestion.id.toString();
+
+        resultsContainer.innerHTML = '';
+      });
+    });
+  }
+}
+
+const inputField = document.getElementById('customer_name') as HTMLInputElement;
+inputField.addEventListener('input', (event) => {
+    const query = inputField.value;
+    updateAutocompleteResultsDebounced(query);
+});

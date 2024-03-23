@@ -9,14 +9,17 @@
       @csrf
       <div class="row mb-3">
         <div class="col-md-6">
-          <label class="form-label" for="customer_document">CPF</label>
-          <input type="text" class="form-control flatpickr-input" id="customer_document" name="customer_document" placeholder="000.000.000-00" required>
+          <label class="form-label" for="customer_name">Nome</label>
+          <input type="text" class="form-control flatpickr-input" id="customer_name" name="customer_name" placeholder="Nome">
+          <div id="autocomplete-results"></div>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label" for="customer_name">Nome</label>
-          <input type="text" class="form-control flatpickr-input" id="customer_name" name="customer_name" placeholder="Nome" required>
+          <label class="form-label" for="customer_phone">Telefone</label>
+          <input type="text" class="form-control flatpickr-input" id="customer_phone" name="customer_phone" placeholder="(99) 9 9999-9999" >
         </div>
+
+        <input type="hidden" name="customer_id" id="customer_id">
       </div>
 
       <div class="mb-3">
