@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Customer;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Customer\CustomerResource;
+use App\Models\Customer;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {

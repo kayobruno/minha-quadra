@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Http\Requests\Api;
 
 use App\Traits\Response;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 abstract class BaseRequest extends FormRequest
