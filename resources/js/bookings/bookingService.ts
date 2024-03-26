@@ -37,7 +37,7 @@ export class BookingService {
     static async saveBooking(bookingParams: BookingParams): Promise<Response> {
       try {
         const response: AxiosResponse<Response> = await axios.post('/api/bookings', bookingParams);
-        return response.data.data;
+        return response.data;
       } catch (error) {
         return {
             success: false,

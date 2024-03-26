@@ -70,6 +70,10 @@
           <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1" id="btn-save">Salvar <i class="bx bx-loader bx-spin" id="load" style="display: none;"></i></button>
         </div>
       </div>
+
+      <div class="alert alert-success" role="alert" id="success-message" style="display: none;">
+        Agendamento realizado com sucesso!
+      </div>
     </form>
   </div>
 </div>

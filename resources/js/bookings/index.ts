@@ -88,6 +88,52 @@ async function initCalendar(): Promise<void> {
   });
 
   calendar.render();  
+
+  const form = document.getElementById('bookingForm') as HTMLFormElement;
+
+  form.addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const load = document.getElementById('load');
+    const btnSave = document.getElementById('btn-save');
+
+    load.style.display = 'block';
+    btnSave.disabled = true;
+
+    removeErrors();
+    
+    const formData = new FormData(form);
+    const bookingParams: BookingParams = {
+      customer_name: '',
+      customer_document: '',
+      when: '',
+      start_time: '',
+      end_time: '',
+      court_id: 1,
+      sport: '',
+      status: ''
+    };
+
+    formData.forEach(function(value, key) {
+      bookingParams[key] = value;
+    });
+
+    try {
+      const response = await BookingService.saveBooking(bookingParams);
+      if (response.success == false) {
+        showErrors(response);
+        return;
+      }
+
+      calendar.addEvent(response.data);
+
+      const successMessage = document.getElementById('success-message');
+      successMessage.style.display = 'block';
+    } finally {
+      load.style.display = 'none';
+      btnSave.disabled = false;
+    }
+  });
 }
 
 function showBooking(booking: {}): void {
@@ -125,48 +171,6 @@ function setValuesToBookingForm(bookingData: BookingData): void {
   date.value = bookingData.when.format('DD/MM');
   customerName.value = bookingData.customerName;
   customerPhone.value = bookingData.customerPhone;
-}
-
-async function saveBooking(): Promise<void> {
-  const form = document.getElementById('bookingForm') as HTMLFormElement;
-
-  form.addEventListener('submit', async function(event) {
-    event.preventDefault();
-
-    const load = document.getElementById('load');
-    const btnSave = document.getElementById('btn-save');
-
-    load.style.display = 'block';
-    btnSave.disabled = true;
-
-    removeErrors();
-    
-    const formData = new FormData(form);
-    const bookingParams: BookingParams = {
-      customer_name: '',
-      customer_document: '',
-      when: '',
-      start_time: '',
-      end_time: '',
-      court_id: 1,
-      sport: '',
-      status: ''
-    };
-
-    formData.forEach(function(value, key) {
-      bookingParams[key] = value;
-    });
-
-    try {
-      const response = await BookingService.saveBooking(bookingParams);
-      if (!response.success) {
-        showErrors(response);
-      }
-    } finally {
-      load.style.display = 'none';
-      btnSave.disabled = false;
-    }
-  });
 }
 
 function showErrors(response: Response): void {
@@ -212,11 +216,12 @@ const modalOffcanvas = document.getElementById('bookingModal');
 modalOffcanvas?.addEventListener('hidden.bs.offcanvas', () => {
   removeErrors();
   disableOrEnableForm(false);
-
+  
+  const successMessage = document.getElementById('success-message');
+  successMessage.style.display = 'none';
 });
 
 document.addEventListener('DOMContentLoaded', initCalendar);
-document.addEventListener('DOMContentLoaded', saveBooking);
 
 let timeoutId: NodeJS.Timeout;
 async function updateAutocompleteResultsDebounced(query: string): Promise<void> {

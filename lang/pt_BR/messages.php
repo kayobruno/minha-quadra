@@ -28,6 +28,7 @@ return [
 
     'validation' => [
         'invalid' => ':attribute inválido!',
+        'unavailable' => ':field indisponível',
         'time' => [
             'before' => 'O horário inicial deve ser menor que o horário final.'
         ],
