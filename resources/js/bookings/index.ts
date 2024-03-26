@@ -70,10 +70,12 @@ async function initCalendar(): Promise<void> {
       }
 
       const bookingData: BookingData = {
-        when: dayjs(info.date).format('DD/MM'),
+        when: dayjs(info.date),
         start: dayjs().format('HH:mm'),
         end: dayjs().add(1, 'hour').format('HH:mm'),
         note: '',
+        customerName: '',
+        customerPhone: '',
       };
 
       setValuesToBookingForm(bookingData);
@@ -90,10 +92,11 @@ async function initCalendar(): Promise<void> {
 
 function showBooking(booking: {}): void {
   const bookingData: BookingData = {
-    when: dayjs(booking.start).format('DD/MM'),
+    when: dayjs(booking.start),
     start: dayjs(booking.start).format('HH:mm'),
     end: dayjs(booking.end).format('HH:mm'),
-    customerId: booking.customer.id,
+    customerName: booking.customer.name,
+    customerPhone: booking.customer.phone,
     courtId: booking.court.id,
     sport: booking.sport.value,
     note: booking.note
@@ -109,13 +112,19 @@ function setValuesToBookingForm(bookingData: BookingData): void {
   const sportSelect = document.getElementById('sport') as HTMLSelectElement;
   const note = document.getElementById('note') as HTMLTextAreaElement;
   const when = document.getElementById('when') as HTMLInputElement;
+  const date = document.getElementById('date') as HTMLInputElement;
+  const customerName = document.getElementById('customer_name') as HTMLInputElement;
+  const customerPhone = document.getElementById('customer_phone') as HTMLInputElement;
 
   startInput.value = bookingData.start;
   endInput.value = bookingData.end;
   courtSelect.value = bookingData.courtId;
   sportSelect.value = bookingData.sport;
   note.value = bookingData.note;
-  when.value = bookingData.when;
+  when.value = bookingData.when.format('YYYY-MM-DD');
+  date.value = bookingData.when.format('DD/MM');
+  customerName.value = bookingData.customerName;
+  customerPhone.value = bookingData.customerPhone;
 }
 
 async function saveBooking(): Promise<void> {
@@ -203,6 +212,7 @@ const modalOffcanvas = document.getElementById('bookingModal');
 modalOffcanvas?.addEventListener('hidden.bs.offcanvas', () => {
   removeErrors();
   disableOrEnableForm(false);
+
 });
 
 document.addEventListener('DOMContentLoaded', initCalendar);

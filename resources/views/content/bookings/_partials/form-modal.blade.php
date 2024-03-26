@@ -45,8 +45,9 @@
       </div>
 
       <div class="mb-3 fv-plugins-icon-container">
-        <label class="form-label" for="when">Data</label>
-        <input type="text" class="form-control flatpickr-input" id="when" name="when" placeholder="01/12" readonly>
+        <label class="form-label" for="date">Data</label>
+        <input type="text" class="form-control flatpickr-input" id="date" name="date" placeholder="01/12" readonly>
+        <input type="hidden" id="when" name="when">
       </div>
 
       <div class="mb-3 fv-plugins-icon-container">

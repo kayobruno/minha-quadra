@@ -1,8 +1,9 @@
 export interface BookingData {
-    when?: string | null,
+    when?: any,
     start?: string | null;
     end?: string | null;
-    customerId?: string | null,
+    customerName?: string | null,
+    customerPhone?: string | null,
     courtId?: string | null,
     sport?: string | null,
     note?: string | null,
