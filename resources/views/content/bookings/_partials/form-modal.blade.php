@@ -7,6 +7,9 @@
   <div class="offcanvas-body">
     <form class="event-form pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="bookingForm" onsubmit="return false" novalidate="novalidate">
       @csrf
+
+      <input type="hidden" name="booking_id" id="booking_id">
+
       <div class="row mb-3">
         <div class="col-md-6">
           <label class="form-label" for="customer_name">Nome</label>

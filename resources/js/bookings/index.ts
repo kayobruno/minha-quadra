@@ -129,6 +129,9 @@ async function initCalendar(): Promise<void> {
 
       const successMessage = document.getElementById('success-message');
       successMessage.style.display = 'block';
+
+      const bookingId = document.getElementById('booking_id') as HTMLInputElement;
+      bookingId.value = response.data.id;
     } finally {
       load.style.display = 'none';
       btnSave.disabled = false;
@@ -138,6 +141,7 @@ async function initCalendar(): Promise<void> {
 
 function showBooking(booking: {}): void {
   const bookingData: BookingData = {
+    id: booking.id,
     when: dayjs(booking.start),
     start: dayjs(booking.start).format('HH:mm'),
     end: dayjs(booking.end).format('HH:mm'),
@@ -161,6 +165,11 @@ function setValuesToBookingForm(bookingData: BookingData): void {
   const date = document.getElementById('date') as HTMLInputElement;
   const customerName = document.getElementById('customer_name') as HTMLInputElement;
   const customerPhone = document.getElementById('customer_phone') as HTMLInputElement;
+  const bookingId = document.getElementById('booking_id') as HTMLInputElement;
+
+  if (bookingData.id !== null && bookingData.id !== undefined) {
+    bookingId.value = bookingData.id;
+  }
 
   startInput.value = bookingData.start;
   endInput.value = bookingData.end;
@@ -219,6 +228,9 @@ modalOffcanvas?.addEventListener('hidden.bs.offcanvas', () => {
   
   const successMessage = document.getElementById('success-message');
   successMessage.style.display = 'none';
+
+  const bookingId = document.getElementById('booking_id') as HTMLInputElement;
+  bookingId.value = '';
 });
 
 document.addEventListener('DOMContentLoaded', initCalendar);
