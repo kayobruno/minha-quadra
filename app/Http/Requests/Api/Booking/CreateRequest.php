@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Api\Booking;
 
-use App\Enums\BookingStatus;
 use App\Enums\Sport;
 use App\Http\Requests\Api\BaseRequest;
 use App\Rules\TimeBeforeRule;
@@ -27,7 +26,6 @@ class CreateRequest extends BaseRequest
             'start_time' => ['required', 'date_format:H:i', new TimeBeforeRule('end_time')],
             'end_time' => ['required', 'date_format:H:i'],
             'sport' => ['required', Rule::in(Sport::all())],
-            // 'status' => ['required', Rule::in(BookingStatus::all())],
             'note' => 'nullable',
         ];
     }

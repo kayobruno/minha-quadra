@@ -48,7 +48,7 @@ readonly class BookingDataParam implements DataParam
             $startTime,
             $endTime,
             $totalHours,
-            BookingStatus::Pending->value,
+            BookingStatus::Confirm->value,
             $request->input('note'),
         );
     }
