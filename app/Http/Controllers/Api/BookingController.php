@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\DataTransferObjects\BookingDataParam;
+use App\DataTransferObjects\BookingFilter;
 use App\DataTransferObjects\CustomerDataParam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Booking\CreateRequest;
@@ -31,6 +32,13 @@ class BookingController extends Controller
 
     public function createOrUpdate(CreateRequest $request, CustomerService $customerService, BookingService $bookingService): JsonResponse
     {
+        $bookingFilter = BookingFilter::fromRequest($request);
+        if ($bookingService->hasConflictBetweenBookings($bookingFilter)) {
+            return $this->badRequest([
+                'start_time' => [__('messages.validation.unavailable', ['field' => 'horário'])],
+            ]);
+        }
+
         if (empty($request->input('customer_id'))) {
             $customerDataParam = CustomerDataParam::fromRequest($request);
             $customer = $customerService->createCustomer($customerDataParam);
@@ -38,12 +46,6 @@ class BookingController extends Controller
         }
 
         $bookingDataParam = BookingDataParam::fromRequest($request);
-        if ($bookingService->hasConflictBetweenBookings($bookingDataParam)) {
-            return $this->badRequest([
-                'start_time' => [__('messages.validation.unavailable', ['field' => 'horário'])],
-            ]);
-        }
-
         $booking = $bookingService->createBooking($bookingDataParam);
 
         return $this->success(new BookingResource($booking));

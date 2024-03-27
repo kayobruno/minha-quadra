@@ -42,8 +42,8 @@ readonly class BookingDataParam implements DataParam
         $totalHours = $diff->h;
 
         return new self(
-            $request->input('court_id'),
-            $request->input('customer_id'),
+            (string) $request->input('customer_id'),
+            (string) $request->input('court_id'),
             $request->input('sport'),
             $startTime,
             $endTime,

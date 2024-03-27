@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Models\Customer;
 use App\Contracts\CustomerRepository;
 use App\DataTransferObjects\CustomerDataParam;
+use App\Models\Customer;
 
 class CustomerService
 {

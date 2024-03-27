@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Contracts\BookingRepository;
 use App\DataTransferObjects\BookingDataParam;
+use App\DataTransferObjects\BookingFilter;
 use App\Models\Booking;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -20,9 +21,9 @@ class BookingService
         return $this->bookingRepository->save($bookingDataParam);
     }
 
-    public function hasConflictBetweenBookings(BookingDataParam $bookingDataParam): bool
+    public function hasConflictBetweenBookings(BookingFilter $bookingFilter): bool
     {
-        return $this->bookingRepository->hasConflictBetweenBookings($bookingDataParam);
+        return $this->bookingRepository->hasConflictBetweenBookings($bookingFilter);
     }
 
     public function getBookingsBetweenDates(string $starDate, string $endDate): Collection

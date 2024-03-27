@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Models\Booking;
-use App\Contracts\DataParam;
 use App\Contracts\BookingRepository;
-use Illuminate\Database\Eloquent\Model;
+use App\Contracts\DataParam;
+use App\DataTransferObjects\BookingFilter;
+use App\Models\Booking;
 use Illuminate\Database\Eloquent\Collection;
-use App\DataTransferObjects\BookingDataParam;
+use Illuminate\Database\Eloquent\Model;
 
 class BookingEloquentRepository implements BookingRepository
 {
@@ -42,22 +42,22 @@ class BookingEloquentRepository implements BookingRepository
         $booking->delete();
     }
 
-    public function hasConflictBetweenBookings(BookingDataParam $bookingDataParam): bool
+    public function hasConflictBetweenBookings(BookingFilter $bookingFilter): bool
     {
-        return Booking::where('court_id', $bookingDataParam->courtId)
-            ->where('merchant_id', $bookingDataParam->merchantId)
-            ->where(function ($query) use ($bookingDataParam) {
-                $query->where(function ($q) use ($bookingDataParam) {
-                    $q->where('start_datetime', '<=', $bookingDataParam->startDatetime)
-                    ->where('end_datetime', '>', $bookingDataParam->startDatetime);
+        return Booking::where('court_id', $bookingFilter->courtId)
+            ->where('merchant_id', $bookingFilter->merchantId)
+            ->where(function ($query) use ($bookingFilter) {
+                $query->where(function ($q) use ($bookingFilter) {
+                    $q->where('start_datetime', '<=', $bookingFilter->startDatetime)
+                    ->where('end_datetime', '>', $bookingFilter->startDatetime);
                 })
-                ->orWhere(function ($q) use ($bookingDataParam) {
-                    $q->where('start_datetime', '<', $bookingDataParam->endDatetime)
-                        ->where('end_datetime', '>=', $bookingDataParam->endDatetime);
+                ->orWhere(function ($q) use ($bookingFilter) {
+                    $q->where('start_datetime', '<', $bookingFilter->endDatetime)
+                        ->where('end_datetime', '>=', $bookingFilter->endDatetime);
                 })
-                ->orWhere(function ($q) use ($bookingDataParam) {
-                    $q->where('start_datetime', '>=', $bookingDataParam->startDatetime)
-                        ->where('end_datetime', '<=', $bookingDataParam->endDatetime);
+                ->orWhere(function ($q) use ($bookingFilter) {
+                    $q->where('start_datetime', '>=', $bookingFilter->startDatetime)
+                        ->where('end_datetime', '<=', $bookingFilter->endDatetime);
                 });
             })
             ->exists();

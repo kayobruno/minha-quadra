@@ -16,7 +16,7 @@ readonly class CustomerDataParam implements DataParam
 
     public function __construct(
         public string $name,
-        public string $phone,
+        public ?string $phone,
     ) {
         $this->merchantId = '1'; // TODO: Get from user logged
     }
