@@ -21,6 +21,11 @@ class BookingService
         return $this->bookingRepository->save($bookingDataParam);
     }
 
+    public function updateBooking(BookingDataParam $bookingDataParam, string $bookingId): Booking
+    {
+        return $this->bookingRepository->update($bookingId, $bookingDataParam);
+    }
+
     public function hasConflictBetweenBookings(BookingFilter $bookingFilter): bool
     {
         return $this->bookingRepository->hasConflictBetweenBookings($bookingFilter);

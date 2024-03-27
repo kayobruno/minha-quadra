@@ -45,6 +45,9 @@ class BookingEloquentRepository implements BookingRepository
     public function hasConflictBetweenBookings(BookingFilter $bookingFilter): bool
     {
         return Booking::where('court_id', $bookingFilter->courtId)
+            ->when($bookingFilter->bookingId, function ($query) use ($bookingFilter) {
+                return $query->where('id', '!=', $bookingFilter->bookingId);
+            })
             ->where('merchant_id', $bookingFilter->merchantId)
             ->where(function ($query) use ($bookingFilter) {
                 $query->where(function ($q) use ($bookingFilter) {

@@ -46,7 +46,11 @@ class BookingController extends Controller
         }
 
         $bookingDataParam = BookingDataParam::fromRequest($request);
-        $booking = $bookingService->createBooking($bookingDataParam);
+        if ($request->input('booking_id') && is_numeric($request->input('booking_id'))) {
+            $booking = $bookingService->updateBooking($bookingDataParam, $request->input('booking_id'));
+        } else {
+            $booking = $bookingService->createBooking($bookingDataParam);
+        }
 
         return $this->success(new BookingResource($booking));
     }

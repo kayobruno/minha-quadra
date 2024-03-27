@@ -96,7 +96,9 @@ async function initCalendar(): Promise<void> {
 
     const load = document.getElementById('load');
     const btnSave = document.getElementById('btn-save');
+    const successMessage = document.getElementById('success-message');
 
+    successMessage.style.display = 'none';
     load.style.display = 'block';
     btnSave.disabled = true;
 
@@ -125,9 +127,12 @@ async function initCalendar(): Promise<void> {
         return;
       }
 
-      calendar.addEvent(response.data);
+      const oldBooking = calendar.getEventById(response.data.id);
+      if (oldBooking) {
+        oldBooking.remove();
+      }
 
-      const successMessage = document.getElementById('success-message');
+      calendar.addEvent(response.data);
       successMessage.style.display = 'block';
 
       const bookingId = document.getElementById('booking_id') as HTMLInputElement;

@@ -14,6 +14,7 @@ readonly class BookingFilter
         public string $courtId,
         public string $startDatetime,
         public string $endDatetime,
+        public ?string $bookingId = null,
         public ?string $sport = null,
         public ?string $status = null,
     ) {
@@ -29,6 +30,7 @@ readonly class BookingFilter
             $request->input('court_id'),
             $startTime,
             $endTime,
+            $request->input('booking_id'),
             $request->input('sport'),
             $request->input('status')
         );

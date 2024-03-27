@@ -75,7 +75,7 @@
       </div>
 
       <div class="alert alert-success" role="alert" id="success-message" style="display: none;">
-        Agendamento realizado com sucesso!
+        Agendamento salvo com sucesso!
       </div>
     </form>
   </div>
