@@ -22,7 +22,11 @@ class TimeBeforeRule implements ValidationRule
     {
         $endTime = request()->input($this->endTimeField);
         if (strtotime($value) >= strtotime($endTime)) {
-            $fail(__('messages.validation.time.before', [':attrivute' => $attribute]));
+            $fail(__('messages.validation.time.before'));
+        }
+
+        if (strtotime($value) < strtotime(date('H:m'))) {
+            $fail(__('messages.validation.time.past'));
         }
     }
 }

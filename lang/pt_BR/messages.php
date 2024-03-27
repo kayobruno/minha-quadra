@@ -30,7 +30,8 @@ return [
         'invalid' => ':attribute inválido!',
         'unavailable' => ':field indisponível',
         'time' => [
-            'before' => 'O horário inicial deve ser menor que o horário final.'
+            'before' => 'O horário inicial deve ser menor que o horário final.',
+            'past' =>  'O horário inicial não pode ser no passado.',
         ],
     ],
 
