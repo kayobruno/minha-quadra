@@ -14,8 +14,7 @@ class CustomerController extends Controller
 {
     public function findByName(Request $request): JsonResponse
     {
-        // TODO: Get merchant ID by logged in user
-        $merchantId = 1;
+        $merchantId = auth()->user()->merchant_id;
         $name = $request->input('name', '');
         $customers = Customer::where('merchant_id', $merchantId)->where('name', 'like', "%{$name}%")->get();
         if (!$customers) {

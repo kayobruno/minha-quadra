@@ -18,7 +18,7 @@ readonly class BookingFilter
         public ?string $sport = null,
         public ?string $status = null,
     ) {
-        $this->merchantId = '1'; // TODO: Get from logged user
+        $this->merchantId = (string) auth()->user()->merchant_id;
     }
 
     public static function fromRequest(Request $request): self

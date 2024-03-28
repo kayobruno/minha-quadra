@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\CustomerController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,12 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::namespace('Admin')->middleware('auth:sanctum')->group(function () {
+    Route::post('bookings', [BookingController::class, 'createOrUpdate'])->name('bookings.store');
+    Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
+    Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
+
+    Route::get('customers', [CustomerController::class, 'findByName'])->name('customers.find');
 });
-
-Route::post('bookings', [BookingController::class, 'createOrUpdate'])->name('bookings.store');
-Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
-Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
-
-Route::get('customers', [CustomerController::class, 'findByName'])->name('customers.find');
