@@ -21,4 +21,5 @@ Route::namespace('Admin')->middleware('auth:sanctum')->group(function () {
     Route::get('bookings/{booking}', [BookingController::class, 'show'])->name('bookings.show');
 
     Route::get('customers', [CustomerController::class, 'findByName'])->name('customers.find');
+    Route::get('bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
 });
