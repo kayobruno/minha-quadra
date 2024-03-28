@@ -69,7 +69,7 @@ class BookingEloquentRepository implements BookingRepository
     public function getBookingsBetweenDates(string $starDate, string $endDate): Collection
     {
         return Booking::with('customer', 'user', 'court')
-            ->where('merchant_id', '1') // TODO: Get from user logged
+            ->where('merchant_id', auth()->user()->merchant_id)
             ->where('start_datetime', '>=', $starDate)
             ->where('end_datetime', '<=', $endDate)
             ->orderBy('start_datetime', 'asc')

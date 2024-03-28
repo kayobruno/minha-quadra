@@ -18,7 +18,7 @@ readonly class CustomerDataParam implements DataParam
         public string $name,
         public ?string $phone,
     ) {
-        $this->merchantId = '1'; // TODO: Get from user logged
+        $this->merchantId = (string) auth()->user()->merchant_id;
     }
 
     public static function fromRequest(Request $request): self

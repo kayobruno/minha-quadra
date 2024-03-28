@@ -26,12 +26,11 @@ class BookingController extends Controller
 
     public function create()
     {
-        $statuses = BookingStatus::getInitialStatuses();
         $customers = Customer::get();
         $courts = Court::get();
         $sports = Sport::cases();
 
-        return view('content.bookings.create', compact('statuses', 'customers', 'courts', 'sports'));
+        return view('content.bookings.create', compact('customers', 'courts', 'sports'));
     }
 
     public function store(CreateRequest $request)
