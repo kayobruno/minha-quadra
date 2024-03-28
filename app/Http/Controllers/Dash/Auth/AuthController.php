@@ -26,6 +26,10 @@ class AuthController extends Controller
             return redirect()->back()->with('error', __('messages.errors.unauthorized'));
         }
 
+        $user = Auth::user();
+        $token = $user->createToken('admin-access')->plainTextToken;
+        $request->session()->put('token', $token);
+
         return redirect()->intended();
     }
 
