@@ -70,13 +70,12 @@
       
       <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
         <div>
-          <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1" id="btn-save">Salvar <i class="bx bx-loader bx-spin" id="load" style="display: none;"></i></button>
+          <button type="submit" class="btn btn-primary btn-add-event me-sm-3 me-1" id="btn-save"><i class="bx bx-save me-1"></i> Salvar <i class="bx bx-loader bx-spin loading" id="load" style="display: none;"></i></button>
+          <a class="btn btn-danger" href="javascript:;" id="btn-cancel"><i class="bx bx-trash me-1"></i> Cancelar <i class="bx bx-loader bx-spin loading" id="load" style="display: none;"></i></a>
         </div>
       </div>
 
-      <div class="alert alert-success" role="alert" id="success-message" style="display: none;">
-        Agendamento salvo com sucesso!
-      </div>
+      <div id="alerts-container"></div>
     </form>
   </div>
 </div>

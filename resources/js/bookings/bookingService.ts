@@ -46,4 +46,18 @@ export class BookingService {
         };
       }
     }
+
+    static async cancelBooking(bookingId: string): Promise<Response> {
+      try {
+        const response: AxiosResponse<Response> = await axios.get(`/api/bookings/${bookingId}/cancel`);
+    
+        return response.data.data;
+      } catch (error) {
+        return {
+          success: false,
+          message: error.response.data.message,
+          data: error.response.data.data
+        };
+      }
+    }
 }

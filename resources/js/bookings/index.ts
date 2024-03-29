@@ -31,6 +31,9 @@ async function initCalendar(): Promise<void> {
       }
 
       showBooking(booking);
+      if (bookingDate.isBefore(currentDate, 'day') === false) {
+        checkBookingIdInput();
+      }
     },
     eventContent: function(info) {
       const start = dayjs(info.event.start);
@@ -90,17 +93,14 @@ async function initCalendar(): Promise<void> {
   calendar.render();  
 
   const form = document.getElementById('bookingForm') as HTMLFormElement;
-
   form.addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    const load = document.getElementById('load');
+    const alertsContainer = document.getElementById('alerts-container');
     const btnSave = document.getElementById('btn-save');
-    const successMessage = document.getElementById('success-message');
 
-    successMessage.style.display = 'none';
-    load.style.display = 'block';
     btnSave.disabled = true;
+    alertsContainer.innerHTML = '';
 
     removeErrors();
     
@@ -133,15 +133,49 @@ async function initCalendar(): Promise<void> {
       }
 
       calendar.addEvent(response.data);
-      successMessage.style.display = 'block';
 
       const bookingId = document.getElementById('booking_id') as HTMLInputElement;
       bookingId.value = response.data.id;
+
+      const alertDiv = buildReponseMessage('success', 'Agendamento Salvo com Sucesso!');
+      alertsContainer.appendChild(alertDiv);
+
+      checkBookingIdInput();
     } finally {
-      load.style.display = 'none';
+      stopLoading();
       btnSave.disabled = false;
     }
   });
+
+  const btnCancelBooking = document.getElementById('btn-cancel');
+  if (btnCancelBooking) {
+    btnCancelBooking.addEventListener('click', async function() {
+      const bookingId = document.getElementById('booking_id') as HTMLInputElement;
+      const response = await BookingService.cancelBooking(bookingId.value);
+      stopLoading();
+  
+      const alertsContainer = document.getElementById('alerts-container');
+      alertsContainer.innerHTML = '';
+      
+      if (response.success === false) {
+        const errors = response.data.error;
+        errors.forEach((errorMessage: string) => {
+          const alertDiv = buildReponseMessage('danger', errorMessage);
+          alertsContainer.appendChild(alertDiv);
+        });
+
+        return;
+      }
+  
+      const booking = calendar.getEventById(response.id);
+      if (booking) {
+        booking.remove();
+      }
+  
+      resetForm();
+      checkBookingIdInput();
+    });
+  }
 }
 
 function showBooking(booking: {}): void {
@@ -204,6 +238,10 @@ function showErrors(response: Response): void {
       }
       
       inputElement.parentNode.appendChild(errorElement);
+    } else {
+      const alertsContainer = document.getElementById('alerts-container');
+      const alertDiv = buildReponseMessage('danger', errorMessage);
+      alertsContainer.appendChild(alertDiv);
     }
   }
 }
@@ -216,29 +254,51 @@ function removeErrors(): void {
   errorInputs.forEach(input => input.classList.remove('is-invalid'));
 }
 
+function buildReponseMessage(type: string, message: string): HTMLDivElement {
+  const alertDiv = document.createElement('div');
+  alertDiv.classList.add('alert', `alert-${type}`, 'alert-dismissible');
+  alertDiv.setAttribute('role', 'alert');
+  alertDiv.innerText = message;
+
+  const closeButton = document.createElement('button');
+  closeButton.setAttribute('type', 'button');
+  closeButton.classList.add('btn-close');
+  closeButton.setAttribute('data-bs-dismiss', 'alert');
+  closeButton.setAttribute('aria-label', 'Close');
+
+  alertDiv.appendChild(closeButton);
+
+  return alertDiv;
+}
+
 function disableOrEnableForm(status: boolean): void {
   const btnSave = document.getElementById('btn-save') as HTMLFormElement;
+  const btnCancel = document.getElementById('btn-cancel') as HTMLFormElement;
   const form = document.getElementById('bookingForm') as HTMLFormElement;
+
   if (form) {
     const inputs = form.querySelectorAll('input, select, textarea');
     inputs.forEach(input => input.disabled = status);
   }
+
   btnSave.disabled = status;
+  btnCancel.disabled = status;
 }
+
+document.addEventListener('DOMContentLoaded', initCalendar);
 
 const modalOffcanvas = document.getElementById('bookingModal');
 modalOffcanvas?.addEventListener('hidden.bs.offcanvas', () => {
   removeErrors();
   disableOrEnableForm(false);
   
-  const successMessage = document.getElementById('success-message');
-  successMessage.style.display = 'none';
+  const alertsContainer = document.getElementById('alerts-container');
+  alertsContainer.innerHTML = '';
 
   const bookingId = document.getElementById('booking_id') as HTMLInputElement;
   bookingId.value = '';
+  checkBookingIdInput();
 });
-
-document.addEventListener('DOMContentLoaded', initCalendar);
 
 let timeoutId: NodeJS.Timeout;
 async function updateAutocompleteResultsDebounced(query: string): Promise<void> {
@@ -277,6 +337,55 @@ async function updateAutocompleteResults(query: string): Promise<void> {
 
 const inputField = document.getElementById('customer_name') as HTMLInputElement;
 inputField.addEventListener('input', (event) => {
-    const query = inputField.value;
-    updateAutocompleteResultsDebounced(query);
+  const query = inputField.value;
+  updateAutocompleteResultsDebounced(query);
 });
+
+const handleClick = (event: MouseEvent) => {
+  const button = event.currentTarget as HTMLElement;
+
+  const loadElement = button.querySelector('.bx-loader');
+  if (loadElement) {
+    loadElement.style.display = 'inline-block';
+  }
+};
+
+const buttons = document.querySelectorAll('.btn');
+buttons.forEach(button => {
+  button.addEventListener('click', handleClick);
+});
+
+function stopLoading(): void {
+  const loads = document.querySelectorAll('.loading');
+  loads.forEach(load => {
+    load.style.display = 'none';
+  });
+}
+
+const checkBookingIdInput = () => {
+  const input = document.getElementById('booking_id') as HTMLInputElement;
+  const btnCancel = document.getElementById('btn-cancel');
+
+  if (input.value.trim() !== '') {
+    btnCancel.style.display = 'inline-block';
+  } else {
+    btnCancel.style.display = 'none';
+  }
+};
+
+const input = document.getElementById('booking_id') as HTMLInputElement;
+input.addEventListener('input', checkBookingIdInput);
+
+checkBookingIdInput();
+
+const resetForm = () => {
+  const form = document.getElementById('bookingForm') as HTMLFormElement;
+  const elements = form.elements;
+
+  for (let i = 0; i < elements.length; i++) {
+    const element = elements[i] as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+    if (element.name !== 'when' && element.name !== 'date') {
+      element.value = '';
+    }
+  }
+};

@@ -33,7 +33,7 @@ return [
             'before' => 'O horário inicial deve ser menor que o horário final.',
             'past' =>  'O horário inicial não pode ser no passado.',
         ],
-        'notallowed' => 'O status atual não permite realizar alterações!',
+        'notallowed' => 'Não é permitido realizar alterações!',
     ],
 
 ];
