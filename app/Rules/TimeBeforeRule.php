@@ -9,7 +9,7 @@ use Illuminate\Contracts\Validation\ValidationRule;
 
 class TimeBeforeRule implements ValidationRule
 {
-    public function __construct(protected string $endTimeField)
+    public function __construct(protected string $endTimeField, protected string $when)
     {
     }
 
@@ -25,7 +25,7 @@ class TimeBeforeRule implements ValidationRule
             $fail(__('messages.validation.time.before'));
         }
 
-        if (strtotime($value) < strtotime(date('H:m'))) {
+        if (strtotime("{$this->when} {$value}") < strtotime(date('Y-m-d H:m'))) {
             $fail(__('messages.validation.time.past'));
         }
     }
