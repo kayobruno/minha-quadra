@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api;
 
+use App\DataTransferObjects\BookingDataParam;
+use App\DataTransferObjects\BookingFilter;
+use App\DataTransferObjects\CustomerDataParam;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Booking\CreateRequest;
+use App\Http\Resources\Booking\BookingResource;
 use App\Models\Booking;
-use Illuminate\Http\Request;
 use App\Services\BookingService;
 use App\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller;
-use App\DataTransferObjects\BookingFilter;
-use App\DataTransferObjects\BookingDataParam;
-use App\DataTransferObjects\CustomerDataParam;
-use App\Http\Resources\Booking\BookingResource;
-use App\Http\Requests\Api\Booking\CreateRequest;
+use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
@@ -22,8 +22,9 @@ class BookingController extends Controller
     {
         try {
             $bookings = $bookingService->getBookingsBetweenDates($request->input('start'), $request->input('end'));
+
             return $this->success(BookingResource::collection($bookings));
-        } catch(\Exception) {
+        } catch (\Exception) {
             return $this->buildUnavailableResponse();
         }
     }
@@ -32,7 +33,7 @@ class BookingController extends Controller
     {
         try {
             return $this->success(new BookingResource($booking));
-        } catch(\Exception) {
+        } catch (\Exception) {
             return $this->buildUnavailableResponse();
         }
     }
@@ -63,7 +64,7 @@ class BookingController extends Controller
             return $this->success(new BookingResource($booking));
         } catch (\LogicException $e) {
             return $this->badRequest(['error' => [$e->getMessage()]]);
-        } catch(\Exception) {
+        } catch (\Exception) {
             return $this->buildUnavailableResponse();
         }
     }
@@ -74,11 +75,11 @@ class BookingController extends Controller
             if (!$bookingService->canUpdateBooking($booking)) {
                 return $this->badRequest(['error' => [__('messages.validation.notallowed')]]);
             }
-    
+
             $bookingService->cancelBooking((string) $booking->id);
-    
+
             return $this->success(new BookingResource($booking));
-        } catch(\Exception) {
+        } catch (\Exception) {
             return $this->buildUnavailableResponse();
         }
     }
