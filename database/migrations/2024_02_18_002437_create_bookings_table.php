@@ -23,7 +23,7 @@ return new class extends Migration {
             $table->dateTime('end_datetime');
             $table->integer('total_hours');
             $table->text('note')->nullable();
-            $table->enum('status', BookingStatus::all())->default(BookingStatus::Pending->value);
+            $table->enum('status', BookingStatus::all())->default(BookingStatus::Confirm->value);
             $table->timestamps();
         });
     }
