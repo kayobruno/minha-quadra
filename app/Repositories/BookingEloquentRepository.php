@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Contracts\BookingRepository;
 use App\Contracts\DataParam;
 use App\DataTransferObjects\BookingFilter;
+use App\Enums\BookingStatus;
 use App\Models\Booking;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -63,6 +64,7 @@ class BookingEloquentRepository implements BookingRepository
                         ->where('end_datetime', '<=', $bookingFilter->endDatetime);
                 });
             })
+            ->whereNotIn('status', [BookingStatus::Canceled->value, BookingStatus::Finished->value])
             ->exists();
     }
 
