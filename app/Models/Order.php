@@ -43,4 +43,14 @@ class Order extends Model
     {
         return $this->belongsTo(Customer::class, 'customer_id');
     }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    public function isPaid(): bool
+    {
+        return $this->status === OrderStatus::Paid;
+    }
 }
