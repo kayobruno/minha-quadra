@@ -13,7 +13,7 @@
 <!-- Basic Bootstrap Table -->
 <div class="card">
   <h5 class="card-header">
-    <a class="btn btn-primary me-2" href="">
+    <a class="btn btn-primary me-2" href="{{ route('orders.create') }}">
       <i class='bx bxs-add-to-queue'></i> Cadastrar
     </a>
   </h5>
@@ -36,7 +36,21 @@
           @foreach ($orders as $order)
           <tr>
             <td>{{ $order->id }}</td>
-            <td>{{ $order->customer->name }}</td>
+            <td>
+              <div class="d-flex justify-content-start align-items-center">
+                <div class="avatar-wrapper">
+                  <div class="avatar avatar-sm me-2">
+                    <span class="avatar-initial rounded-circle bg-label-primary">{{ $order->customer->getInitials() }}</span>
+                  </div>
+                </div>
+                <div class="d-flex flex-column">
+                  <a href="{{ route('customers.edit', $order->customer) }}" class="text-body text-truncate">
+                    <span class="fw-medium">{{ $order->customer->name }}</span>
+                  </a>
+                  <small class="text-truncate text-muted">{{ $order->customer->phone }}</small>
+                </div>
+              </div>
+            </td>
             <td><span class="badge badge-center bg-primary"><b>{{ $order->tab ?? '#' }}</b></span></td>
             <td>R$ @money($order->total_amount)</td>
             <td>{!! $order->status->tag() !!}</td>
@@ -45,7 +59,11 @@
               <div class="dropdown">
                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                 <div class="dropdown-menu">
-                  <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Editar</a>
+                  @if($order->isPaid())
+                    <a class="dropdown-item" href=""><i class="bx bx-show mx-1"></i> Visualizar</a>
+                  @else
+                    <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Editar</a>
+                  @endif
                 </div>
               </div>
             </td>
