@@ -7,6 +7,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Customer extends Model
 {
@@ -23,6 +24,11 @@ class Customer extends Model
         return $this->belongsTo(Merchant::class, 'id');
     }
 
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public function getInitials(): string
     {
         $nameParts = explode(' ', $this->name);
@@ -31,5 +37,10 @@ class Customer extends Model
         }, array_filter($nameParts));
 
         return implode('', $initialsArray);
+    }
+
+    public function getTotalOrders(): int
+    {
+        return $this->orders()->count();
     }
 }
