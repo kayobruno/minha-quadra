@@ -23,7 +23,7 @@ class CreateRequest extends BaseRequest
             'customer_name' => 'required|max:255',
             'customer_phone' => ['nullable', 'max:16'],
             'when' => ['required', 'date_format:Y-m-d', 'after_or_equal:today'],
-            'start_time' => ['required', 'date_format:H:i', new TimeBeforeRule('end_time', $this->input('when', ''))],
+            'start_time' => ['required', 'date_format:H:i', new TimeBeforeRule('end_time', $this->input('when') ?? '')],
             'end_time' => ['required', 'date_format:H:i'],
             'sport' => ['required', Rule::in(Sport::all())],
             'note' => 'nullable',
