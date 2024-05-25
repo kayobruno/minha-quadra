@@ -23,6 +23,7 @@
               <th>#</th>
               <th>Nome</th>
               <th>Preço</th>
+              <th>Tipo</th>
               <th>Estoque</th>
               <th>Status</th>
               <th>Ações</th>
@@ -35,6 +36,7 @@
               <td>{{ $product->id }}</td>
               <td>{{ $product->name }}</td>
               <td>R$ @money($product->price)</td>
+              <td>{{ $product->type->label() }}</td>
               <td>{{ $product->stock }}</td>
               <td>{!! $product->status->tag() !!}</td>
               <td>
