@@ -69,4 +69,6 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
     Route::put('bookings/{booking}/update', [BookingController::class, 'update'])->name('bookings.update');
 
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
+    Route::get('orders/create', [OrderController::class, 'create'])->name('orders.create');
+    Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.view');
 });

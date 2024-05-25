@@ -132,6 +132,7 @@ mixAssetsDir('css/**/*.css', (src, dest) => mix.copy(src, dest));
 
 mix.js('resources/js/bookings/index.ts', 'public/assets/js/bookings/index.js');
 mix.css('resources/css/bookings/index.css', 'public/assets/css/bookings/index.css');
+mix.css('resources/css/orders/timeline.css', 'public/assets/css/orders/timeline.css');
 
 mix.copy('node_modules/boxicons/fonts/*', 'public/assets/vendor/fonts/boxicons');
 

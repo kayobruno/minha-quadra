@@ -15,4 +15,14 @@ class OrderController extends Controller
 
         return view('content.orders.index', compact('orders'));
     }
+
+    public function create()
+    {
+        return view('content.orders.create');
+    }
+
+    public function show(Order $order)
+    {
+        return view('content.orders.view', compact('order'));
+    }
 }
