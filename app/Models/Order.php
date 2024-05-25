@@ -22,6 +22,7 @@ class Order extends Model
         'user_id',
         'merchant_id',
         'customer_id',
+        'payment_method_id',
         'subtotal',
         'total_amount',
         'total_discount',
@@ -46,11 +47,26 @@ class Order extends Model
 
     public function activities(): HasMany
     {
-        return $this->hasMany(Activity::class);
+        return $this->hasMany(Activity::class)->orderBy('id', 'desc');
+    }
+
+    public function paymentMethod(): BelongsTo
+    {
+        return $this->belongsTo(PaymentMethod::class, 'payment_method_id');
     }
 
     public function isPaid(): bool
     {
         return $this->status === OrderStatus::Paid;
+    }
+
+    public function getSubtotal(): float
+    {
+        $subtotal = 0;
+        foreach ($this->items as $item) {
+            $subtotal += $item->getTotal();
+        }
+
+        return $subtotal;
     }
 }
