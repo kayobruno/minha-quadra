@@ -19,4 +19,9 @@ class OrderItem extends Model
         'product_discount',
         'quantity',
     ];
+
+    public function getTotal(): float
+    {
+        return $this->quantity * $this->product_price;
+    }
 }
