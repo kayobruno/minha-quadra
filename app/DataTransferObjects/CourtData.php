@@ -12,10 +12,13 @@ class CourtData implements DataParam
 {
     use ToArray;
 
+    public string $merchantId;
+
     public function __construct(
         public readonly string $name,
-        public readonly string $color,
+        public readonly ?string $color = null,
     ) {
+        $this->merchantId = (string) auth()->user()->merchant_id;
     }
 
     public static function fromRequest(Request $request): self

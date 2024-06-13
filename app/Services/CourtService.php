@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Contracts\CourtRepository;
 use App\DataTransferObjects\CourtData;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +19,11 @@ class CourtService
     public function getAll(): Collection
     {
         return $this->courtRepository->getAll();
+    }
+
+    public function paginate(): LengthAwarePaginator
+    {
+        return $this->courtRepository->paginate();
     }
 
     public function save(CourtData $courtData): Model

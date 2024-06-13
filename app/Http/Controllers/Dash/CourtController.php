@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dash;
 
+use App\DataTransferObjects\CourtData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Court\CreateRequest;
 use App\Http\Requests\Dash\Court\UpdateRequest;
 use App\Models\Court;
+use App\Services\CourtService;
 
 class CourtController extends Controller
 {
+    public function __construct(private readonly CourtService $courtService)
+    {
+    }
+
     public function index()
     {
-        $courts = Court::paginate(10);
+        $courts = $this->courtService->paginate();
 
         return view('content.courts.index', compact('courts'));
     }
@@ -25,8 +31,8 @@ class CourtController extends Controller
 
     public function store(CreateRequest $request)
     {
-        $data = array_merge($request->all(), ['merchant_id' => auth()->user()->merchant_id]);
-        Court::create($data);
+        $courtData = CourtData::fromRequest($request);
+        $this->courtService->save($courtData);
 
         session()->flash('message', __('messages.success.created'));
 
@@ -40,7 +46,9 @@ class CourtController extends Controller
 
     public function update(UpdateRequest $request, Court $court)
     {
-        $court->update($request->all());
+        $courtData = CourtData::fromRequest($request);
+        $this->courtService->update($court->id, $courtData);
+
         session()->flash('message', __('messages.success.updated'));
 
         return redirect()->back();
@@ -48,7 +56,7 @@ class CourtController extends Controller
 
     public function delete(Court $court)
     {
-        $court->delete();
+        $this->courtService->delete($court->id);
         session()->flash('message', __('messages.success.removed'));
 
         return redirect()->back();

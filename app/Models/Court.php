@@ -19,6 +19,10 @@ class Court extends Model
         'merchant_id',
     ];
 
+    protected $casts = [
+        'id' => 'string',
+    ];
+
     public function merchant(): BelongsTo
     {
         return $this->belongsTo(Merchant::class, 'id');
