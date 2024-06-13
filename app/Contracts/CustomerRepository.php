@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace App\Contracts;
 
-interface CustomerRepository extends RepositoryReadable, RepositoryWritable
+interface CustomerRepository extends RepositoryReadable, RepositoryWritable, QueryBuilder
 {
 }

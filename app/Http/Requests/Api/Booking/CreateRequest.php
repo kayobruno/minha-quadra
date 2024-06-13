@@ -20,8 +20,8 @@ class CreateRequest extends BaseRequest
     {
         return [
             'court_id' => 'required|exists:courts,id',
-            'customer_name' => 'required|max:255',
-            'customer_phone' => ['nullable', 'max:16'],
+            'name' => 'required|max:255',
+            'phone' => ['nullable', 'max:16'],
             'when' => ['required', 'date_format:Y-m-d', 'after_or_equal:today'],
             'start_time' => ['required', 'date_format:H:i', new TimeBeforeRule('end_time', $this->input('when') ?? '')],
             'end_time' => ['required', 'date_format:H:i'],
@@ -33,8 +33,8 @@ class CreateRequest extends BaseRequest
     public function attributes(): array
     {
         return [
-            'customer_name' => 'nome',
-            'customer_phone' => 'telefone',
+            'name' => 'nome',
+            'phone' => 'telefone',
             'when' => 'data',
             'start_time' => 'hora inicial',
             'end_time' => 'hora final',

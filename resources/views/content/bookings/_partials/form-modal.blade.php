@@ -12,14 +12,14 @@
 
       <div class="row mb-3">
         <div class="col-md-6">
-          <label class="form-label" for="customer_name">Nome</label>
-          <input type="text" class="form-control flatpickr-input" id="customer_name" name="customer_name" placeholder="Nome">
+          <label class="form-label" for="name">Nome</label>
+          <input type="text" class="form-control flatpickr-input" id="name" name="name" placeholder="Nome">
           <div id="autocomplete-results"></div>
         </div>
 
         <div class="col-md-6">
-          <label class="form-label" for="customer_phone">Telefone</label>
-          <input type="text" class="form-control flatpickr-input" id="customer_phone" name="customer_phone" placeholder="(99) 9 9999-9999" >
+          <label class="form-label" for="phone">Telefone</label>
+          <input type="text" class="form-control flatpickr-input" id="phone" name="phone" placeholder="(99) 9 9999-9999" >
         </div>
 
         <input type="hidden" name="customer_id" id="customer_id">

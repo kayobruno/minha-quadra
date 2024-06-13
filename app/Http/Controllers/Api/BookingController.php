@@ -50,7 +50,7 @@ class BookingController extends Controller
 
             if (empty($request->input('customer_id'))) {
                 $customerDataParam = CustomerDataParam::fromRequest($request);
-                $customer = $customerService->createCustomer($customerDataParam);
+                $customer = $customerService->save($customerDataParam);
                 $request->merge(['customer_id' => $customer->id]);
             }
 

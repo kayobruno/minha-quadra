@@ -1,6 +1,6 @@
 export interface BookingParams {
-    customer_name: string,
-    customer_document: string,
+    name: string,
+    phone: string,
     when: string,
     start_time: string,
     end_time: string,

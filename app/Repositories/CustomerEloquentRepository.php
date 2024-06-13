@@ -8,6 +8,7 @@ use App\Contracts\CustomerRepository;
 use App\Contracts\DataParam;
 use App\Models\Customer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -45,5 +46,10 @@ class CustomerEloquentRepository implements CustomerRepository
     {
         $customer = Customer::whereId($id)->first();
         $customer->delete();
+    }
+
+    public function builder(): Builder
+    {
+        return Customer::query();
     }
 }

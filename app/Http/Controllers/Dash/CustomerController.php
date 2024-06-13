@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dash;
 
+use App\DataTransferObjects\CustomerDataParam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Customers\CreateRequest;
 use App\Http\Requests\Dash\Customers\UpdateRequest;
 use App\Models\Customer;
+use App\Services\CustomerService;
 
 class CustomerController extends Controller
 {
+    public function __construct(private readonly CustomerService $customerService)
+    {
+    }
+
     public function index()
     {
-        $customers = Customer::paginate(10);
+        $customers = $this->customerService->paginate();
 
         return view('content.customers.index', compact('customers'));
     }
@@ -25,8 +31,8 @@ class CustomerController extends Controller
 
     public function store(CreateRequest $request)
     {
-        $data = array_merge($request->all(), ['merchant_id' => auth()->user()->merchant_id]);
-        Customer::create($data);
+        $customerData = CustomerDataParam::fromRequest($request);
+        $this->customerService->save($customerData);
 
         session()->flash('message', __('messages.success.created'));
 
@@ -40,7 +46,8 @@ class CustomerController extends Controller
 
     public function update(Customer $customer, UpdateRequest $request)
     {
-        $customer->update($request->all());
+        $customerData = CustomerDataParam::fromRequest($request);
+        $this->customerService->update($customer->id, $customerData);
         session()->flash('message', __('messages.success.updated'));
 
         return redirect()->back();
@@ -48,7 +55,7 @@ class CustomerController extends Controller
 
     public function delete(Customer $customer)
     {
-        $customer->delete();
+        $this->customerService->delete($customer->id);
         session()->flash('message', __('messages.success.removed'));
 
         return redirect()->back();

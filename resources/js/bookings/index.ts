@@ -77,8 +77,8 @@ async function initCalendar(): Promise<void> {
         start: dayjs().format('HH:mm'),
         end: dayjs().add(1, 'hour').format('HH:mm'),
         note: '',
-        customerName: '',
-        customerPhone: '',
+        name: '',
+        phone: '',
       };
 
       setValuesToBookingForm(bookingData);
@@ -106,8 +106,8 @@ async function initCalendar(): Promise<void> {
     
     const formData = new FormData(form);
     const bookingParams: BookingParams = {
-      customer_name: '',
-      customer_document: '',
+      name: '',
+      phone: '',
       when: '',
       start_time: '',
       end_time: '',
@@ -184,8 +184,8 @@ function showBooking(booking: {}): void {
     when: dayjs(booking.start),
     start: dayjs(booking.start).format('HH:mm'),
     end: dayjs(booking.end).format('HH:mm'),
-    customerName: booking.customer.name,
-    customerPhone: booking.customer.phone,
+    name: booking.customer.name,
+    phone: booking.customer.phone,
     courtId: booking.court.id,
     sport: booking.sport.value,
     note: booking.note
@@ -202,8 +202,8 @@ function setValuesToBookingForm(bookingData: BookingData): void {
   const note = document.getElementById('note') as HTMLTextAreaElement;
   const when = document.getElementById('when') as HTMLInputElement;
   const date = document.getElementById('date') as HTMLInputElement;
-  const customerName = document.getElementById('customer_name') as HTMLInputElement;
-  const customerPhone = document.getElementById('customer_phone') as HTMLInputElement;
+  const customerName = document.getElementById('name') as HTMLInputElement;
+  const customerPhone = document.getElementById('phone') as HTMLInputElement;
   const bookingId = document.getElementById('booking_id') as HTMLInputElement;
 
   if (bookingData.id !== null && bookingData.id !== undefined) {
@@ -217,8 +217,8 @@ function setValuesToBookingForm(bookingData: BookingData): void {
   note.value = bookingData.note;
   when.value = bookingData.when.format('YYYY-MM-DD');
   date.value = bookingData.when.format('DD/MM');
-  customerName.value = bookingData.customerName;
-  customerPhone.value = bookingData.customerPhone;
+  customerName.value = bookingData.name;
+  customerPhone.value = bookingData.phone;
 }
 
 function showErrors(response: Response): void {
@@ -326,7 +326,7 @@ async function updateAutocompleteResults(query: string): Promise<void> {
       suggestionElement.addEventListener('click', () => {
         inputField.value = suggestion.name;
 
-        document.getElementById('customer_phone').value = suggestion.phone;
+        document.getElementById('phone').value = suggestion.phone;
         document.getElementById('customer_id').value = suggestion.id.toString();
 
         resultsContainer.innerHTML = '';
@@ -335,7 +335,7 @@ async function updateAutocompleteResults(query: string): Promise<void> {
   }
 }
 
-const inputField = document.getElementById('customer_name') as HTMLInputElement;
+const inputField = document.getElementById('name') as HTMLInputElement;
 inputField.addEventListener('input', (event) => {
   const query = inputField.value;
   updateAutocompleteResultsDebounced(query);

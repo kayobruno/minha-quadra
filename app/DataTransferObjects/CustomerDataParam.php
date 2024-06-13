@@ -16,7 +16,7 @@ readonly class CustomerDataParam implements DataParam
 
     public function __construct(
         public string $name,
-        public ?string $phone,
+        public ?string $phone = null,
     ) {
         $this->merchantId = (string) auth()->user()->merchant_id;
     }
@@ -24,8 +24,8 @@ readonly class CustomerDataParam implements DataParam
     public static function fromRequest(Request $request): self
     {
         return new self(
-            $request->input('customer_name'),
-            $request->input('customer_phone'),
+            $request->input('name'),
+            $request->input('phone'),
         );
     }
 }
