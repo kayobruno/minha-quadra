@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Contracts\CustomerRepository;
 use App\Contracts\DataParam;
 use App\Models\Customer;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +16,11 @@ class CustomerEloquentRepository implements CustomerRepository
     public function getAll(): Collection
     {
         return Customer::all();
+    }
+
+    public function paginate(): LengthAwarePaginator
+    {
+        return Customer::paginate();
     }
 
     public function findById(string $id): Model
