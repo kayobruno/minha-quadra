@@ -9,11 +9,13 @@ use App\Contracts\CourtRepository;
 use App\Contracts\CustomerRepository;
 use App\Contracts\MerchantRepository;
 use App\Contracts\OrderRepository;
+use App\Contracts\ProductRepository;
 use App\Repositories\BookingEloquentRepository;
 use App\Repositories\CourtEloquentRepository;
 use App\Repositories\CustomerEloquentRepository;
 use App\Repositories\MerchantEloquentRepository;
 use App\Repositories\OrderEloquentRepository;
+use App\Repositories\ProductEloquentRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CourtRepository::class, CourtEloquentRepository::class);
         $this->app->bind(MerchantRepository::class, MerchantEloquentRepository::class);
         $this->app->bind(OrderRepository::class, OrderEloquentRepository::class);
+        $this->app->bind(ProductRepository::class, ProductEloquentRepository::class);
     }
 
     /**

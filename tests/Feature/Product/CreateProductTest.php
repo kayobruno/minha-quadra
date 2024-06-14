@@ -37,8 +37,7 @@ test('validates required fields when creating a new product', function () {
 test('can create a new product', function () {
     $response = $this->post('/products/store', [
         'name' => 'Produto de Teste',
-        'price' => 10.99,
-        'description' => 'Descrição do produto de teste',
+        'price' => '10.99',
     ]);
 
     $response->assertStatus(302);

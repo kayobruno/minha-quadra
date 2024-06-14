@@ -36,8 +36,7 @@ test('update a product', function () {
 
     $newAttributes = [
         'name' => 'New Product Name',
-        'price' => 99.99,
-        'description' => 'New Description',
+        'price' => '99.99',
     ];
 
     $this->put('products/' . $product->id . '/update', $newAttributes);
@@ -48,8 +47,7 @@ test('update a product', function () {
 test('attempt to update a non-existing product', function () {
     $newAttributes = [
         'name' => 'New Product Name',
-        'price' => 99.99,
-        'description' => 'New Description',
+        'price' => '99.99',
     ];
 
     $response = $this->put('/products/999/update', $newAttributes);
@@ -63,7 +61,6 @@ test('update a product with required fields not provided', function () {
     $newAttributes = [
         'name' => '',
         'price' => '',
-        'description' => 'New Description',
     ];
 
     $response = $this->put('/products/' . $product->id . '/update', $newAttributes);
