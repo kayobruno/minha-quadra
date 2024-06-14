@@ -6,12 +6,17 @@ namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Services\OrderService;
 
 class OrderController extends Controller
 {
+    public function __construct(private readonly OrderService $orderService)
+    {
+    }
+
     public function index()
     {
-        $orders = Order::with('customer')->paginate(10);
+        $orders = $this->orderService->paginate();
 
         return view('content.orders.index', compact('orders'));
     }
