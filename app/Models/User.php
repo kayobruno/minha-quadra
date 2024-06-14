@@ -45,6 +45,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'merchant_id' => 'string',
     ];
 
     public function merchant(): BelongsTo

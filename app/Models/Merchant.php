@@ -24,6 +24,7 @@ class Merchant extends Model
     ];
 
     protected $casts = [
+        'id' => 'string',
         'status' => Status::class,
         'business_hours' => 'array',
     ];
