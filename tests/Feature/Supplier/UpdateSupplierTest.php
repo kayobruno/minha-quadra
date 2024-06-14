@@ -38,9 +38,7 @@ test('update a supplier', function () {
 
     $newAttributes = [
         'name' => 'Novo Fornecedor de Teste',
-        'trade_name' => 'Novo Teste',
         'document' => '64.356.481/0001-55',
-        'tax_registration' => '123456',
         'type' => DocumentType::CNPJ->value,
     ];
 
@@ -54,7 +52,6 @@ test('attempt to update a non-existing supplier', function () {
         'name' => 'Fornecedor de Teste',
         'trade_name' => 'Teste',
         'document' => '123456789123',
-        'tax_registration' => '123456',
         'type' => DocumentType::CNPJ->value,
     ];
 
@@ -70,7 +67,6 @@ test('update a supplier with required fields not provided', function () {
         'name' => '',
         'trade_name' => 'Teste',
         'document' => '',
-        'tax_registration' => '123456',
         'type' => DocumentType::CNPJ->value,
     ];
 
@@ -86,7 +82,6 @@ test('update a supplier with invalid document', function (string $document) {
         'name' => '',
         'trade_name' => 'Teste',
         'document' => $document,
-        'tax_registration' => '123456',
         'type' => DocumentType::CNPJ->value,
     ];
 

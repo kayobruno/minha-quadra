@@ -4,18 +4,24 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Dash;
 
+use App\DataTransferObjects\SupplierData;
 use App\Enums\DocumentType;
 use App\Enums\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dash\Supplier\CreateRequest;
 use App\Http\Requests\Dash\Supplier\UpdateRequest;
 use App\Models\Supplier;
+use App\Services\SupplierService;
 
 class SupplierController extends Controller
 {
+    public function __construct(private readonly SupplierService $supplierService)
+    {
+    }
+
     public function index()
     {
-        $suppliers = Supplier::paginate(10);
+        $suppliers = $this->supplierService->paginate();
 
         return view('content.suppliers.index', compact('suppliers'));
     }
@@ -30,10 +36,8 @@ class SupplierController extends Controller
 
     public function store(CreateRequest $request)
     {
-        $merchantId = auth()->user()->merchant_id;
-        $data = array_merge($request->all(), ['merchant_id' => $merchantId]);
-
-        Supplier::create($data);
+        $supplierData = SupplierData::fromRequest($request);
+        $this->supplierService->save($supplierData);
 
         session()->flash('message', __('messages.success.created'));
 
@@ -50,7 +54,8 @@ class SupplierController extends Controller
 
     public function update(UpdateRequest $request, Supplier $supplier)
     {
-        $supplier->update($request->all());
+        $supplierData = SupplierData::fromRequest($request);
+        $this->supplierService->update($supplier->id, $supplierData);
         session()->flash('message', __('messages.success.updated'));
 
         return redirect()->back();
@@ -58,7 +63,7 @@ class SupplierController extends Controller
 
     public function delete(Supplier $supplier)
     {
-        $supplier->delete();
+        $this->supplierService->delete($supplier->id);
         session()->flash('message', __('messages.success.removed'));
 
         return redirect()->back();
