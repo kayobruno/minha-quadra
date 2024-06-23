@@ -14,15 +14,24 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install zip \
     && docker-php-ext-install pdo pdo_mysql
 
-COPY . /var/www/app
-WORKDIR /var/www/app
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN chown -R www-data:www-data /var/www/app \
+RUN mkdir -p /var/www/app/storage/framework/sessions \
+    && chown -R www-data:www-data /var/www/app/storage \
     && chmod -R 775 /var/www/app/storage
 
-COPY --from=composer:2.6.5 /usr/bin/composer /usr/local/bin/composer
+WORKDIR /var/www/app
 
-COPY composer.json ./
-RUN composer install
+COPY . /var/www/app
+
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+COPY .env.example .env
+
+RUN php artisan key:generate --force
+
+RUN php artisan cache:clear
+
+EXPOSE 9000
 
 CMD ["php-fpm"]
