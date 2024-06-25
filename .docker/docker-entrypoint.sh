@@ -9,6 +9,8 @@ cp -n .env.example .env || true
 
 php artisan key:generate --force
 
+php artisan migrate --seed
+
 php artisan cache:clear
 
 php-fpm
