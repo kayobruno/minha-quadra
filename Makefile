@@ -1,17 +1,31 @@
 UID := $(shell id -u)
 GID := $(shell id -g)
 
+DB_FILE=./database/database.sqlite
+
 serve:
 	- docker-compose up
 
-test.feature:
-	- docker-compose exec -u ${UID}:${GID} php bash -c "composer test:feature"
+build:
+	- docker-compose build
 
-test.unit:
-	- docker-compose exec -u ${UID}:${GID} php bash -c "composer test:unit"
-
-test.all:
-	- docker-compose exec -u ${UID}:${GID} php bash -c "composer test:all"
+test: migrate
+	- docker-compose exec php bash -c "composer test:all"
 
 bash:
-	- docker-compose exec php bash
+	- docker-compose exec -u ${UID}:${GID} php bash
+
+lint:
+	- docker-compose exec -u ${UID}:${GID} php composer lint
+
+migrate: create-test-db-file
+	@echo "Running migrations..."
+	- docker-compose exec -u ${UID}:${GID} php php artisan migrate --env=testing --force
+
+create-test-db-file:
+	@echo "Creating SQLite database file..."
+	@if [ ! -f $(DB_FILE) ]; then \
+		touch $(DB_FILE); \
+		chmod 777 $(DB_FILE); \
+		echo "SQLite database file created."; \
+	fi
