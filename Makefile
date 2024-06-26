@@ -15,6 +15,9 @@ test: migrate
 bash:
 	- docker-compose exec -u ${UID}:${GID} php bash
 
+lint:
+	- docker-compose exec -u ${UID}:${GID} php composer lint
+
 migrate: create-test-db-file
 	@echo "Running migrations..."
 	- docker-compose exec -u ${UID}:${GID} php php artisan migrate --env=testing --force
