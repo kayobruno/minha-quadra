@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Enums\ProductType;
+use App\Enums\Status;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -24,6 +26,8 @@ test('the product registration form screen can be rendered', function () {
     $response->assertSee('Descrição');
     $response->assertSee('Preço');
     $response->assertSee('Tipo');
+    $response->assertSee('EAN');
+    $response->assertSee('Gerenciar Estoque?');
     $response->assertSee('Status');
     $response->assertSee('Salvar');
 })->group('ProductController');
@@ -35,12 +39,23 @@ test('validates required fields when creating a new product', function () {
 })->group('ProductController');
 
 test('can create a new product', function () {
-    $response = $this->post('/products/store', [
+    $productData = [
         'name' => 'Produto de Teste',
+        'description' => 'fake desc',
         'price' => '10.99',
-    ]);
+    ];
+
+    $response = $this->post('/products/store', $productData);
+
+    $expectedData = [
+        ...$productData,
+        'price' => 10.99,
+        'type' => ProductType::Product->value,
+        'status' => Status::Pending->value,
+        'manage_stock' => false,
+    ];
 
     $response->assertStatus(302);
     $response->assertSee('Redirecting to');
-    $this->assertDatabaseHas('products', ['name' => 'Produto de Teste']);
+    $this->assertDatabaseHas('products', $expectedData);
 })->group('ProductController');
