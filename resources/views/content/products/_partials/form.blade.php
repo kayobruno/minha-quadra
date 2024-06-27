@@ -30,6 +30,16 @@
       </div>
 
       <div class="mb-3">
+        <label for="ean" class="form-label">EAN</label>
+        <input type="text" class="form-control" id="ean" name="ean" placeholder="Código de Barras" value="{{ $product?->ean ?? old('ean') }}" />
+      </div>
+
+      <div class="mb-3">
+        <label for="manage_stock" class="form-label">Gerenciar Estoque?</label>
+        <input class="form-check-input" type="checkbox" name="manage_stock" value="1" id="manage_stock" @if(isset($product) && $product->manage_stock) checked="" @endif>
+      </div>
+
+      <div class="mb-3">
         <label for="status" class="form-label">Status</label>
         <select class="form-select" id="status" name="status">
             @foreach($statuses as $status)

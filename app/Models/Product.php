@@ -20,6 +20,8 @@ class Product extends Model
         'description',
         'price',
         'type',
+        'ean',
+        'manage_stock',
         'stock',
         'status',
     ];
