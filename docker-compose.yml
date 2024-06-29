@@ -50,6 +50,8 @@ services:
             - mysql
         networks:
             - app_network
+        environment:
+            XDEBUG_MODE: "coverage"
 
     redis:
         container_name: redis
