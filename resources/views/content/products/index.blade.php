@@ -35,7 +35,7 @@
             <tr>
               <td>{{ $product->id }}</td>
               <td>{{ $product->name }}</td>
-              <td>R$ @money($product->price)</td>
+              <td>R$ {{ $product->formatPrice() }} </td>
               <td>{{ $product->type->label() }}</td>
               <td>{{ $product->stock }}</td>
               <td>{!! $product->status->tag() !!}</td>

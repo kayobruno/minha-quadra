@@ -36,4 +36,12 @@ class Product extends Model
     {
         return $this->belongsTo(Merchant::class, 'id');
     }
+
+    public function formatPrice(): string
+    {
+        $price = str_replace('.', '', $this->price);
+        $price = str_replace(',', '.', $price);
+
+        return number_format((float) $price, 2, ',', '.');
+    }
 }
