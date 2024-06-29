@@ -42,14 +42,14 @@ test('can create a new product', function () {
     $productData = [
         'name' => 'Produto de Teste',
         'description' => 'fake desc',
-        'price' => '10.99',
+        'price' => '10,99',
     ];
 
     $response = $this->post('/products/store', $productData);
 
     $expectedData = [
         ...$productData,
-        'price' => 10.99,
+        'price' => '10.99',
         'type' => ProductType::Product->value,
         'status' => Status::Pending->value,
         'manage_stock' => false,
