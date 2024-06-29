@@ -26,6 +26,7 @@ class CreateRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'price' => 'required|min:0',
+            'ean' => 'nullable|unique:products,ean',
         ];
     }
 }
