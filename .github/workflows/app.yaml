@@ -1,4 +1,4 @@
-name: FoodFlow
+name: SetReserve
 
 on:
   push:
