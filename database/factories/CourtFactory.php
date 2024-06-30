@@ -23,6 +23,7 @@ class CourtFactory extends Factory
         return [
             'name' => fake()->name(),
             'merchant_id' => Merchant::factory(),
+            'color' => '#006eff',
         ];
     }
 }
