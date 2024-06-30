@@ -21,6 +21,17 @@ async function initCalendar(): Promise<void> {
     buttonText: { today: 'Hoje' },
     events: [],
     dayMaxEvents: 8,
+    dayCellDidMount: (info) => {
+      const today = new Date();
+      const cellDate = new Date(info.date);
+
+      today.setHours(0, 0, 0, 0);
+      cellDate.setHours(0, 0, 0, 0);
+
+      if (cellDate < today) {
+        (info.el as HTMLElement).style.backgroundColor = '#f0f0f0';
+      }
+    },
     eventClick: async function (info) {
       const booking = await BookingService.getBooking(info.event.id);
       const bookingDate = dayjs(booking.start);
