@@ -18,7 +18,7 @@ class CustomerController extends Controller
         $customerData = new CustomerDataParam($request->input('name', ''));
         $customers = $customerService->findByName($customerData);
 
-        if (!$customers) {
+        if ($customers->isEmpty()) {
             return $this->notFound();
         }
 
