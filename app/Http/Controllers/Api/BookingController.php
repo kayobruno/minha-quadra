@@ -15,13 +15,21 @@ use App\Services\BookingService;
 use App\Services\CustomerService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class BookingController extends Controller
 {
     public function index(Request $request, BookingService $bookingService): JsonResponse
     {
         try {
-            $bookings = $bookingService->getBookingsBetweenDates($request->input('start'), $request->input('end'));
+            $now = Carbon::now();
+            $startDefault = $now->firstOfMonth()->startOfDay()->format('Y-m-d H:i:s');
+            $endDefault = $now->endOfMonth()->endOfDay()->format('Y-m-d H:i:s');
+
+            $start = $request->input('start', $startDefault);
+            $end = $request->input('end', $endDefault);
+
+            $bookings = $bookingService->getBookingsBetweenDates($start, $end);
 
             return $this->success(BookingResource::collection($bookings));
         } catch (\Exception) {

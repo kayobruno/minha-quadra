@@ -27,7 +27,7 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         $statuses = BookingStatus::all();
-        $status = $statuses[rand(0, 5)];
+        $status = $statuses[rand(0, 3)];
 
         $sports = Sport::all();
         $sport = $sports[rand(0, 2)];
