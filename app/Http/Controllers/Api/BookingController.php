@@ -85,6 +85,7 @@ class BookingController extends Controller
             }
 
             $bookingService->cancelBooking((string) $booking->id);
+            $booking->refresh();
 
             return $this->success(new BookingResource($booking));
         } catch (\Exception) {
