@@ -63,6 +63,9 @@
         ],
         "lint": [
             "./vendor/bin/php-cs-fixer fix -vvv --show-progress=dots"
+        ],
+        "coverage": [
+            "./vendor/bin/pest --coverage-html=./vendor/coverage"
         ]
     },
     "extra": {
