@@ -4,11 +4,13 @@
             "app"
         ],
         "excludes": [
+            "Console/Kernel.php",
             "Contracts",
             "DataTransferObjects",
             "Enums",
             "Exceptions",
             "Providers",
+            "Models",
             "/\\.interface\\.php/",
             "{Infrastructure/.*}"
         ]

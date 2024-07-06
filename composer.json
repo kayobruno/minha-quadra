@@ -67,6 +67,9 @@
         ],
         "coverage": [
             "./vendor/bin/pest --coverage-html=./vendor/coverage"
+        ],
+        "infection": [
+            "./vendor/bin/infection"
         ]
     },
     "extra": {
