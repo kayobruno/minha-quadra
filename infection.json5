@@ -1,0 +1,47 @@
+{
+    "source": {
+        "directories": [
+            "app"
+        ],
+        "excludes": [
+            "Console/Kernel.php",
+            "Contracts",
+            "DataTransferObjects",
+            "Enums",
+            "Exceptions",
+            "Providers",
+            "Models",
+            "/\\.interface\\.php/",
+            "{Infrastructure/.*}"
+        ]
+    },
+    "timeout": 10,
+    "logs": {
+        "html": "infection.html"
+    },
+    "phpUnit": {
+        "configDir": "/var/www/app",
+        "customPath": "/var/www/app/vendor/bin/pest"
+    },
+    "mutators": {
+        "global-ignore": [
+            "FooClass::__construct"
+        ],
+        "global-ignoreSourceCodeByRegex": [
+            "Assert::.*"
+        ],
+        "@default": true,
+        "@function_signature": false,
+        "TrueValue": {
+            "ignore": [
+                "NameSpace\\*\\Class::method"
+            ],
+            "ignoreSourceCodeByRegex": [
+                "\\$this->logger.*"
+            ]
+        }
+    },
+    "testFramework":"pest",
+    "bootstrap":"/var/www/app/vendor/autoload.php",
+    "testFrameworkOptions": "--filter=Unit"
+}
