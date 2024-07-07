@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -17,11 +18,10 @@ afterEach(function () {
 });
 
 test('it can list orders', function () {
-    Order::factory()->count(10)
-        ->hasItems(3, function (array $attributes, Order $order) {
-            return ['order_id' => $order->id];
-        })
-        ->create();
+    $order = Order::factory()->create();
+    $items = OrderItem::factory()->count(3)->create([
+        'order_id' => $order->id,
+    ]);
 
     $response = $this->get('/orders');
 

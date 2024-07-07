@@ -25,7 +25,7 @@ class Customer extends Model
 
     public function merchant(): BelongsTo
     {
-        return $this->belongsTo(Merchant::class, 'id');
+        return $this->belongsTo(Merchant::class, 'merchant_id');
     }
 
     public function orders(): HasMany

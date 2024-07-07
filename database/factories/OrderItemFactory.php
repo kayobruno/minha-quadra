@@ -25,7 +25,7 @@ class OrderItemFactory extends Factory
             'order_id' => Order::factory(),
             'product_id' => Product::factory(),
             'product_name' => fake()->name(),
-            'product_price' => fake()->randomFloat(min: 1, max: 99),
+            'product_price' => fake()->randomFloat(nbMaxDecimals: 2, min: 1, max: 99),
             'product_discount' => 0,
             'quantity' => rand(1, 5),
         ];
