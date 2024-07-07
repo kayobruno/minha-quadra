@@ -1,4 +1,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/kayobruno/minha-quadra/badge.svg?branch=main)](https://coveralls.io/github/kayobruno/minha-quadra?branch=main)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/kayobruno/minha-quadra/app.yaml)
 
 # Set Reserve
 
