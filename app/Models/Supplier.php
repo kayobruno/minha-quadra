@@ -32,6 +32,6 @@ class Supplier extends Model
 
     public function merchant(): BelongsTo
     {
-        return $this->belongsTo(Merchant::class, 'id');
+        return $this->belongsTo(Merchant::class, 'merchant_id');
     }
 }

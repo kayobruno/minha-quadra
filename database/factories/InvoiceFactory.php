@@ -17,13 +17,13 @@ class InvoiceFactory extends Factory
      */
     public function definition(): array
     {
-        $randomNumber = fake()->randomNumber(20);
+        $randomNumber = (string) fake()->numberBetween(10, 500);
 
         return [
+            'merchant_id' => Merchant::factory(),
+            'type' => InvoiceType::Issuing,
             'serie' => $randomNumber,
             'number' => $randomNumber,
-            'type' => InvoiceType::Issuing,
-            'merchant_id' => Merchant::factory(),
         ];
     }
 }
