@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 use App\Enums\BookingStatus;
+use App\Enums\Sport;
 use App\Http\Controllers\Api\BookingController;
 use App\Models\Booking;
+use App\Models\Court;
 use App\Models\User;
 use App\Services\BookingService;
 use Illuminate\Http\Request;
@@ -19,6 +21,7 @@ beforeEach(function () {
 afterEach(function () {
     Booking::truncate();
     User::truncate();
+    Court::truncate();
 });
 
 it('returns an empty list when there are no bookings', function () {
@@ -144,5 +147,67 @@ it('can cancel a booking', function () {
     ]);
     $response->assertJsonStructure([
         'data' => ['id', 'start', 'end', 'total_hours', 'status', 'court', 'customer', 'sport', 'note'],
+    ]);
+});
+
+it('can create booking', function () {
+    $court = Court::factory()->create();
+    $now = Carbon::now();
+    $response = $this->post('/api/bookings', [
+        'court_id' => $court->id,
+        'name' => 'Fake Name',
+        'phone' => 'Fake Phone',
+        'when' => $now->format('Y-m-d'),
+        'start_time' => $now->addHour()->format('H:i'),
+        'end_time' => $now->addHour()->format('H:i'),
+        'sport' => Sport::Volleyball->value,
+        'note' => 'fake note',
+    ]);
+
+    $response->assertStatus(200);
+    $response->assertJsonFragment([
+        'success' => true,
+    ]);
+    $response->assertJsonStructure([
+        'data' => ['id', 'start', 'end', 'total_hours', 'status', 'court', 'customer', 'sport', 'note'],
+    ]);
+});
+
+it('can not create a booking when required fields are empty', function () {
+    $response = $this->post('/api/bookings', []);
+
+    $response->assertStatus(400);
+    $response->assertJsonFragment([
+        'success' => false,
+    ]);
+    $response->assertJsonStructure([
+        'data' => [
+            'court_id', 'name', 'when', 'start_time', 'end_time', 'sport',
+        ],
+    ]);
+});
+
+it('can not create booking when date is past', function () {
+    $court = Court::factory()->create();
+    $yesterday = Carbon::yesterday();
+    $response = $this->post('/api/bookings', [
+        'court_id' => $court->id,
+        'name' => 'Fake Name',
+        'phone' => 'Fake Phone',
+        'when' => $yesterday->format('Y-m-d'),
+        'start_time' => $yesterday->addHour()->format('H:i'),
+        'end_time' => $yesterday->addHour()->format('H:i'),
+        'sport' => Sport::Volleyball->value,
+        'note' => 'fake note',
+    ]);
+
+    $response->assertStatus(400);
+    $response->assertJsonFragment([
+        'success' => false,
+    ]);
+    $response->assertJsonStructure([
+        'data' => [
+            'when',
+        ],
     ]);
 });
