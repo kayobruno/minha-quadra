@@ -1,0 +1,2 @@
+service_name: github
+coverage_clover: test-coverage/clover.xml
