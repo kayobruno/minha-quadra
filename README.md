@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/kayobruno/minha-quadra/badge.svg?branch=main)](https://coveralls.io/github/kayobruno/minha-quadra?branch=main)
+
 # Set Reserve
 
 

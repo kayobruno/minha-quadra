@@ -34,8 +34,15 @@ jobs:
         run: php artisan migrate
       - name: Run PHP CS Fixer
         run: vendor/bin/php-cs-fixer fix -vvv --dry-run --show-progress=dots
-      - name: Execute tests (Unit and Feature tests) via Pest
+      - name: Execute tests (Unit and Feature tests) via Pest and generate coverage
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: vendor/bin/pest --compact
+        run: |
+          mkdir -p build/logs
+          vendor/bin/pest --compact --coverage --min=85 --coverage-clover=build/logs/clover.xml
+      - name: Upload coverage to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          php vendor/bin/coveralls.php --verbose --config .coveralls.yml
