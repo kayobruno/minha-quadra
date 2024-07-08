@@ -153,13 +153,18 @@ it('can cancel a booking', function () {
 it('can create booking', function () {
     $court = Court::factory()->create();
     $now = Carbon::now();
+    $now->addHour();
+    $startTime = $now->format('H:i');
+    $now->addHours(2);
+    $endTime = $now->format('H:i');
+
     $response = $this->post('/api/bookings', [
         'court_id' => $court->id,
         'name' => 'Fake Name',
         'phone' => 'Fake Phone',
         'when' => $now->format('Y-m-d'),
-        'start_time' => $now->addHour()->format('H:i'),
-        'end_time' => $now->addHour()->format('H:i'),
+        'start_time' => $startTime,
+        'end_time' => $endTime,
         'sport' => Sport::Volleyball->value,
         'note' => 'fake note',
     ]);

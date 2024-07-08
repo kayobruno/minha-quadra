@@ -19,6 +19,8 @@ it('can create a product', function () {
         'description' => 'This is a sample product.',
         'price' => 100.0,
         'type' => ProductType::Product,
+        'ean' => '789123456',
+        'manage_stock' => false,
         'stock' => 10,
         'status' => Status::Active,
     ]);
@@ -30,6 +32,8 @@ it('can create a product', function () {
     expect($product->price)->toBe(100.0);
     expect($product->type)->toBe(ProductType::Product);
     expect($product->stock)->toBe(10);
+    expect($product->ean)->toBe('789123456');
+    expect($product->manage_stock)->toBe(false);
     expect($product->status)->toBe(Status::Active);
 });
 

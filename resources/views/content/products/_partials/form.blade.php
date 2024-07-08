@@ -14,7 +14,7 @@
 
       <div class="mb-3">
         <label for="price" class="form-label">Preço</label>
-        <input type="text" class="form-control" id="price" name="price" placeholder="R$ 0,00" value="{{ $product?->price ?? old('price') }}" />
+        <input type="text" class="form-control" id="price" name="price" placeholder="R$ 0,00" value="{{ isset($product) ? $product->price_formatted : old('price') }}" />
       </div>
 
       <div class="mb-3">
@@ -27,6 +27,16 @@
             </option> 
             @endforeach
         </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="ean" class="form-label">EAN</label>
+        <input type="text" class="form-control" id="ean" name="ean" placeholder="Código de Barras" value="{{ $product?->ean ?? old('ean') }}" />
+      </div>
+
+      <div class="mb-3">
+        <label for="manage_stock" class="form-label">Gerenciar Estoque?</label>
+        <input class="form-check-input" type="checkbox" name="manage_stock" value="1" id="manage_stock" @if(isset($product) && $product->manage_stock) checked="" @endif>
       </div>
 
       <div class="mb-3">
@@ -50,3 +60,12 @@
     </div>
   </div>
 </div>
+
+@section('page-script')
+  <script src="{{ asset('assets/vendor/libs/jquery-mask/jquery.mask.min.js') }}"></script>
+  <script>
+    jQuery(document).ready(function ($) {
+      $('#price').mask("#.##0,00", {reverse: true});
+    });
+  </script>
+@endsection
