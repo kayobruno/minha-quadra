@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Dash\Product;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -33,6 +33,7 @@ class CreateRequest extends FormRequest
                 'max:255',
                 Rule::unique('products')->where(function ($query) {
                     $merchantId = auth()->user()->merchant_id;
+
                     return $query->where('merchant_id', $merchantId);
                 }),
             ],

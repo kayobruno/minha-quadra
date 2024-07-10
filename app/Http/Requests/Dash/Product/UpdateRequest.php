@@ -28,6 +28,7 @@ class UpdateRequest extends CreateRequest
                 'max:255',
                 Rule::unique('products')->where(function ($query) {
                     $merchantId = auth()->user()->merchant_id;
+
                     return $query->where('merchant_id', $merchantId);
                 }),
             ];
