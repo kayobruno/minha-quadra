@@ -6,6 +6,7 @@ namespace Database\Factories;
 
 use App\Enums\InvoiceType;
 use App\Models\Merchant;
+use App\Models\Supplier;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InvoiceFactory extends Factory
@@ -21,6 +22,7 @@ class InvoiceFactory extends Factory
 
         return [
             'merchant_id' => Merchant::factory(),
+            'supplier_id' => Supplier::factory(),
             'type' => InvoiceType::Issuing,
             'serie' => $randomNumber,
             'number' => $randomNumber,

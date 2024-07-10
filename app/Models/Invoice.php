@@ -20,6 +20,7 @@ class Invoice extends Model
 
     protected $fillable = [
         'merchant_id',
+        'supplier_id',
         'serie',
         'number',
         'type',
@@ -33,5 +34,10 @@ class Invoice extends Model
     public function merchant(): BelongsTo
     {
         return $this->belongsTo(Merchant::class, 'merchant_id');
+    }
+
+    public function supplier(): BelongsTo
+    {
+        return $this->belongsTo(Supplier::class, 'supplier_id');
     }
 }
