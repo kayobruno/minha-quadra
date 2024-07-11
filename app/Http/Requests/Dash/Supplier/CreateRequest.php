@@ -6,6 +6,7 @@ namespace App\Http\Requests\Dash\Supplier;
 
 use App\Rules\DocumentValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateRequest extends FormRequest
 {
@@ -26,15 +27,17 @@ class CreateRequest extends FormRequest
     {
         return [
             'name' => 'required|max:255',
-            'document' => ['required', 'max:18', new DocumentValidationRule],
-            'type' => 'required|in:cpf,cnpj',
-        ];
-    }
+            'document' => [
+                'required',
+                'max:18',
+                new DocumentValidationRule,
+                Rule::unique('suppliers')->where(function ($query) {
+                    $merchantId = auth()->user()->merchant_id;
 
-    public function messages(): array
-    {
-        return [
-            'document' => 'Documento inválido!',
+                    return $query->where('merchant_id', $merchantId);
+                }),
+            ],
+            'type' => 'required|in:cpf,cnpj',
         ];
     }
 }
