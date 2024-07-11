@@ -23,9 +23,7 @@ class Order extends Model
         'merchant_id',
         'customer_id',
         'payment_method_id',
-        'subtotal',
-        'total_amount',
-        'total_discount',
+        'discount',
         'tab',
         'status',
     ];

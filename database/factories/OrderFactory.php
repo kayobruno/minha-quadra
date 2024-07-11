@@ -24,16 +24,12 @@ class OrderFactory extends Factory
      */
     public function definition(): array
     {
-        $total = fake()->randomFloat(min: 1, max: 99);
-
         return [
             'user_id' => User::factory(),
             'merchant_id' => Merchant::factory(),
             'customer_id' => Customer::factory(),
             'payment_method_id' => PaymentMethod::factory(),
-            'subtotal' => $total,
-            'total_amount' => $total,
-            'total_discount' => 0,
+            'discount' => 0,
             'status' => OrderStatus::Pending->value,
         ];
     }

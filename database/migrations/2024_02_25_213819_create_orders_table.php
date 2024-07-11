@@ -16,9 +16,7 @@ return new class extends Migration {
             $table->bigInteger('user_id');
             $table->bigInteger('merchant_id');
             $table->bigInteger('customer_id');
-            $table->decimal('subtotal', 10, 2)->default(0);
-            $table->decimal('total_amount', 10, 2)->default(0);
-            $table->decimal('total_discount', 10, 2)->default(0);
+            $table->decimal('discount', 10, 2)->default(0);
             $table->enum('status', OrderStatus::all())->default(OrderStatus::Pending->value);
             $table->timestamps();
         });

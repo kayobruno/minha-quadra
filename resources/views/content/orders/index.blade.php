@@ -25,7 +25,6 @@
             <th>#</th>
             <th>Cliente</th>
             <th>Comanda</th>
-            <th>Total</th>
             <th>Status</th>
             <th>Data de Cadastro</th>
             <th>Ações</th>
@@ -52,7 +51,6 @@
               </div>
             </td>
             <td><span class="badge badge-center bg-primary"><b>{{ $order->tab ?? '#' }}</b></span></td>
-            <td>R$ @money($order->total_amount)</td>
             <td>{!! $order->status->tag() !!}</td>
             <td>{{ $order->created_at->format('d/m/Y H:i') }}</td>
             <td>
