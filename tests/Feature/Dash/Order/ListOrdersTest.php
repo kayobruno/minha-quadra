@@ -30,7 +30,6 @@ test('it can list orders', function () {
     $response->assertSee('Cadastrar');
     $response->assertSee('Cliente');
     $response->assertSee('Comanda');
-    $response->assertSee('Total');
     $response->assertSee('Data de Cadastro');
     $response->assertSee('Status');
 })->group('OrderController');

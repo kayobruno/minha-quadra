@@ -25,9 +25,7 @@ it('can create an order', function () {
         'merchant_id' => 1,
         'customer_id' => 1,
         'payment_method_id' => 1,
-        'subtotal' => 100.0,
-        'total_amount' => 110.0,
-        'total_discount' => 10.0,
+        'discount' => 10.0,
         'tab' => '#1',
         'status' => OrderStatus::Pending,
     ]);
@@ -37,9 +35,7 @@ it('can create an order', function () {
     expect($order->merchant_id)->toBe(1);
     expect($order->customer_id)->toBe(1);
     expect($order->payment_method_id)->toBe(1);
-    expect($order->subtotal)->toBe(100.0);
-    expect($order->total_amount)->toBe(110.0);
-    expect($order->total_discount)->toBe(10.0);
+    expect($order->discount)->toBe(10.0);
     expect($order->tab)->toBe('#1');
     expect($order->status)->toBe(OrderStatus::Pending);
 });
