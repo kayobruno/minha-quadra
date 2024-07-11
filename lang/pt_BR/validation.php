@@ -215,6 +215,7 @@ return [
         'blood_type' => 'tipo sanguíneo',
         'birth_date' => 'data de nascimento',
         'price' => 'preço',
+        'document' => 'documento',
     ],
 
 ];

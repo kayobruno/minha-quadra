@@ -3,18 +3,20 @@
 declare(strict_types=1);
 
 use App\Enums\DocumentType;
+use App\Models\Merchant;
 use App\Models\Supplier;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 beforeEach(function () {
-    $this->user = User::factory()->create();
+    $this->merchant = Merchant::factory()->create();
+    $this->user = User::factory()->create(['merchant_id' => $this->merchant->id]);
     $this->actingAs($this->user);
 });
 
 afterEach(function () {
-    DB::table('suppliers')->truncate();
-    DB::table('users')->truncate();
+    Supplier::truncate();
+    User::truncate();
+    Merchant::truncate();
 });
 
 test('the supplier update form screen can be rendered', function () {
@@ -93,3 +95,16 @@ test('update a supplier with invalid document', function (string $document) {
     'invalid CPF' => '000.000.000-00',
     'invalid CNPJ' => '00.000.000/0001-00',
 ]);
+
+test('can not update a supplier with document duplicated', function () {
+    Supplier::factory()->create(['document' => '916.000.800-00', 'merchant_id' => $this->merchant->id]);
+    $supplier = Supplier::factory()->create(['merchant_id' => $this->merchant->id]);
+    $newAttributes = [
+        'name' => $supplier->name,
+        'ean' => '916.000.800-00',
+    ];
+
+    $response = $this->put('/suppliers/' . $supplier->id . '/update', $newAttributes);
+
+    $response->assertSessionHasErrors(['document']);
+})->group('ProductController');
