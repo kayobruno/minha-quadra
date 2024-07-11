@@ -2,18 +2,20 @@
 
 declare(strict_types=1);
 
+use App\Models\Merchant;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 beforeEach(function () {
-    $this->user = User::factory()->create();
+    $this->merchant = Merchant::factory()->create();
+    $this->user = User::factory()->create(['merchant_id' => $this->merchant->id]);
     $this->actingAs($this->user);
 });
 
 afterEach(function () {
-    DB::table('products')->truncate();
-    DB::table('users')->truncate();
+    Product::truncate();
+    User::truncate();
+    Merchant::truncate();
 });
 
 test('the product update form screen can be rendered', function () {
@@ -27,6 +29,8 @@ test('the product update form screen can be rendered', function () {
     $response->assertSee('Descrição');
     $response->assertSee('Preço');
     $response->assertSee('Tipo');
+    $response->assertSee('EAN');
+    $response->assertSee('Gerenciar Estoque?');
     $response->assertSee('Status');
     $response->assertSee('Salvar');
 })->group('ProductController');
@@ -69,4 +73,18 @@ test('update a product with required fields not provided', function () {
 
     $response->assertSessionHasErrors(['name', 'price']);
     $this->assertDatabaseMissing('products', $newAttributes);
+})->group('ProductController');
+
+test('can not update a product with ean duplicated', function () {
+    Product::factory()->create(['ean' => '123456789', 'merchant_id' => $this->merchant->id]);
+    $product = Product::factory()->create(['merchant_id' => $this->merchant->id]);
+    $newAttributes = [
+        'name' => $product->name,
+        'price' => (string) $product->price,
+        'ean' => '123456789',
+    ];
+
+    $response = $this->put('/products/' . $product->id . '/update', $newAttributes);
+
+    $response->assertSessionHasErrors(['ean']);
 })->group('ProductController');
