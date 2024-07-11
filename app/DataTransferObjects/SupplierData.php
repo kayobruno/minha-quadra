@@ -6,6 +6,7 @@ namespace App\DataTransferObjects;
 
 use App\Contracts\DataParam;
 use App\Enums\DocumentType;
+use App\Enums\Status;
 use App\Traits\ToArray;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,9 @@ class SupplierData implements DataParam
         public readonly string $name,
         public readonly string $document,
         public readonly DocumentType $type,
+        public readonly Status $status,
+        public readonly ?string $tradeName = null,
+        public readonly ?string $taxRegistration = null,
     ) {
         $this->merchantId = auth()->user()->merchant_id;
     }
@@ -29,6 +33,9 @@ class SupplierData implements DataParam
             $request->input('name'),
             $request->input('document'),
             DocumentType::from($request->input('type')),
+            Status::from($request->input('status', 'active')),
+            $request->input('trade_name'),
+            $request->input('tax_registration'),
         );
     }
 }

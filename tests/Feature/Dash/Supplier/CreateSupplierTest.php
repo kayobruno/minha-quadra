@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Enums\DocumentType;
+use App\Enums\Status;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -37,17 +38,20 @@ test('validates required fields when creating a new supplier', function () {
 })->group('SupplierController');
 
 test('can create a new supplier', function () {
-    $response = $this->post('/suppliers/store', [
+    $expectedData = [
         'name' => 'Fornecedor de Teste',
         'trade_name' => 'Teste',
         'document' => '417.964.830-01',
         'tax_registration' => '123456',
         'type' => DocumentType::CPF->value,
-    ]);
+        'status' => Status::Active->value,
+    ];
+
+    $response = $this->post('/suppliers/store', $expectedData);
 
     $response->assertStatus(302);
     $response->assertSee('Redirecting to');
-    $this->assertDatabaseHas('suppliers', ['name' => 'Fornecedor de Teste']);
+    $this->assertDatabaseHas('suppliers', $expectedData);
 })->group('SupplierController');
 
 test('validates document field when creating a new supplier with document invalid', function (string $document) {
