@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Merchant::class, 'merchant_id');
     }
+
+    public function getInitials(): string
+    {
+        $nameParts = explode(' ', $this->name);
+        $initialsArray = array_map(function ($part) {
+            return strtoupper($part[0]);
+        }, array_filter($nameParts));
+
+        return implode('', $initialsArray);
+    }
 }

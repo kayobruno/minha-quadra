@@ -47,3 +47,12 @@ it('casts email_verified_at and merchant_id correctly', function () {
     expect($user->email_verified_at)->toBeInstanceOf(\Illuminate\Support\Carbon::class);
     expect($user->merchant_id)->toBe('some-merchant-id');
 });
+
+it('calculates initials correctly', function () {
+    $user = User::factory()->create([
+        'name' => 'John Doe',
+    ]);
+
+    $initials = $user->getInitials();
+    expect($initials)->toBe('JD');
+});
