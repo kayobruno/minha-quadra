@@ -12,4 +12,12 @@ enum InvoiceType: string
 
     case Receiving = 'receiving';
     case Issuing = 'issuing';
+
+    public function label(): string
+    {
+        return match ($this) {
+            InvoiceType::Receiving => 'Entrada',
+            InvoiceType::Issuing => 'Saída',
+        };
+    }
 }

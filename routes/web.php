@@ -5,6 +5,7 @@ use App\Http\Controllers\Dash\BookingController;
 use App\Http\Controllers\Dash\CourtController;
 use App\Http\Controllers\Dash\CustomerController;
 use App\Http\Controllers\Dash\DashboardController;
+use App\Http\Controllers\Dash\InvoiceController;
 use App\Http\Controllers\Dash\MyMerchantController;
 use App\Http\Controllers\Dash\OrderController;
 use App\Http\Controllers\Dash\ProductController;
@@ -71,4 +72,7 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
     Route::get('orders', [OrderController::class, 'index'])->name('orders.index');
     Route::get('orders/create', [OrderController::class, 'create'])->name('orders.create');
     Route::get('orders/{order}', [OrderController::class, 'show'])->name('orders.view');
+
+    Route::get('invoices', [InvoiceController::class, 'index'])->name('invoices.index');
+    Route::get('invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
 });

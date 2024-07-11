@@ -49,6 +49,12 @@
       "url": "products"
     },
     {
+      "name": "Faturas",
+      "icon": "menu-icon tf-icons bx bxs-receipt",
+      "slug": "invoices",
+      "url": "invoices"
+    },
+    {
       "name": "Minha Empresa",
       "icon": "menu-icon tf-icons bx bx-briefcase",
       "slug": "my-merchant",
