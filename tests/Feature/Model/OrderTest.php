@@ -27,6 +27,7 @@ it('can create an order', function () {
         'payment_method_id' => 1,
         'discount' => 10.0,
         'tab' => '#1',
+        'note' => 'fake',
         'status' => OrderStatus::Pending,
     ]);
 
@@ -37,6 +38,7 @@ it('can create an order', function () {
     expect($order->payment_method_id)->toBe(1);
     expect($order->discount)->toBe(10.0);
     expect($order->tab)->toBe('#1');
+    expect($order->note)->toBe('fake');
     expect($order->status)->toBe(OrderStatus::Pending);
 });
 
