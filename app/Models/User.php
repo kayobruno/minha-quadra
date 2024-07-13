@@ -46,6 +46,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'merchant_id' => 'string',
+        'id' => 'string',
     ];
 
     public function merchant(): BelongsTo
