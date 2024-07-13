@@ -30,6 +30,7 @@ class OrderFactory extends Factory
             'customer_id' => Customer::factory(),
             'payment_method_id' => PaymentMethod::factory(),
             'discount' => 0,
+            'note' => fake()->text(),
             'status' => OrderStatus::Pending->value,
         ];
     }
