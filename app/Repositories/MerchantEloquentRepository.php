@@ -7,26 +7,29 @@ namespace App\Repositories;
 use App\Contracts\DataParam;
 use App\Contracts\MerchantRepository;
 use App\Models\Merchant;
-use Illuminate\Database\Eloquent\Model;
 
 class MerchantEloquentRepository implements MerchantRepository
 {
-    public function save(DataParam $dataParam): Model
+    public function __construct(private readonly Merchant $model)
     {
-        return Merchant::create($dataParam->toArray());
     }
 
-    public function update(string $id, DataParam $dataParam): Model
+    public function save(DataParam $dataParam): Merchant
     {
-        $booking = Merchant::whereId($id)->first();
-        $booking->update($dataParam->toArray());
+        return $this->model::create($dataParam->toArray());
+    }
 
-        return $booking;
+    public function update(string $id, DataParam $dataParam): Merchant
+    {
+        $merchant = $this->model::whereId($id)->first();
+        $merchant->update($dataParam->toArray());
+
+        return $merchant;
     }
 
     public function delete(string $id): void
     {
-        $booking = Merchant::whereId($id)->first();
-        $booking->delete();
+        $merchant = $this->model::whereId($id)->first();
+        $merchant->delete();
     }
 }
