@@ -9,33 +9,36 @@ use App\Contracts\ProductRepository;
 use App\Models\Product;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class ProductEloquentRepository implements ProductRepository
 {
+    public function __construct(private readonly Product $model)
+    {
+    }
+
     public function getAll(): Collection
     {
-        return Product::all();
+        return $this->model::all();
     }
 
     public function paginate(): LengthAwarePaginator
     {
-        return Product::paginate();
+        return $this->model::paginate();
     }
 
-    public function findById(string $id): Model
+    public function findById(string $id): Product
     {
-        return Product::whereId($id)->first();
+        return $this->model::whereId($id)->first();
     }
 
-    public function save(DataParam $dataParam): Model
+    public function save(DataParam $dataParam): Product
     {
-        return Product::create($dataParam->toArray());
+        return $this->model::create($dataParam->toArray());
     }
 
-    public function update(string $id, DataParam $dataParam): Model
+    public function update(string $id, DataParam $dataParam): Product
     {
-        $product = Product::whereId($id)->first();
+        $product = $this->model::whereId($id)->first();
         $product->update($dataParam->toArray());
 
         return $product;
@@ -43,7 +46,7 @@ class ProductEloquentRepository implements ProductRepository
 
     public function delete(string $id): void
     {
-        $product = Product::whereId($id)->first();
+        $product = $this->model::whereId($id)->first();
         $product->delete();
     }
 }
