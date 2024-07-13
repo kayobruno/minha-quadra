@@ -10,33 +10,36 @@ use App\Models\Customer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class CustomerEloquentRepository implements CustomerRepository
 {
+    public function __construct(private readonly Customer $model)
+    {
+    }
+
     public function getAll(): Collection
     {
-        return Customer::all();
+        return $this->model::all();
     }
 
     public function paginate(): LengthAwarePaginator
     {
-        return Customer::paginate();
+        return $this->model::paginate();
     }
 
-    public function findById(string $id): Model
+    public function findById(string $id): Customer
     {
-        return Customer::whereId($id)->first();
+        return $this->model::whereId($id)->first();
     }
 
-    public function save(DataParam $dataParam): Model
+    public function save(DataParam $dataParam): Customer
     {
-        return Customer::create($dataParam->toArray());
+        return $this->model::create($dataParam->toArray());
     }
 
-    public function update(string $id, DataParam $dataParam): Model
+    public function update(string $id, DataParam $dataParam): Customer
     {
-        $customer = Customer::whereId($id)->first();
+        $customer = $this->model::whereId($id)->first();
         $customer->update($dataParam->toArray());
 
         return $customer;
@@ -44,12 +47,12 @@ class CustomerEloquentRepository implements CustomerRepository
 
     public function delete(string $id): void
     {
-        $customer = Customer::whereId($id)->first();
+        $customer = $this->model::whereId($id)->first();
         $customer->delete();
     }
 
     public function builder(): Builder
     {
-        return Customer::query();
+        return $this->model::query();
     }
 }
