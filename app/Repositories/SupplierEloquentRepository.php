@@ -9,33 +9,36 @@ use App\Contracts\SupplierRepository;
 use App\Models\Supplier;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class SupplierEloquentRepository implements SupplierRepository
 {
+    public function __construct(private readonly Supplier $model)
+    {
+    }
+
     public function getAll(): Collection
     {
-        return Supplier::all();
+        return $this->model::all();
     }
 
     public function paginate(): LengthAwarePaginator
     {
-        return Supplier::paginate();
+        return $this->model::paginate();
     }
 
-    public function findById(string $id): Model
+    public function findById(string $id): Supplier
     {
-        return Supplier::whereId($id)->first();
+        return $this->model::whereId($id)->first();
     }
 
-    public function save(DataParam $dataParam): Model
+    public function save(DataParam $dataParam): Supplier
     {
-        return Supplier::create($dataParam->toArray());
+        return $this->model::create($dataParam->toArray());
     }
 
-    public function update(string $id, DataParam $dataParam): Model
+    public function update(string $id, DataParam $dataParam): Supplier
     {
-        $supplier = Supplier::whereId($id)->first();
+        $supplier = $this->model::whereId($id)->first();
         $supplier->update($dataParam->toArray());
 
         return $supplier;
@@ -43,7 +46,7 @@ class SupplierEloquentRepository implements SupplierRepository
 
     public function delete(string $id): void
     {
-        $supplier = Supplier::whereId($id)->first();
+        $supplier = $this->model::whereId($id)->first();
         $supplier->delete();
     }
 }
