@@ -10,33 +10,36 @@ use App\Models\Court;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class CourtEloquentRepository implements CourtRepository
 {
+    public function __construct(private readonly Court $model)
+    {
+    }
+
     public function getAll(): Collection
     {
-        return Court::all();
+        return $this->model::all();
     }
 
     public function paginate(): LengthAwarePaginator
     {
-        return Court::paginate();
+        return $this->model::paginate();
     }
 
-    public function findById(string $id): Model
+    public function findById(string $id): Court
     {
-        return Court::whereId($id)->first();
+        return $this->model::whereId($id)->first();
     }
 
-    public function save(DataParam $dataParam): Model
+    public function save(DataParam $dataParam): Court
     {
-        return Court::create($dataParam->toArray());
+        return $this->model::create($dataParam->toArray());
     }
 
-    public function update(string $id, DataParam $dataParam): Model
+    public function update(string $id, DataParam $dataParam): Court
     {
-        $court = Court::whereId($id)->first();
+        $court = $this->model::whereId($id)->first();
         $court->update($dataParam->toArray());
 
         return $court;
@@ -44,12 +47,12 @@ class CourtEloquentRepository implements CourtRepository
 
     public function delete(string $id): void
     {
-        $court = Court::whereId($id)->first();
+        $court = $this->model::whereId($id)->first();
         $court->delete();
     }
 
     public function builder(): Builder
     {
-        return Court::query();
+        return $this->model::query();
     }
 }
