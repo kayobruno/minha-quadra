@@ -152,22 +152,29 @@ it('can cancel a booking', function () {
 
 it('can create booking', function () {
     $court = Court::factory()->create();
-    $now = Carbon::now();
-    $now->addHour();
-    $startTime = $now->format('H:i');
-    $now->addHours(2);
-    $endTime = $now->format('H:i');
 
-    $response = $this->post('/api/bookings', [
+    $futureDate = Carbon::now()->addDays(5)->setTime(7, 0, 0);
+    $endDate = $futureDate->copy()->addHour();
+
+    if ($endDate->day != $futureDate->day) {
+        $endDate = $futureDate->endOfDay();
+    }
+
+    $startTime = $futureDate->format('H:i');
+    $endTime = $endDate->format('H:i');
+
+    $bookingData = [
         'court_id' => $court->id,
         'name' => 'Fake Name',
         'phone' => 'Fake Phone',
-        'when' => $now->format('Y-m-d'),
+        'when' => $futureDate->format('Y-m-d'),
         'start_time' => $startTime,
         'end_time' => $endTime,
         'sport' => Sport::Volleyball->value,
         'note' => 'fake note',
-    ]);
+    ];
+
+    $response = $this->post('/api/bookings', $bookingData);
 
     $response->assertStatus(200);
     $response->assertJsonFragment([
