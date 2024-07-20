@@ -40,7 +40,7 @@ jobs:
           DB_DATABASE: database/database.sqlite
         run: |
           mkdir -p build/logs
-          vendor/bin/pest --compact --coverage --min=85 --coverage-clover=build/logs/clover.xml
+          vendor/bin/pest --compact --coverage --min=92 --coverage-clover=build/logs/clover.xml
       - name: Upload coverage to Coveralls
         env:
           COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
