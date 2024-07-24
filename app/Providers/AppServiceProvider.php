@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Contracts\BookingRepository;
 use App\Contracts\CourtRepository;
 use App\Contracts\CustomerRepository;
+use App\Contracts\InvoiceRepository;
 use App\Contracts\MerchantRepository;
 use App\Contracts\OrderRepository;
 use App\Contracts\ProductRepository;
@@ -14,6 +15,7 @@ use App\Contracts\SupplierRepository;
 use App\Repositories\BookingEloquentRepository;
 use App\Repositories\CourtEloquentRepository;
 use App\Repositories\CustomerEloquentRepository;
+use App\Repositories\InvoiceEloquentRepository;
 use App\Repositories\MerchantEloquentRepository;
 use App\Repositories\OrderEloquentRepository;
 use App\Repositories\ProductEloquentRepository;
@@ -34,6 +36,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepository::class, OrderEloquentRepository::class);
         $this->app->bind(ProductRepository::class, ProductEloquentRepository::class);
         $this->app->bind(SupplierRepository::class, SupplierEloquentRepository::class);
+        $this->app->bind(InvoiceRepository::class, InvoiceEloquentRepository::class);
     }
 
     /**
