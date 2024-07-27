@@ -15,29 +15,33 @@ use Illuminate\Database\Eloquent\Model;
 
 class BookingEloquentRepository implements BookingRepository
 {
+    public function __construct(private readonly Booking $model)
+    {
+    }
+
     public function getAll(): Collection
     {
-        return Booking::all();
+        return $this->model::all();
     }
 
     public function paginate(): LengthAwarePaginator
     {
-        return Booking::paginate();
+        return $this->model::paginate();
     }
 
     public function findById(string $id): Model
     {
-        return Booking::whereId($id)->first();
+        return $this->model::whereId($id)->first();
     }
 
     public function save(DataParam $dataParam): Model
     {
-        return Booking::create($dataParam->toArray());
+        return $this->model::create($dataParam->toArray());
     }
 
     public function update(string $id, DataParam $dataParam): Model
     {
-        $booking = Booking::whereId($id)->first();
+        $booking = $this->model::whereId($id)->first();
         $booking->update($dataParam->toArray());
 
         return $booking;
@@ -45,13 +49,13 @@ class BookingEloquentRepository implements BookingRepository
 
     public function delete(string $id): void
     {
-        $booking = Booking::whereId($id)->first();
+        $booking = $this->model::whereId($id)->first();
         $booking->delete();
     }
 
     public function hasConflictBetweenBookings(BookingFilter $bookingFilter): bool
     {
-        return Booking::where('court_id', $bookingFilter->courtId)
+        return $this->model::where('court_id', $bookingFilter->courtId)
             ->when($bookingFilter->bookingId, function ($query) use ($bookingFilter) {
                 return $query->where('id', '!=', $bookingFilter->bookingId);
             })
@@ -76,7 +80,7 @@ class BookingEloquentRepository implements BookingRepository
 
     public function getBookingsBetweenDates(string $starDate, string $endDate): Collection
     {
-        return Booking::with('customer', 'user', 'court')
+        return $this->model::with('customer', 'user', 'court')
             ->where('merchant_id', auth()->user()->merchant_id)
             ->where('start_datetime', '>=', $starDate)
             ->where('end_datetime', '<=', $endDate)
