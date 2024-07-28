@@ -6,7 +6,6 @@ use App\Contracts\MerchantRepository;
 use App\DataTransferObjects\MerchantData;
 use App\Services\MerchantService;
 use Illuminate\Database\Eloquent\Model;
-use Mockery;
 
 beforeEach(function () {
     $this->merchantRepository = Mockery::mock(MerchantRepository::class);
