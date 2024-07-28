@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Contracts\BookingRepository;
 use App\Contracts\CourtRepository;
 use App\Contracts\CustomerRepository;
+use App\Contracts\LoggerInterface;
 use App\Contracts\MerchantRepository;
 use App\Contracts\OrderRepository;
 use App\Contracts\ProductRepository;
@@ -18,6 +19,9 @@ use App\Repositories\MerchantEloquentRepository;
 use App\Repositories\OrderEloquentRepository;
 use App\Repositories\ProductEloquentRepository;
 use App\Repositories\SupplierEloquentRepository;
+use App\Services\Logs\ElasticSearchClientWrapper;
+use App\Services\Logs\ElasticSearchLoggerService;
+use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +38,14 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(OrderRepository::class, OrderEloquentRepository::class);
         $this->app->bind(ProductRepository::class, ProductEloquentRepository::class);
         $this->app->bind(SupplierRepository::class, SupplierEloquentRepository::class);
+
+        $this->app->singleton(LoggerInterface::class, function ($app) {
+            $hosts = config('services.elasticsearch.hosts');
+            $client = ClientBuilder::create()->setHosts($hosts)->build();
+            $wrapper = new ElasticSearchClientWrapper($client);
+
+            return new ElasticSearchLoggerService($wrapper);
+        });
     }
 
     /**
