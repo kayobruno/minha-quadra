@@ -76,7 +76,7 @@
 <!-- Basic Bootstrap Table -->
 <div class="card">
   <h5 class="card-header">
-    <a class="btn btn-primary me-2" href="{{ route('orders.create') }}">
+    <a class="btn btn-primary me-2" href="#" data-bs-toggle="modal" data-bs-target="#basicModal">
       <i class='bx bxs-add-to-queue'></i> Cadastrar
     </a>
   </h5>
@@ -146,3 +146,5 @@
 </div>
 <!--/ Basic Bootstrap Table -->
 @endsection
+
+@include('content.orders._partials.modal')
