@@ -10,9 +10,15 @@
           <div class="row">
             <div class="col mb-4">
               <label for="customer" class="form-label">Cliente</label>
-              <input type="text" id="customer" class="form-control" placeholder="Cliente">
+              <input type="text" id="customer" class="form-control mb-2" placeholder="Cliente">
+              <input type="hidden" name="customer_id" id="customer_id">
               <div id="autocomplete-results"></div>
             </div>
+
+            <div class="col mb-4">
+                <label for="phone" class="form-label">Telefone</label>
+                <input type="text" id="phone" class="form-control" placeholder="(00) 9999-9999" disabled>
+              </div>
           </div>
   
           <div class="row g-4">
@@ -26,7 +32,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-label-danger" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-primary" id="save-order">Salvar</button>
         </div>
       </div>

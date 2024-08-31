@@ -4,6 +4,10 @@
 
 @section('content')
 
+@section('vendor-style')
+  <link rel="stylesheet" href="{{ asset('assets/css/autocomplete/index.css') }}" />  
+@endsection
+
 <h4 class="py-3 mb-4">
   <span class="text-muted fw-light">Pedidos /</span> Listagem
 </h4>
@@ -148,3 +152,7 @@
 @endsection
 
 @include('content.orders._partials.modal')
+
+@section('vendor-script')
+  <script src="{{ asset('assets/js/orders/index.js') }}"></script>
+@endsection
