@@ -1,16 +1,22 @@
 import { CustomerSerive } from '../customers/customerService.ts';
 
 export class CustomerAutocompleteService {
-    
   private inputField: HTMLInputElement;
   private resultsContainer: HTMLElement;
   private timeoutId: NodeJS.Timeout;
   private debounceTime: number;
+  private onSelect: (suggestion: { name: string, phone: string, id: number }) => void;
 
-  constructor(inputFieldId: string, resultsContainerId: string, debounceTime: number = 300) {
+  constructor(
+    inputFieldId: string,
+    resultsContainerId: string,
+    onSelect: (suggestion: { name: string, phone: string, id: number }) => void,
+    debounceTime: number = 300
+  ) {
     this.inputField = document.getElementById(inputFieldId) as HTMLInputElement;
     this.resultsContainer = document.getElementById(resultsContainerId) as HTMLElement;
     this.debounceTime = debounceTime;
+    this.onSelect = onSelect;
     this.initialize();
   }
 
@@ -34,25 +40,24 @@ export class CustomerAutocompleteService {
     if (query.length >= 3) {
       const suggestions = await CustomerSerive.getCustomerByName(query);
 
-      suggestions.forEach(suggestion => {
-        const suggestionElement = document.createElement('div');
-        suggestionElement.textContent = suggestion.name + (suggestion.phone ? ' - ' + suggestion.phone : '');
-        suggestionElement.classList.add('suggestion');
-        this.resultsContainer.appendChild(suggestionElement);
+      if (Array.isArray(suggestions) && suggestions.length > 0) {
+        suggestions.forEach(suggestion => {
+          const suggestionElement = document.createElement('div');
+          suggestionElement.textContent = suggestion.name + (suggestion.phone ? ' - ' + suggestion.phone : '');
+          suggestionElement.classList.add('suggestion');
+          this.resultsContainer.appendChild(suggestionElement);
 
-        suggestionElement.addEventListener('click', () => {
-          this.selectSuggestion(suggestion);
+          suggestionElement.addEventListener('click', () => {
+            this.handleSelect(suggestion);
+          });
         });
-      });
+      }
     }
   }
 
-  private selectSuggestion(suggestion: { name: string, phone: string, id: number }): void {
-    this.inputField.value = suggestion.name;
-
-    document.getElementById('phone').value = suggestion.phone;
-    document.getElementById('customer_id').value = suggestion.id.toString();
-
-    this.resultsContainer.innerHTML = '';
+  private handleSelect(suggestion: { name: string, phone: string, id: number }): void {
+    if (this.onSelect) {
+      this.onSelect(suggestion);
+    }
   }
 }
