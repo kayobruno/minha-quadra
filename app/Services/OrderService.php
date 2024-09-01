@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Contracts\OrderRepository;
+use App\DataTransferObjects\OrderDataParam;
 use App\Models\Merchant;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -19,6 +20,11 @@ class OrderService
     public function paginate(): LengthAwarePaginator
     {
         return $this->orderRepository->paginate();
+    }
+
+    public function initOrder(OrderDataParam $orderDataParam): void
+    {
+        $this->orderRepository->save($orderDataParam);
     }
 
     public function getAvailableTabsByMerchant(Merchant $merchant): array
