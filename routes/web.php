@@ -62,6 +62,7 @@ Route::namespace('Admin')->middleware('auth:web')->group(function () {
 
     Route::get('my-merchant', [MyMerchantController::class, 'edit'])->name('mymerchant.edit');
     Route::put('my-merchant/update', [MyMerchantController::class, 'update'])->name('mymerchant.update');
+    Route::put('my-merchant/update-configs', [MyMerchantController::class, 'updateConfigs'])->name('mymerchant.update.config');
 
     Route::get('bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::get('bookings/create', [BookingController::class, 'create'])->name('bookings.create');
