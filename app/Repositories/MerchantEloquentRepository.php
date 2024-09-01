@@ -27,6 +27,19 @@ class MerchantEloquentRepository implements MerchantRepository
         return $merchant;
     }
 
+    public function updateOrCreateConfig(string $merchantId, string $configName, string $configValue): void
+    {
+        $merchant = $this->model::whereId($merchantId)->first();
+        $config = $merchant->configs()->where('config_name', $configName)->first();
+        if ($config) {
+            $config->update(['config_value' => $configValue]);
+        } else {
+            $merchant->configs()->create(
+                ['config_value' => $configValue, 'config_name' => $configName],
+            );
+        }
+    }
+
     public function delete(string $id): void
     {
         $merchant = $this->model::whereId($id)->first();
