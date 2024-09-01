@@ -16,9 +16,10 @@ class OrderController extends Controller
 
     public function index()
     {
+        $availableTabs = $this->orderService->getAvailableTabsByMerchant(auth()->user()->merchant);
         $orders = $this->orderService->paginate();
 
-        return view('content.orders.index', compact('orders'));
+        return view('content.orders.index', compact('orders', 'availableTabs'));
     }
 
     public function create()

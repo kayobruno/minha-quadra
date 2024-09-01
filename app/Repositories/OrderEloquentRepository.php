@@ -6,6 +6,7 @@ namespace App\Repositories;
 
 use App\Contracts\DataParam;
 use App\Contracts\OrderRepository;
+use App\Enums\OrderStatus;
 use App\Models\Order;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,5 +55,14 @@ class OrderEloquentRepository implements OrderRepository
     public function builder(): Builder
     {
         return $this->model::query();
+    }
+
+    public function getUnavailableTabs(string $merchantId): array
+    {
+        return $this->model::where('merchant_id', $merchantId)
+                    ->whereNotNull('tab')
+                    ->where('status', '!=', OrderStatus::Pending->value)
+                    ->pluck('tab')
+                    ->all();
     }
 }

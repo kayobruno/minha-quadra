@@ -34,9 +34,9 @@ class Merchant extends Model
         return $this->hasMany(MerchantConfig::class);
     }
 
-    public function getTagTotal(): int
+    public function getTabsTotal(): int
     {
-        return (int) $this->configs()->where('config_name', 'tag_total')->pluck('config_value')->first();
+        return (int) $this->configs()->where('config_name', 'tab_total')->pluck('config_value')->first();
     }
 
     public function getMinHoursReserve(): int

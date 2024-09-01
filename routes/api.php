@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BookingController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,4 +23,6 @@ Route::namespace('Admin')->middleware('auth:sanctum')->group(function () {
 
     Route::get('customers', [CustomerController::class, 'findByName'])->name('customers.find');
     Route::get('bookings/{booking}/cancel', [BookingController::class, 'cancel'])->name('bookings.cancel');
+
+    Route::post('orders/init', [OrderController::class, 'initOrder'])->name('orders.init');
 });

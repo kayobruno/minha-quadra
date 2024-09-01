@@ -34,7 +34,7 @@ readonly class OrderDataParam implements DataParam
             (string) $request->input('customer_id'),
             OrderStatus::Pending,
             (string) $request->input('payment_method_id'),
-            $request->input('discount'),
+            $request->input('discount') ?? '0.0',
             $request->input('tab'),
             $request->input('note'),
         );

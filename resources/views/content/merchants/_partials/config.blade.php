@@ -6,8 +6,8 @@
   <div class="card-body">
     
     <div class="mb-3">
-      <label for="tag_total" class="form-label">Total de Comandas</label>
-      <input type="number" class="form-control" id="tag_total" name="configs[tag_total]" placeholder="10" required value="{{ $merchant->getTagTotal() ?? old('tag_total') }}" min="0"/>
+      <label for="tab_total" class="form-label">Total de Comandas</label>
+      <input type="number" class="form-control" id="tab_total" name="configs[tab_total]" placeholder="10" required value="{{ $merchant->getTabsTotal() ?? old('tab_total') }}" min="0"/>
     </div>
 
     <div class="mb-3">
