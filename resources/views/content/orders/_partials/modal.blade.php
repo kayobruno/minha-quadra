@@ -25,12 +25,15 @@
             <div class="col mb-0">
               <label for="tag" class="form-label">Comanda</label>
               <select class="select2 select-event-label form-select select2-hidden-accessible" id="tag" name="tag" data-select2-id="tag" tabindex="-1" aria-hidden="true">
-                <option value="">#01</option>
-                <option value="">#02</option>
+                <option value="">Nenhuma</option>
+                @foreach($availableTabs as $tab)
+                  <option value="{{ $tab }}">#{{ sprintf('%02d', $tab) }}</option>
+                @endforeach
               </select>
             </div>
           </div>
         </div>
+
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-primary" id="save-order">Salvar</button>
